@@ -18,11 +18,13 @@ namespace Sampler
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
+            /*config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );*/
+
+            config.MapHttpAttributeRoutes();
 
             appBuilder.UseWebApi(config);
 
@@ -34,7 +36,11 @@ namespace Sampler
                 FileSystem = fileSystem
             };
 
+
+
             appBuilder.UseFileServer(options);
+
+            config.EnsureInitialized();
         }
     }
 }

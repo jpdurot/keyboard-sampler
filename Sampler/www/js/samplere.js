@@ -3,10 +3,14 @@
  */
 'use strict';
 
-var IP_ADDRESS_SAMPLER = '192.168.0.1';
-
 function callSound(soundId) {
-  $.post('/api/sound/'+soundId, function(data) {
+  $.post('/api/sounds/play/'+soundId, function(data) {
      console.log(data);
   });
+}
+
+function getSounds() {
+    $.post('/api/sounds/info', function (data) {
+        console.log(data);
+    });
 }

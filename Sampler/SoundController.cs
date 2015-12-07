@@ -7,32 +7,34 @@ using System.Web.Http;
 
 namespace Sampler
 {
+    [RoutePrefix("api/Sounds")]
     public class SoundController : ApiController
     {
 
-        public static event EventHandler<int> SoundRequested; 
+        private static Sampler1 _sampler = Sampler1.Current;
 
         // GET
         [HttpGet]
-        [Route("{id}")]
+        [Route("play/{id}")]
         public void Get(int id)
         {
-            OnSoundRequested(id);
+            _sampler.PlaySound(id, false);
         }
 
         // POST
         [HttpPost]
-        [Route("{id}")]
+        [Route("play/{id}")]
         public void Post(int id)
         {
-            OnSoundRequested(id);
+            _sampler.PlaySound(id, false);
         }
 
-        private void OnSoundRequested(int soundId)
+        // GET
+        [HttpGet]
+        [Route("info")]
+        public IEnumerable<SoundInfo> GetSoundsInfo()
         {
-            var handler = SoundRequested;
-            if (handler != null)
-                handler(this, soundId);
+            return _sampler.GetSoundsInfo();
         }
     }
 

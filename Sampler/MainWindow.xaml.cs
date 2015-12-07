@@ -1,27 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Media;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using LibUsbDotNet;
-using LibUsbDotNet.LibUsb;
-using LibUsbDotNet.Main;
 using Microsoft.Owin.Hosting;
 using NAudio.Wave;
 
@@ -36,7 +18,7 @@ namespace Sampler
 
         private bool _communicationEstablished = false;
 
-        private Configuration _config;
+        private Sampler1 _sampler1;
 
         private int _lastKeyCode = -1;
 
@@ -54,7 +36,7 @@ namespace Sampler
             }
         }
 
-        
+
 
         public UsbListener UsbListener
         {
@@ -121,26 +103,9 @@ namespace Sampler
 
             // Start OWIN host 
             _webServer = WebApp.Start<Startup>(url: baseAddress);
-            SoundController.SoundRequested += SoundControllerSoundRequested;
 
             Loaded += MainWindow_Loaded;
             Application.Current.Exit += OnApplicationExit;
-        }
-
-        void SoundControllerSoundRequested(object sender, int e)
-        {
-            Player sound = _config.GetSound(e);
-            if (sound != null)
-            {
-                if (!sound.IsLooping)
-                {
-                    Dispatcher.Invoke(() => sound.Play(false));
-                }
-                else
-                {
-                    Dispatcher.Invoke(() => sound.Stop());
-                }
-            }
         }
 
         void OnApplicationExit(object sender, ExitEventArgs e)
@@ -154,27 +119,15 @@ namespace Sampler
 
         void OnUsbKeyDown(object sender, KeyDownEventArgs e)
         {
-            LastKeyCode = e.KeyCode;
-            Player sound = _config.GetSound(LastKeyCode);
-            if (sound != null)
-            {
-                if (!sound.IsLooping)
-                {
-                    Dispatcher.Invoke(() => sound.Play(e.IsShiftPressed));
-                }
-                else
-                {
-                    Dispatcher.Invoke(() => sound.Stop());
-                }
-            }
-            
+            _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
+
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             Devices = new ObservableCollection<DirectSoundDeviceInfo>(DirectSoundOut.Devices);
             this.PropertyChanged += MainWindow_PropertyChanged;
-            LoadConfiguration();
+            _sampler1 = Sampler1.Current;
             ResetListener();
         }
 
@@ -182,10 +135,7 @@ namespace Sampler
         {
             if (e.PropertyName == "CurrentDevice")
             {
-                foreach (var player in _config.GetPlayers())
-                {
-                    player.SetDevice(CurrentDevice.Guid);
-                }
+                _sampler1.ChangeDevice(CurrentDevice.Guid);
             }
         }
 
@@ -202,10 +152,6 @@ namespace Sampler
             _listener.Stop();
         }
 
-        private void LoadConfiguration()
-        {
-            _config = Configuration.Parse(XDocument.Load("Configuration.xml").Root.Elements().First());
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
