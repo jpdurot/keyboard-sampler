@@ -1,0 +1,20 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+.buttons a.btn {
+  min-height: 50px;
+  display: table;
+}
+.buttons a.btn span {
+  display: table-cell;
+  white-space: normal;
+  vertical-align: middle;
+}

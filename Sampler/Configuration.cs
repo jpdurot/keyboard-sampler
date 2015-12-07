@@ -8,18 +8,27 @@ using System.Xml.Linq;
 
 namespace Sampler
 {
-    class Configuration
+    internal class Configuration
     {
         private readonly Dictionary<int, Player> _mappings;
 
+        private List<SoundInfo> _soundsInfo; 
+
         public string Name
         {
-            get; private set; }
+            get; private set; 
+        }
+
+        public List<SoundInfo> SoundsInfo
+        {
+            get { return _soundsInfo; }
+        }
 
         private Configuration(string name)
         {
             _mappings = new Dictionary<int, Player>();
             Name = name;
+            _soundsInfo = new List<SoundInfo>();
         }
 
         public List<Player> GetPlayers()
@@ -35,8 +44,14 @@ namespace Sampler
             {
                 var keyCode = int.Parse(child.Attribute("keyCode").Value);
                 var soundUri = new Uri(child.Attribute("path").Value, UriKind.Relative);
+                var name = string.Empty;
+                if (child.Attribute("name") != null)
+                {
+                    name = child.Attribute("name").Value;
+                }
                 Player p = new Player(soundUri);
                 config._mappings.Add(keyCode, p);
+                config._soundsInfo.Add(new SoundInfo(keyCode, name, soundUri.OriginalString));
             }
 
             return config;
@@ -53,5 +68,6 @@ namespace Sampler
                 return null;
             }
         }
+
     }
 }
