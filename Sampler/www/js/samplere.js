@@ -4,19 +4,27 @@
 'use strict';
 
 function callSound(soundId) {
-  $.post('/api/sounds/play/'+soundId, function(data) {
-     console.log(data);
-  });
+    $.post('/api/sounds/play/'+soundId, function(data) {
+        console.log(data);
+    });
 }
 
 function getSounds() {
-    $.post('/api/sounds/info', function (data) {
-        console.log(data);
+    $.get('/api/sounds/info', function(data) {
+        console.log('get');
+        data.forEach(function(sound) {
+            $('.buttons').append('<a class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" onclick="callSound(' + sound.Id + ')"><span>' + sound.Name + '</span></a>');
+        });
+
     });
 }
 
 function mute() {
-    $.post('/api/mute', function (data) {
+    $.post('/api/sounds/mute', function (data) {
         console.log(data);
     });
 }
+
+$().ready(function() {
+    getSounds();
+});
