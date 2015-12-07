@@ -99,7 +99,7 @@ namespace Sampler
             _listener = new UsbListener();
             InitializeComponent();
 
-            string baseAddress = "http://+:9000/";
+            string baseAddress = "http://localhost:9000/";
 
             // Start OWIN host 
             _webServer = WebApp.Start<Startup>(url: baseAddress);
@@ -119,8 +119,14 @@ namespace Sampler
 
         void OnUsbKeyDown(object sender, KeyDownEventArgs e)
         {
-            _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
-
+            if (e.KeyCode == 1)
+            {
+                _sampler1.MuteOrUnmute();
+            }
+            else
+            {
+                _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
+            }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)

@@ -14,3 +14,9 @@ function getSounds() {
         console.log(data);
     });
 }
+
+function mute() {
+    $.post('/api/mute', function (data) {
+        console.log(data);
+    });
+}
