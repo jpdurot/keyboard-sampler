@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configurations>
+  <Configuration name="global">
+	<!-- ² --> <Sound keyCode="53" name="La 11"	path="Sounds/La 11.wav" />
+	<!-- 1 --> <Sound keyCode="30" name="Chantal"	path="Sounds/Chantal.wav" />
+	<!-- 2 --> <Sound keyCode="31" name="Je rétrograde"	path="Sounds/Je rétrograde.wav" />
+	<!-- 3 --> <Sound keyCode="32" name="Voila"	path="Sounds/Voila.wav" />
+	<!-- 4 --> <Sound keyCode="33" name="Trompette"	path="Sounds/Trompette.wav" />
+	<!-- 5 --> <Sound keyCode="34" name="Cartouche"	path="Sounds/Cartouche.wav" />
+	<!-- 6 --> <Sound keyCode="35" name="Paranormalement"	path="Sounds/Paranormalement.wav" />
+	<!-- 7 --> <Sound keyCode="36" name="Putain" path="Sounds/Putain.wav" />
+	<!-- 8 --> <Sound keyCode="37" name="John Wayne" path="Sounds/John Wayne.wav" />
+	<!-- 9 --> <Sound keyCode="38" name="Qui a dit ça" path="Sounds/Qui a dit ça.wav" />
+	<!-- 0 --> <Sound keyCode="39" name="Peuneus" path="Sounds/Peuneus.wav" />
+	<!-- ° --> <Sound keyCode="45" name="C'est bon" path="Sounds/C'est bon.wav" />
+	<!-- + --> <Sound keyCode="46" name="Je peux pas" path="Sounds/Je peux pas.wav" />
+	
+	<!-- A --> <Sound keyCode="20" name="C'est les gens" 	path="Sounds/C'est les gens.wav" />
+	<!-- Z --> <Sound keyCode="26" name="Propane" 	path="Sounds/Propane.wav" />
+	<!-- E --> <Sound keyCode="8" 	name="Acétylène" path="Sounds/Acétylène.wav" />
+    <!-- R --> <Sound keyCode="21" name="Belsunce" 	path="Sounds/Belsunce.wav" />
+	<!-- T --> <Sound keyCode="23" name="But" 	path="Sounds/But.wav" />
+	<!-- Y --> <Sound keyCode="28" name="Hé non" 	path="Sounds/CPS - Eh non.wav" />
+	<!-- U --> <Sound keyCode="24" name="Marcel" 	path="Sounds/CPS - Marcel.wav" />
+	<!-- I --> <Sound keyCode="12" name="Freins" 	path="Sounds/CPS - Freins.wav" />
+	<!-- O --> <Sound keyCode="18" name="Bouge pas Jamy" 	path="Sounds/Bouge pas Jamy.wav" />
+	<!-- P --> <Sound keyCode="19" name="Merci Fred" 	path="Sounds/Merci Fred.wav" />
+	<!-- ^ --> <Sound keyCode="47" name="Pas là" 	path="Sounds/Pas là.wav" />
+	<!-- $ --> <Sound keyCode="48" name="Grognasse" 	path="Sounds/Grognasse.wav" />
+	<!-- Q --> <Sound keyCode="4" name="" 	path="Sounds/Pas touché.wav" />
+	<!-- S --> <Sound keyCode="22" name=""  	path="Sounds/Nance.wav" />
+	<!-- D --> <Sound keyCode="7" name="" 	path="Sounds/Ouh ouh.wav" />
+	<!-- F --> <Sound keyCode="9" name="" 	path="Sounds/Laaa.wav" />
+	<!-- G --> <Sound keyCode="10" name=""  path="Sounds/Dans son oeil.wav" />
+	<!-- H --> <Sound keyCode="11" name=""  path="Sounds/Ca brûle.wav" />
+	<!-- J --> <Sound keyCode="13" name=""  path="Sounds/Chest.wav" />
+	<!-- K --> <Sound keyCode="14" name=""  path="Sounds/Bras.wav" />
+	<!-- L --> <Sound keyCode="15" name=""  path="Sounds/Ronaldo.wav" />
+	<!-- M --> <Sound keyCode="51" name=""  path="Sounds/dormir.wav" />
+	<!-- % --> <Sound keyCode="52" name=""  path="Sounds/brage.wav" />
+	<!-- µ --> <Sound keyCode="50" name=""  path="Sounds/degueu.wav" />
+	<!-- ┘ --> <Sound keyCode="40" name=""  path="Sounds/bonnenuit.wav" />
+	
+	<!-- W --> <Sound keyCode="29" name="" 	path="Sounds/Kaamelott - C'est pas faux.wav" />
+	<!-- X --> <Sound keyCode="27" name="" 	path="Sounds/Kaamelott - Doucement me faire chier.wav" />
+	<!-- C --> <Sound keyCode="6" 	name="" path="Sounds/Kaamelott - Le gras c'est la vie.wav" />
+	<!-- V --> <Sound keyCode="25" name="" 	path="Sounds/Kaamelott - En garde espèce de vieille pute dégarnie.wav" />
+	<!-- B --> <Sound keyCode="5" 	name="" path="Sounds/Kaamelott - Vous avez plus pris de la pucelle.wav" />
+	<!-- N --> <Sound keyCode="17" name="" 	path="Sounds/Kaamelott - Arrêtiez de dire des trucs.wav" />
+	<!-- , --> <Sound keyCode="16" name="" 	path="Sounds/4 garçons - Le porc.wav" />
+	<!-- ; --> <Sound keyCode="54" name="" 	path="Sounds/C'est à moi que tu parles.wav" />
+	<!-- : --> <Sound keyCode="55" name="" 	path="Sounds/Tu bluffes.wav" />
+	<!-- ! --> <Sound keyCode="56" name="" 	path="Sounds/Tant mieux mais tant mieux.wav" />
+
+	<!-- 1 --> <Sound keyCode="89" name="" 	path="Sounds/Non pas là non.wav" />
+	<!-- 2 --> <Sound keyCode="90" name="" 	path="Sounds/Parasites - Exact.wav" />
+	<!-- 3 --> <Sound keyCode="91" name="" 	path="Sounds/Non pas là non.wav" />
+	<!-- 4 --> <Sound keyCode="92" name="" 	path="Sounds/Non pas là non.wav" />
+	<!-- 5 --> <Sound keyCode="93" name="" 	path="Sounds/Non pas là non.wav" />
+	<!-- 6 --> <Sound keyCode="94" name="" 	path="Sounds/Non pas là non.wav" />
+	<!-- 7 --> <Sound keyCode="95" name="" 	path="Sounds/Hot shots - Eh mec.wav" />
+	<!-- 8 --> <Sound keyCode="96" name="" 	path="Sounds/Hot shots - Taurais tort de signer un chèque.wav" />
+	<!-- 9 --> <Sound keyCode="97" name="" 	path="Sounds/Non pas là non.wav" />
+  </Configuration>                 
+</Configurations>                  
+                                   
+                                   
+                                   
+                                   
