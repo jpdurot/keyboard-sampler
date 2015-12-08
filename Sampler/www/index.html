@@ -18,6 +18,7 @@
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
+
   <!-- Custom styles for this template -->
   <link href="css/samplere.css" rel="stylesheet">
 
@@ -42,7 +43,11 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-    </div><!--/.nav-collapse -->
+      <div class="col-md-4 navbar-form form-group has-feedback form-search">
+        <input id="search" type="search" class="form-control" placeholder="Recherche..." onkeyup="search(event)" autocomplete="off">
+        <button id="clearButton" type="button" class="close form-control-feedback" aria-label="Effacer"><span aria-hidden="true">&times;</span></button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -59,6 +64,9 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="assets/js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css">
+<script src="assets/js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
