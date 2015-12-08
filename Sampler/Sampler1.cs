@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Xml.Linq;
 
@@ -13,7 +11,8 @@ namespace Sampler
 
         private static Sampler1 _instance;
         private Configuration _config;
-
+        private bool _isMuted;
+        private Player _currentSound;
 
         public static Sampler1 Current
         {
@@ -31,6 +30,7 @@ namespace Sampler
         public Sampler1()
         {
             LoadConfiguration();
+            _isMuted = false;
         }
 
 
@@ -42,16 +42,19 @@ namespace Sampler
         
         public void PlaySound(int soundId, bool repeat)
         {
-            Player sound = _config.GetSound(soundId);
-            if (sound != null)
+            if (_isMuted)
+                return;
+
+            _currentSound = _config.GetSound(soundId);
+            if (_currentSound != null)
             {
-                if (!sound.IsLooping)
+                if (!_currentSound.IsLooping)
                 {
-                    Dispatcher.CurrentDispatcher.Invoke(() => sound.Play(repeat));
+                    Dispatcher.CurrentDispatcher.Invoke(() => _currentSound.Play(repeat));
                 }
                 else
                 {
-                    Dispatcher.CurrentDispatcher.Invoke(() => sound.Stop());
+                    Dispatcher.CurrentDispatcher.Invoke(_currentSound.Stop);
                 }
             }
         }
@@ -67,6 +70,12 @@ namespace Sampler
         public IList<SoundInfo> GetSoundsInfo()
         {
             return _config.SoundsInfo;
+        }
+
+        public void MuteOrUnmute()
+        {
+            _isMuted = !_isMuted;
+            _currentSound.Stop();
         }
     }
 }

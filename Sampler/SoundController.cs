@@ -36,6 +36,14 @@ namespace Sampler
         {
             return _sampler.GetSoundsInfo();
         }
+
+        // POST
+        [HttpPost]
+        [Route("mute")]
+        public void Mute()
+        {
+            _sampler.MuteOrUnmute();
+        }
     }
 
 }

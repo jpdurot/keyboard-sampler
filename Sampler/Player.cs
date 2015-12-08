@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using NAudio.Codecs;
 using NAudio.Wave;
 
 namespace Sampler
@@ -86,7 +79,5 @@ namespace Sampler
                 _mediaPlayer.Stop(); 
             }
         }
-
-
     }
 }

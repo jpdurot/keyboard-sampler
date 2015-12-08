@@ -1,5 +1,4 @@
-C:\Windows\Microsoft.Net\Framework\v4.0.30319\MSBuild.exe Sampler\Sampler.csproj /t:build /p:Configuration="Debug" /p:Platform="AnyCPU"
-rem C:\Windows\Microsoft.Net\Framework64\v4.0.30319\MSBuild.exe Sampler.sln /t:rebuild /p:Configuration="Debug" /p:Platform="Any Cpu"
+C:\Windows\Microsoft.Net\Framework\v4.0.30319\MSBuild.exe Sampler\Sampler.csproj /t:rebuild /p:Configuration="Debug"
 mkdir output
 del /f  /s /q output\*.*
 xcopy /s /e Sampler\bin\Debug\*.exe .\output\

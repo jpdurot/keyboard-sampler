@@ -119,8 +119,14 @@ namespace Sampler
 
         void OnUsbKeyDown(object sender, KeyDownEventArgs e)
         {
-            _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
-
+            if (e.KeyCode == 1)
+            {
+                _sampler1.MuteOrUnmute();
+            }
+            else
+            {
+                _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
+            }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)

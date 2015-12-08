@@ -10,12 +10,18 @@ function callSound(soundId) {
 }
 
 function getSounds() {
-    $.get('/api/sounds/info', function (data) {
+    $.get('/api/sounds/info', function(data) {
         console.log('get');
         data.forEach(function(sound) {
-            $('.buttons').append('<a class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" onclick="callSound('+sound.Id+')"><span>'+sound.Name+'</span></a>');
+            $('.buttons').append('<a class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" onclick="callSound(' + sound.Id + ')"><span>' + sound.Name + '</span></a>');
         });
 
+    });
+}
+
+function mute() {
+    $.post('/api/sounds/mute', function (data) {
+        console.log(data);
     });
 }
 
