@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,7 +13,13 @@ namespace Sampler
 
         public void Execute(object parameter)
         {
+            if (!Application.Current.MainWindow.IsVisible)
+            {
+                Application.Current.MainWindow.Show();
+            }
             Application.Current.MainWindow.WindowState=WindowState.Normal;
+
+            Application.Current.MainWindow.Activate();
         }
 
         public event EventHandler CanExecuteChanged;
