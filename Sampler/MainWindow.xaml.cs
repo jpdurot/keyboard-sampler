@@ -99,7 +99,7 @@ namespace Sampler
             _listener = new UsbListener();
             InitializeComponent();
 
-            string baseAddress = "http://localhost:9000/";
+            string baseAddress = "http://+:9000/";
 
             // Start OWIN host 
             _webServer = WebApp.Start<Startup>(url: baseAddress);
