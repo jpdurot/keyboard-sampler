@@ -97,10 +97,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Sampler1.cs" />
-    <Compile Include="SoundController.cs" />
+    <Compile Include="Server\Controllers\LoginController.cs" />
+    <Compile Include="Server\Controllers\SoundController.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="KeyDownEventArgs.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Server\Model\LoginResponse.cs" />
+    <Compile Include="Server\Model\User.cs" />
+    <Compile Include="Server\Model\UserLogin.cs" />
+    <Compile Include="Server\Principal.cs" />
+    <Compile Include="Server\Services\AuthenticationService.cs" />
+    <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
     <Compile Include="SoundInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TaskbarClickCommand.cs" />
@@ -240,6 +247,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

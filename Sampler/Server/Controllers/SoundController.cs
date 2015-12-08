@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Sampler
+namespace Sampler.Server.Controllers
 {
     [RoutePrefix("api/Sounds")]
     public class SoundController : ApiController
