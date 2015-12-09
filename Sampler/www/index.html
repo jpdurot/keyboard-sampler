@@ -49,7 +49,7 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#" onclick="mute()">Mute/Unmute</a></li>
+        <li><a href="#" ng-click="mute()">Mute/Unmute</a></li>
       </ul>
       <div class="col-md-4 navbar-form form-group has-feedback form-search">
         <input id="search" type="search" class="form-control" placeholder="Recherche..." uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}" typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">

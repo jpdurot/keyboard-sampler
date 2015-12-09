@@ -12,6 +12,10 @@ angular.module('samplereApp')
                 method: 'GET',
                 isArray: true,
                 url: '/api/sounds/info'
+            },
+            muteUnmute: {
+                method: 'POST',
+                url: '/api/sounds/mute'
             }
         });
 }]);

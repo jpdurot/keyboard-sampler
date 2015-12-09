@@ -41,6 +41,10 @@ angular.module('samplereApp')
             Sounds.play({soundId: soundId});
         };
 
+        $scope.mute = function (){
+            Sounds.muteUnmute();
+        };
+
         Sounds.getList(function(data) {
             $scope.soundList = data;
         });
