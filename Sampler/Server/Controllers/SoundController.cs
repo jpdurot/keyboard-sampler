@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Sampler.Server.Model;
 
 namespace Sampler.Server.Controllers
 {
@@ -40,19 +41,19 @@ namespace Sampler.Server.Controllers
         // POST
         [HttpPost]
         [Route("mute")]
-        public bool Mute()
+        public MuteResponse Mute()
         {
             _sampler.IsMuted = !_sampler.IsMuted;
 
-            return _sampler.IsMuted;
+            return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
 
         // GET
         [HttpGet]
         [Route("ismuted")]
-        public bool IsMuted()
+        public MuteResponse IsMuted()
         {
-            return _sampler.IsMuted;
+            return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
     }
 }
