@@ -121,7 +121,7 @@ namespace Sampler
         {
             if (e.KeyCode == 1)
             {
-                _sampler1.MuteOrUnmute();
+                _sampler1.IsMuted = !_sampler1.IsMuted;
             }
             else
             {

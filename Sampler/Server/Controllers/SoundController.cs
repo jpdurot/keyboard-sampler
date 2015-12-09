@@ -42,8 +42,15 @@ namespace Sampler.Server.Controllers
         [Route("mute")]
         public void Mute()
         {
-            _sampler.MuteOrUnmute();
+            _sampler.IsMuted = !_sampler.IsMuted;
+        }
+
+        // GET
+        [HttpGet]
+        [Route("ismuted")]
+        public bool IsMuted()
+        {
+            return _sampler.IsMuted;
         }
     }
-
 }

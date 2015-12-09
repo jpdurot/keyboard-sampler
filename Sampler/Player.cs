@@ -11,19 +11,12 @@ namespace Sampler
         private WaveChannel32 _soundChannel;
 
         private string _soundFile;
-        //private MediaPlayer _mediaPlayer;
 
         public bool IsLooping { get; private set; }
 
         public Player(Uri sound)
         {
-            /*using (var sr = new StreamReader(File.OpenRead(sound.AbsolutePath)))
-            {
-                StreamWriter sw = new StreamWriter(_soundStream);
-                sw.Write(sr.ReadToEnd());
-            }*/
             _soundFile = sound.OriginalString;
-           
         }
 
         public void SetDevice(Guid deviceId)
@@ -35,14 +28,14 @@ namespace Sampler
             _mediaPlayer = new DirectSoundOut(deviceId);
             _mediaPlayer.Init(_soundChannel);
 
-            _mediaPlayer.PlaybackStopped += _mediaPlayer_PlaybackStopped;
+            _mediaPlayer.PlaybackStopped += OnPlaybackStopped;
         }
 
         public void Reset()
         {
             if (_mediaPlayer != null)
             {
-                _mediaPlayer.PlaybackStopped -= _mediaPlayer_PlaybackStopped;
+                _mediaPlayer.PlaybackStopped -= OnPlaybackStopped;
                 _mediaPlayer.Stop();
                 _mediaPlayer = null;
             }
@@ -52,15 +45,7 @@ namespace Sampler
                 _soundReader = null;
             }
         }
-
-        void _mediaPlayer_PlaybackStopped(object sender, StoppedEventArgs e)
-        {
-            if (IsLooping)
-            {
-                Play(true);
-            }
-        }
-
+        
         public void Play(bool loop)
         {
             if (_mediaPlayer != null)
@@ -77,6 +62,19 @@ namespace Sampler
             {
                 IsLooping = false;
                 _mediaPlayer.Stop(); 
+            }
+        }
+
+        public void SetVolume(float scale)
+        {
+            _soundChannel.Volume = scale;
+        }
+
+        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            if (IsLooping)
+            {
+                Play(true);
             }
         }
     }
