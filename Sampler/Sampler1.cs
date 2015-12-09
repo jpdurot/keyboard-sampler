@@ -12,7 +12,6 @@ namespace Sampler
         private static Sampler1 _instance;
         private Configuration _config;
         private bool _isMuted;
-        private Player _currentSound;
 
         public static Sampler1 Current
         {
@@ -33,28 +32,26 @@ namespace Sampler
             _isMuted = false;
         }
 
-
         private void LoadConfiguration()
         {
             _config = Configuration.Parse(XDocument.Load("Configuration.xml").Root.Elements().First());
         }
 
-        
         public void PlaySound(int soundId, bool repeat)
         {
             if (_isMuted)
                 return;
 
-            _currentSound = _config.GetSound(soundId);
-            if (_currentSound != null)
+            var sound = _config.GetSound(soundId);
+            if (sound != null)
             {
-                if (!_currentSound.IsLooping)
+                if (!sound.IsLooping)
                 {
-                    Dispatcher.CurrentDispatcher.Invoke(() => _currentSound.Play(repeat));
+                    Dispatcher.CurrentDispatcher.Invoke(() => sound.Play(repeat));
                 }
                 else
                 {
-                    Dispatcher.CurrentDispatcher.Invoke(_currentSound.Stop);
+                    Dispatcher.CurrentDispatcher.Invoke(sound.Stop);
                 }
             }
         }
@@ -75,7 +72,10 @@ namespace Sampler
         public void MuteOrUnmute()
         {
             _isMuted = !_isMuted;
-            _currentSound.Stop();
+            foreach (var player in _config.GetPlayers())
+            {
+                player.Stop();
+            }
         }
     }
 }
