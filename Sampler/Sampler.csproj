@@ -156,11 +156,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sounds\Voila.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Configuration.xml" />
   </ItemGroup>
   <ItemGroup>
