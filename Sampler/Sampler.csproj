@@ -103,6 +103,7 @@
     <Compile Include="KeyDownEventArgs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Server\Model\LoginResponse.cs" />
+    <Compile Include="Server\Model\MuteResponse.cs" />
     <Compile Include="Server\Model\User.cs" />
     <Compile Include="Server\Model\UserLogin.cs" />
     <Compile Include="Server\Principal.cs" />
