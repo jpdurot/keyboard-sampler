@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .factory('Sounds', ['$resource', function($resource) {
-    return $resource('/api/sounds/play/:soundId', null,
+    return $resource('/api/sounds/play/', null,
         {
             'play': { method:'GET' },
             'getList': {
@@ -16,6 +16,10 @@ angular.module('samplereApp')
             muteUnmute: {
                 method: 'POST',
                 url: '/api/sounds/mute'
+            },
+            isMuted: {
+                method: 'GET',
+                url: '/api/sounds/ismuted'
             }
         });
 }]);

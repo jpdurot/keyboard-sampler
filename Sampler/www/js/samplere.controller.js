@@ -7,8 +7,13 @@ angular.module('samplereApp')
     .controller('MainController',
     function($scope, Sounds) {
 
-        // Pour les mobiles, le menu est plié au départ
+        // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;
+
+        // We check if sound is muted
+        Sounds.isMuted(function(data) {
+            $scope.isMuted = data.ismuted;
+        });
 
         var completeSoundList = [];
 
@@ -42,10 +47,13 @@ angular.module('samplereApp')
         };
 
         $scope.mute = function (){
-            Sounds.muteUnmute();
+            Sounds.muteUnmute(function(data) {
+                $scope.isMuted = data.ismuted;
+            });
         };
 
         Sounds.getList(function(data) {
+            console.log(data);
             $scope.soundList = data;
         });
 

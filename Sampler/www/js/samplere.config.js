@@ -1,0 +1,61 @@
+/**
+ * Created by Ludo on 04/12/2015.
+ */
+'use strict';
+
+angular.module('samplereApp')
+    .config(
+    function($httpProvider) {
+
+        // Redirects users not logged in to login page on http calls
+        $httpProvider.interceptors.push(
+            function($q, $location, $rootScope) {
+                return {
+                    response: function(response) {
+                        return response;
+                    },
+                    responseError: function(response) {
+                        if (response.status === 401) {
+                            delete $rootScope.user;
+                            $location.url('/');
+                        }
+                        return $q.reject(response);
+                    }
+                };
+            }
+        );
+
+        // Redirects users not logged in to login page on route changes
+        var checkLoggedin = function($q, $timeout, Login, $location, $rootScope){
+            // Initialize a new promise
+            var deferred = $q.defer();
+
+            var logout = function() {
+                delete $rootScope.user;
+                // Needs a timeout to force a digest cycle, else the url is not changed
+                $timeout(function(){
+                    $location.url('/');
+                },0);
+            };
+
+            // Make an AJAX call to check if the user is logged in
+            Login.isLoggedIn(function(user){
+                // Authenticated
+                if (user !== '0') {
+                    deferred.resolve();
+                    $rootScope.user = user;
+                }
+
+                // Not Authenticated
+                else {
+                    $rootScope.message = 'You need to log in.';
+                    deferred.reject();
+                    logout();
+                }
+            }, function(error) {
+                logout();
+            });
+
+            return deferred.promise;
+        };
+    });
