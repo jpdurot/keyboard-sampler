@@ -1,3 +1,8 @@
+/* Angular Bootstrap fix */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+/* App */
 body {
   padding-top: 50px;
 }
