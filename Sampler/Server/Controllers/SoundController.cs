@@ -40,9 +40,11 @@ namespace Sampler.Server.Controllers
         // POST
         [HttpPost]
         [Route("mute")]
-        public void Mute()
+        public bool Mute()
         {
             _sampler.IsMuted = !_sampler.IsMuted;
+
+            return _sampler.IsMuted;
         }
 
         // GET

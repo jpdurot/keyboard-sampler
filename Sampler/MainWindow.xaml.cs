@@ -119,7 +119,7 @@ namespace Sampler
 
         void OnUsbKeyDown(object sender, KeyDownEventArgs e)
         {
-            if (e.KeyCode == 1)
+            if (e.KeyCode == 13)
             {
                 _sampler1.IsMuted = !_sampler1.IsMuted;
             }
