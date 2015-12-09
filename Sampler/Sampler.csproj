@@ -149,23 +149,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="www\assets\css\docs.min.css.map" />
-    <None Include="www\css\bootstrap-theme.css.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="www\css\bootstrap-theme.min.css.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="www\css\bootstrap.css.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="www\css\bootstrap.min.css.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="www\fonts\glyphicons-halflings-regular.eot" />
-    <Resource Include="www\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="www\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="www\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -185,67 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icone.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="www\assets\brand\bootstrap-outline.svg" />
-    <Content Include="www\assets\brand\bootstrap-punchout.svg" />
-    <Content Include="www\assets\brand\bootstrap-solid.svg" />
-    <Content Include="www\assets\css\docs.min.css" />
-    <Content Include="www\assets\css\ie10-viewport-bug-workaround.css" />
-    <Content Include="www\assets\css\src\docs.css" />
-    <Content Include="www\assets\css\src\pygments-manni.css" />
-    <Content Include="www\assets\flash\ZeroClipboard.swf" />
-    <Resource Include="www\assets\img\components.png" />
-    <Resource Include="www\assets\img\devices.png" />
-    <Resource Include="www\assets\img\expo-lyft.jpg" />
-    <Resource Include="www\assets\img\expo-newsweek.jpg" />
-    <Resource Include="www\assets\img\expo-riot.jpg" />
-    <Resource Include="www\assets\img\expo-vogue.jpg" />
-    <Resource Include="www\assets\img\sass-less.png" />
-    <Content Include="www\assets\js\customize.min.js" />
-    <Content Include="www\assets\js\docs.min.js" />
-    <Content Include="www\assets\js\ie-emulation-modes-warning.js" />
-    <Content Include="www\assets\js\ie10-viewport-bug-workaround.js" />
-    <Content Include="www\assets\js\ie8-responsive-file-warning.js" />
-    <Content Include="www\assets\js\raw-files.min.js" />
-    <Content Include="www\assets\js\src\application.js" />
-    <Content Include="www\assets\js\src\customizer.js" />
-    <Content Include="www\assets\js\vendor\anchor.js" />
-    <Content Include="www\assets\js\vendor\autoprefixer.js" />
-    <Content Include="www\assets\js\vendor\Blob.js" />
-    <Content Include="www\assets\js\vendor\FileSaver.js" />
-    <Content Include="www\assets\js\vendor\holder.min.js" />
-    <Content Include="www\assets\js\vendor\jquery.min.js" />
-    <Content Include="www\assets\js\vendor\jszip.min.js" />
-    <Content Include="www\assets\js\vendor\less.min.js" />
-    <Content Include="www\assets\js\vendor\uglify.min.js" />
-    <Content Include="www\assets\js\vendor\ZeroClipboard.min.js" />
-    <Content Include="www\css\bootstrap-theme.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\css\bootstrap-theme.min.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\css\bootstrap.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\css\bootstrap.min.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="www\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\js\bootstrap.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\js\bootstrap.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="www\js\npm.js" />
-    <Content Include="www\js\samplere.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
