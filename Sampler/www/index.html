@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="samplereApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,15 +15,23 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/samplere.css" rel="stylesheet">
 
+  <script src="assets/js/vendor/angular.min.js"></script>
+  <script src="assets/js/vendor/angular-resource.min.js"></script>
+  <script src="assets/js/vendor/angular-route.min.js"></script>
+  <script src="assets/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+
+
+  <script src="js/samplere.module.js"></script>
+  <script src="js/samplere.controller.js"></script>
+  <script src="js/samplere.ressource.js"></script>
+
 </head>
 
-<body>
+<body ng-controller="MainController">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
@@ -43,26 +51,21 @@
         <li><a href="#contact">Contact</a></li>
         <li><a href="#" onclick="mute()">Mute/Unmute</a></li>
       </ul>
-    </div><!--/.nav-collapse -->
+      <div class="col-md-4 navbar-form form-group has-feedback form-search">
+        <input id="search" type="search" class="form-control" placeholder="Recherche..." uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}" typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">
+        <button id="clearButton" type="button" class="close form-control-feedback" aria-label="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
+      </div>
+    </div>
   </div>
 </nav>
 
 <div class="container">
 
-  <div class="buttons">
+  <div class="buttons" ng-repeat="sound in soundList | filter:{Name:searchString}">
+    <button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" ng-click="callSound(sound.Id)"><span ng-bind="sound.Name"></span></button>
   </div>
 
 </div><!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
-<script src="js/samplere.js"></script>
 </body>
 </html>

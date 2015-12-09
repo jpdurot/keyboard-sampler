@@ -1,3 +1,8 @@
+/* Angular Bootstrap fix */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+/* App */
 body {
   padding-top: 50px;
 }
@@ -9,12 +14,21 @@ body {
 .buttons {
   margin-top: 20px;
 }
-.buttons a.btn {
+.buttons .btn {
   min-height: 50px;
-  display: table;
+  text-align: center;
 }
-.buttons a.btn span {
-  display: table-cell;
+.buttons .btn span {
   white-space: normal;
   vertical-align: middle;
+}
+
+.form-search .close {
+  text-align: left;
+}
+.form-search .close:focus {
+  outline: none;
+}
+.form-search .close>span {
+  pointer-events: auto;
 }
