@@ -121,7 +121,7 @@ namespace Sampler
         {
             LastKeyCode = e.KeyCode;
 
-            if (e.KeyCode == 13)
+            if (e.KeyCode == 41)
             {
                 _sampler1.IsMuted = !_sampler1.IsMuted;
             }
