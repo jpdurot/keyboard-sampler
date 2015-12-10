@@ -42,7 +42,7 @@ namespace Sampler.Server.Services
         {
             if (userName == "JP" && password == "JP")
             {
-                return new User("JP");
+                return new User() { Name = "JP" };
             }
             return null;
         }

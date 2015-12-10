@@ -65,6 +65,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -108,8 +109,11 @@
     <Compile Include="Server\Model\UserLogin.cs" />
     <Compile Include="Server\Principal.cs" />
     <Compile Include="Server\Services\AuthenticationService.cs" />
+    <Compile Include="Server\Services\DbConnectionService.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
     <Compile Include="SoundInfo.cs" />
+    <Compile Include="Server\SQLite\SQLite.cs" />
+    <Compile Include="Server\SQLite\SQLiteAsync.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TaskbarClickCommand.cs" />
     <Compile Include="UsbListener.cs" />
@@ -165,8 +169,10 @@
   <ItemGroup>
     <Resource Include="Resources\icone.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)Sampler\lib\*.dll" "." /V /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
