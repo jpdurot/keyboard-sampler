@@ -32,3 +32,15 @@ body {
 .form-search .close>span {
   pointer-events: auto;
 }
+
+.navbar-buttons-mobile {
+	float: right;
+	position: relative;
+	margin-right: 15px;
+}
+
+.mute-mobile {
+  color: #9d9d9d;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
