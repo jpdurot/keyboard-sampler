@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .config(
-    function($httpProvider) {
+    function($httpProvider, $routeProvider) {
 
         // Redirects users not logged in to login page on http calls
         $httpProvider.interceptors.push(
@@ -58,4 +58,18 @@ angular.module('samplereApp')
 
             return deferred.promise;
         };
+        
+        $routeProvider
+          .when('/login', {
+            controller: 'LoginController',
+            templateUrl: 'views/login/login.html'
+          })
+          .when('/sounds', {
+            controller: 'SoundsController',
+            templateUrl: 'views/sounds/sounds.html'
+          })
+          .otherwise({
+            controller: 'SoundsController',
+            templateUrl: 'views/sounds/sounds.html'
+          });
     });

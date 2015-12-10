@@ -26,14 +26,21 @@
 
 
   <script src="js/samplere.module.js"></script>
+  <script src="js/samplere.config.js"></script>
   <script src="js/samplere.controller.js"></script>
   <script src="js/samplere.resource.js"></script>
+  
+  <script src="js/login/login.controller.js"></script>
+  <script src="js/login/login.resource.js"></script>
+  
+  <script src="js/sounds/sounds.controller.js"></script>
+  <!-- <script src="js/sounds/sounds.resource.js"></script> -->
 
 </head>
 
 <body ng-controller="MainController">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
@@ -55,7 +62,7 @@
         <li><a href="#" class="hidden-xs" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
       </ul>
       <div class="col-md-4 navbar-form form-group has-feedback form-search">
-        <input id="search" type="search" class="form-control" placeholder="Recherche..."
+        <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
                uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
                typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
@@ -65,12 +72,8 @@
 </nav>
 
 <div class="container">
-
-  <div class="buttons" ng-repeat="sound in soundList | filter:{Name:searchString}">
-    <button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" ng-click="callSound(sound.Id)"><span ng-bind="sound.Name"></span></button>
-  </div>
-
-</div><!-- /.container -->
+  <div ng-view></div>
+</div>
 
 </body>
 </html>

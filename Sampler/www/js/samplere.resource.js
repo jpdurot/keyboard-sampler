@@ -5,21 +5,21 @@
 
 angular.module('samplereApp')
     .factory('Sounds', ['$resource', function($resource) {
-    return $resource('http://samplairre.progx.org:9000/api/sounds/play/', null,
+    return $resource('/api/sounds/play/', null,
         {
             'play': { method:'GET' },
             'getList': {
                 method: 'GET',
                 isArray: true,
-                url: 'http://samplairre.progx.org:9000/api/sounds/info'
+                url: '/api/sounds/info'
             },
             muteUnmute: {
                 method: 'POST',
-                url: 'http://samplairre.progx.org:9000/api/sounds/mute'
+                url: '/api/sounds/mute'
             },
             isMuted: {
                 method: 'GET',
-                url: 'http://samplairre.progx.org:9000/api/sounds/ismuted'
+                url: '/api/sounds/ismuted'
             }
         });
 }]);
