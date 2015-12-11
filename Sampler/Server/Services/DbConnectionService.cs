@@ -28,12 +28,6 @@ namespace Sampler.Server.Services
         public void Connect()
         {
             _dataBase = new SQLiteConnection(DbName);
-
-            _dataBase.CreateTable<User>();
-            _dataBase.DeleteAll<User>();
-            _dataBase.Insert(new User() {Name = "JP", Password = "thales"});
-            _dataBase.Insert(new User() { Name = "Ludo", Password = "thales" });
-            _dataBase.Insert(new User() { Name = "Nico", Password = "thales" });
         }
 
         public User Authenticate(string userName, string password)
