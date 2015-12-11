@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using Sampler.Server.Model;
 using SQLite;
 
@@ -36,12 +38,28 @@ namespace Sampler.Server.Services
                 .Where(
                     u =>
                         u.Name == userName &&
-                        u.Password == password).FirstOrDefault();
+                        u.Password == CreateMd5(password)).FirstOrDefault();
         }
 
         public void Dispose()
         {
             _dataBase.Close();
+        }
+
+        private static string CreateMd5(string input)
+        {
+            // Use input string to calculate MD5 hash
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Convert the byte array to hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
         }
     }
 }
