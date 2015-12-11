@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Sampler.Server.Services;
@@ -14,7 +9,6 @@ namespace Sampler.Server.Utils
 {
     class CustomAuthorizationAttribute : AuthorizationFilterAttribute
     {
-
         private const string AuthorizationHeaderName = "ApiToken";
         public bool AllowMultiple { get; private set; }
 
@@ -35,7 +29,6 @@ namespace Sampler.Server.Utils
                     {
                         // User is authenticated
                     }
-
                 }
                 else
                 {
@@ -48,6 +41,5 @@ namespace Sampler.Server.Utils
                 
             }
         }
-
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sampler.Server.Model;
 
 namespace Sampler.Server.Services
 {
     public class AuthenticationService
     {
-
         #region Singleton
         private static AuthenticationService _instance;
-
 
         public static AuthenticationService Current
         {
@@ -40,16 +35,12 @@ namespace Sampler.Server.Services
 
         public User Authenticate(string userName, string password)
         {
-            if (userName == "JP" && password == "JP")
-            {
-                return new User() { Name = "JP" };
-            }
-            return null;
+            return DbConnectionService.Current.Authenticate(userName, password);
         }
 
         public string GetAuthenticationToken(User user)
         {
-            string oldToken = string.Empty;
+            string oldToken;
             if (_tokensByUser.TryGetValue(user, out oldToken))
             {
                 _tokens.Remove(oldToken);
@@ -62,9 +53,5 @@ namespace Sampler.Server.Services
             return token;
 
         }
-        
-
-
-
     }
 }

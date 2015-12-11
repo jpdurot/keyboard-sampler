@@ -23,7 +23,6 @@ namespace Sampler.Server.Services
 
         private DbConnectionService()
         {
-            
         }
 
         public void Connect()
@@ -32,7 +31,18 @@ namespace Sampler.Server.Services
 
             _dataBase.CreateTable<User>();
             _dataBase.DeleteAll<User>();
-            _dataBase.Insert(new User() {Name = "JP"});
+            _dataBase.Insert(new User() {Name = "JP", Password = "thales"});
+            _dataBase.Insert(new User() { Name = "Ludo", Password = "thales" });
+            _dataBase.Insert(new User() { Name = "Nico", Password = "thales" });
+        }
+
+        public User Authenticate(string userName, string password)
+        {
+            return _dataBase.Table<User>()
+                .Where(
+                    u =>
+                        u.Name == userName &&
+                        u.Password == password).FirstOrDefault();
         }
 
         public void Dispose()
