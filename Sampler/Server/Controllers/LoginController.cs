@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Sampler.Server.Model;
@@ -29,9 +30,23 @@ namespace Sampler.Server.Controllers
         [HttpGet]
         [Route("test")]
         [CustomAuthorization]
-        public void Test()
+        public LoginResponse Test()
         {
+            if (Request.Headers.Contains(CustomAuthorizationAttribute.AuthorizationHeaderName))
+            {
+                var authValue =
+                    Request.Headers.GetValues(CustomAuthorizationAttribute.AuthorizationHeaderName).FirstOrDefault();
 
+                if (authValue != null)
+                {
+                    var connectedUser = AuthenticationService.Current.GetUser(authValue);
+                    if (connectedUser != null)
+                    {
+                        return new LoginResponse() {UserName = connectedUser.Name};
+                    }
+                }
+            }
+            return new LoginResponse();
         }
     }
 }

@@ -3,14 +3,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Sampler.Server.Model;
 using Sampler.Server.Services;
 
 namespace Sampler.Server.Utils
 {
     class CustomAuthorizationAttribute : AuthorizationFilterAttribute
     {
-        private const string AuthorizationHeaderName = "ApiToken";
+        public const string AuthorizationHeaderName = "ApiToken";
         public bool AllowMultiple { get; private set; }
 
         public override void OnAuthorization(HttpActionContext actionContext)
@@ -30,7 +29,6 @@ namespace Sampler.Server.Utils
                     else
                     {
                         // User is authenticated
-                        //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, new LoginResponse() { UserName = connectedUser.Name });
                     }
                 }
                 else
