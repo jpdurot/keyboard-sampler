@@ -30,7 +30,7 @@ namespace Sampler.Server.Utils
                     else
                     {
                         // User is authenticated
-                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, new LoginResponse() { UserName = connectedUser.Name });
+                        //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, new LoginResponse() { UserName = connectedUser.Name });
                     }
                 }
                 else
