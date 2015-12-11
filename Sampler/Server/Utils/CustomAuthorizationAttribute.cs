@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Sampler.Server.Model;
 using Sampler.Server.Services;
 
 namespace Sampler.Server.Utils
@@ -21,13 +22,15 @@ namespace Sampler.Server.Utils
 
                 if (authValue != null)
                 {
-                    if (AuthenticationService.Current.GetUser(authValue) == null)
+                    var connectedUser = AuthenticationService.Current.GetUser(authValue);
+                    if (connectedUser == null)
                     {
                         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
                     }
                     else
                     {
                         // User is authenticated
+                        actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, new LoginResponse() { UserName = connectedUser.Name });
                     }
                 }
                 else
