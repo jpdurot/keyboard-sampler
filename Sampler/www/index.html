@@ -52,7 +52,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-buttons-mobile">
+      <span class="navbar-buttons-mobile" ng-if="user">
         <a class="visible-xs-inline-block mute-mobile" href="#" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a>
       </span>
       <a class="navbar-brand" href="#">Samplère v2.0</a>
@@ -62,9 +62,9 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#" class="hidden-xs" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
+        <li><a href="#" class="hidden-xs" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
       </ul>
-      <div class="col-md-4 navbar-form form-group has-feedback form-search">
+      <div ng-if="user" class="col-md-4 navbar-form form-group has-feedback form-search">
         <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
                uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
                typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">

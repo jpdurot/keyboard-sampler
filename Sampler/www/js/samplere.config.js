@@ -9,29 +9,36 @@ angular.module('samplereApp')
 
         // Redirects users not logged in to login page on http calls
         $httpProvider.interceptors.push(
-            function($q, $location, $rootScope) {
+            function($q, $location, $rootScope, $localStorage) {
                 return {
                     response: function(response) {
+                        console.log(response);
+                        if(response.url.indexOf('/api') === 0 && !$rootScope.user) {
+                            // We get user information
+
+                        }
                         return response;
                     },
-                    responseError: function(response, $localStorage) {
+                    responseError: function(response) {
                         if (response.status === 401) {
                             delete $rootScope.user;
-							if(!!$localStorage.header) {
-								delete $localStorage.header;
-							}
+                            if(!!$localStorage.token) {
+                                delete $localStorage.token;
+                                delete $rootScope.user;
+                            }
                             $location.url('/login');
                         }
                         return $q.reject(response);
                     },
-					request: function(config, $localStorage) {
-						if(!!config && !!config.url && !!config.url.indexOf('/api') === 0 && !!$localStorage.header) {
-							// We add authentication headers
-							config.headers['ApiToken'] = $localStorage.header;
-							console.log(config);
-						}
-						return config;
-					}
+                    request: function(config) {
+                        console.log(config);
+                        if(!!config && !!config.url && config.url.indexOf('/api') === 0 && !!$localStorage.token) {
+                            // We add authentication headers
+                            config.headers['ApiToken'] = $localStorage.token;
+                            console.log(config);
+                        }
+                        return config;
+                    }
                 };
             }
         );
@@ -51,10 +58,14 @@ angular.module('samplereApp')
 
             // Make an AJAX call to check if the user is logged in
             Login.isLoggedIn(function(user){
+                console.log('loggedIn : ',user);
                 // Authenticated
                 if (user !== '0') {
                     deferred.resolve();
-                    $rootScope.user = user;
+                    // TODO: Demander au serveur de renvoyer un objet avec le userName $rootScope.user = user;
+                    /*$rootScope.user = {
+                     userName: ''
+                     };*/
                 }
 
                 // Not Authenticated
@@ -69,18 +80,23 @@ angular.module('samplereApp')
 
             return deferred.promise;
         };
-        
+
         $routeProvider
-          .when('/login', {
-            controller: 'LoginController',
-            templateUrl: 'views/login/login.html'
-          })
-          .when('/sounds', {
-            controller: 'SoundsController',
-            templateUrl: 'views/sounds/sounds.html'
-          })
-          .otherwise({
-            controller: 'SoundsController',
-            templateUrl: 'views/sounds/sounds.html'
-          });
+            .when('/login', {
+                controller: 'LoginController',
+                templateUrl: 'views/login/login.html'
+            })
+            .when('/sounds', {
+                controller: 'SoundsController',
+                templateUrl: 'views/sounds/sounds.html',
+                resolve: {
+                    loggedIn: function() {
+                        return checkLoggedin;
+                    }
+                }
+            })
+            .otherwise({
+                controller: 'SoundsController',
+                templateUrl: 'views/sounds/sounds.html'
+            });
     });

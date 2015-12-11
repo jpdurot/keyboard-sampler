@@ -5,10 +5,14 @@
 
 angular.module('samplereApp')
     .factory('Login', ['$resource', function($resource) {
-    return $resource('/api/login', null,
-        {
-            login: {
-                method: 'POST'
-            }
-        });
-}]);
+        return $resource('/api/login', null,
+            {
+                login: {
+                    method: 'POST'
+                },
+                isLoggedIn: {
+                    method: 'GET',
+                    url: '/api/login/test'
+                }
+            });
+    }]);

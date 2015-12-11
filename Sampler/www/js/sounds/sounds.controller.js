@@ -34,6 +34,11 @@ angular.module('samplereApp')
 
         $scope.callSound = $scope.$parent.callSound;
 
+        // We check if sound is muted
+        Sounds.isMuted(function(data) {
+            $scope.$parent.isMuted = data.ismuted;
+        });
+
         Sounds.getList(function(data) {
             $scope.$parent.soundList = data;
         });
