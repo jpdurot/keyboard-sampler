@@ -4,16 +4,10 @@
 'use strict';
 
 angular.module('samplereApp')
-    .controller('MainController',
+    .controller('SoundsController',
     function($scope, Sounds) {
-
-        // Menu is collapsed by default on mobile devices
-        $scope.isCollapsed = true;
-
-        // We check if sound is muted
-        Sounds.isMuted(function(data) {
-            $scope.isMuted = data.ismuted;
-        });
+      
+      console.log('SoundsController');
 
         var completeSoundList = [];
 
@@ -38,19 +32,23 @@ angular.module('samplereApp')
             return ret;
         };
 
-        $scope.clear = function() {
-            $scope.searchString = '';
-        };
+        $scope.callSound = $scope.$parent.callSound;
 
-        $scope.callSound = function (soundId){
-            Sounds.play({soundId: soundId});
-        };
+        Sounds.getList(function(data) {
+            $scope.$parent.soundList = data;
+        });
 
-        $scope.mute = function (){
-            Sounds.muteUnmute(function(data) {
-                $scope.isMuted = data.ismuted;
-            });
-        };
+        function getSounds() {
+            /*$.get('/api/sounds/info', function (data) {
+             data.forEach(function (sound) {
+             $('.buttons').append('<button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" onclick="callSound(' + sound.Id + ')"><span>' + sound.Name + '</span></button>');
+             completeSoundList.push({
+             label: sound.Name,
+             value: sound.Id
+             });
+             });
+             });*/
+        }
     });
 /*
  // Autocomplete on search field

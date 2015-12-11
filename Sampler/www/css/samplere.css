@@ -1,11 +1,13 @@
 /* Angular Bootstrap fix */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
 
 /* App */
 body {
   padding-top: 50px;
 }
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -14,10 +16,12 @@ body {
 .buttons {
   margin-top: 20px;
 }
+
 .buttons .btn {
   min-height: 50px;
   text-align: center;
 }
+
 .buttons .btn span {
   white-space: normal;
   vertical-align: middle;
@@ -26,9 +30,23 @@ body {
 .form-search .close {
   text-align: left;
 }
+
 .form-search .close:focus {
   outline: none;
 }
+
 .form-search .close>span {
   pointer-events: auto;
+}
+
+.navbar-buttons-mobile {
+  float: right;
+  position: relative;
+  margin-right: 15px;
+}
+
+.mute-mobile {
+  color: #9d9d9d;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
