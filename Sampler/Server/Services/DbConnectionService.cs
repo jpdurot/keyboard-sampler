@@ -34,11 +34,13 @@ namespace Sampler.Server.Services
 
         public User Authenticate(string userName, string password)
         {
+            string cryptedPassword = CreateMd5(password);
+
             return _dataBase.Table<User>()
                 .Where(
                     u =>
                         u.Name == userName &&
-                        u.Password == CreateMd5(password)).FirstOrDefault();
+                        u.Password == cryptedPassword).FirstOrDefault();
         }
 
         public void Dispose()
