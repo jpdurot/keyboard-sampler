@@ -1,11 +1,11 @@
-/**
+ï»¿/**
  * Created by Ludo on 04/12/2015.
  */
 'use strict';
 
 angular.module('samplereApp')
     .controller('MainController',
-    function($scope, Sounds) {
+    function($scope, Sounds, alertService) {
 
         // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;
@@ -14,21 +14,25 @@ angular.module('samplereApp')
         Sounds.isMuted(function(data) {
             $scope.isMuted = data.ismuted;
         });
+		
+		// To display alerts to user
+		$scope.alerts = alertService.getAlerts();
+		$scope.closeAlert = alertService.closeAlert;
 
         var completeSoundList = [];
 
         var accentMap = {
-            "é": "e",
-            "è": "e",
-            "ê": "e",
-            "ë": "e",
-            "à": "a",
-            "â": "a",
-            "ä": "a",
-            "ö": "o",
-            "ô": "o",
-            "ù": "u",
-            "ç": "c"
+            "Ã©": "e",
+            "Ã¨": "e",
+            "Ãª": "e",
+            "Ã«": "e",
+            "Ã ": "a",
+            "Ã¢": "a",
+            "Ã¤": "a",
+            "Ã¶": "o",
+            "Ã´": "o",
+            "Ã¹": "u",
+            "Ã§": "c"
         };
         var normalize = function( term ) {
             var ret = "";

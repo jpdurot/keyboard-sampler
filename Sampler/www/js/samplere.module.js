@@ -11,5 +11,6 @@ angular.module('samplereApp', [
     'ngSanitize',*/
     'ui.bootstrap',
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'ngStorage'
 ]);

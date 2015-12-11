@@ -50,3 +50,31 @@ body {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
+
+/* Alerts */
+.alert-container {
+  position: relative;
+}
+.alert-container .alert-subcontainer {
+  /* Make alerts displayed above page content */
+  position: absolute;
+  z-index: 1051;
+  right: 0;
+}
+/* Permit alerts to have newlines */
+.alert-container .alert-subcontainer .alert>div>span {
+  white-space: pre-wrap;
+}
+
+/* We animate show/hide */
+.alert-container .alert-subcontainer .alert.ng-leave.ng-leave-active, .alert-container .alert-subcontainer .alert.ng-enter {
+  opacity: 0;
+}
+.alert-container .alert-subcontainer .alert.ng-enter.ng-enter-active, .alert-container .alert-subcontainer .alert.ng-leave {
+  opacity: 1;
+}
+.alert-container .alert-subcontainer .alert.ng-leave, .alert-container .alert-subcontainer .alert.ng-enter {
+  /* the transition is defined in the active class */
+  transition: opacity ease 0.3s;
+}

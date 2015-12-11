@@ -23,6 +23,7 @@
   <script src="assets/js/vendor/angular-resource.min.js"></script>
   <script src="assets/js/vendor/angular-route.min.js"></script>
   <script src="assets/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+  <script src="assets/js/vendor/ngStorage.min.js"></script>
 
 
   <script src="js/samplere.module.js"></script>
@@ -35,6 +36,8 @@
   
   <script src="js/sounds/sounds.controller.js"></script>
   <!-- <script src="js/sounds/sounds.resource.js"></script> -->
+
+  <script src="js/helpers/alert.service.js"></script>
 
 </head>
 
@@ -72,7 +75,18 @@
 </nav>
 
 <div class="container">
+
+  <!-- Alerts -->
+  <div class="container">
+    <div class="row alert-container">
+      <div class="alert-subcontainer">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</uib-alert>
+      </div>
+    </div>
+  </div>
+
   <div ng-view></div>
+  
 </div>
 
 </body>

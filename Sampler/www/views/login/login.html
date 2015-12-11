@@ -1,17 +1,15 @@
 <link href="css/login/login.css" rel="stylesheet">
 
-<form class="form-signin">
+<form name="formLogin" class="form-signin">
   <h2 class="form-signin-heading">Veuillez vous authentifier</h2>
-  <label for="inputEmail" class="sr-only">Identifiant</label> <input
-    type="text" id="inputEmail" class="form-control"
-    placeholder="Email address" required autofocus> <label
-    for="inputPassword" class="sr-only">Mot de passe</label> <input
-    type="password" id="inputPassword" class="form-control"
-    placeholder="Password" required>
+  <input type="text" ng-model="login" class="form-control"
+         placeholder="Identifiant" required autofocus>
+  <input type="password" ng-model="password" class="form-control"
+         placeholder="Mot de passe" required>
   <div class="checkbox">
-    <label> <input type="checkbox" value="remember-me">
+    <label> <input type="checkbox" ng-model="rememberMe">
       Se souvenir de moi
     </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">S'authentifier</button>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="doLogin()" ng-disabled="formLogin.$invalid">S'authentifier</button>
 </form>

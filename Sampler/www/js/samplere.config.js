@@ -14,13 +14,24 @@ angular.module('samplereApp')
                     response: function(response) {
                         return response;
                     },
-                    responseError: function(response) {
+                    responseError: function(response, $localStorage) {
                         if (response.status === 401) {
                             delete $rootScope.user;
-                            $location.url('/');
+							if(!!$localStorage.header) {
+								delete $localStorage.header;
+							}
+                            $location.url('/login');
                         }
                         return $q.reject(response);
-                    }
+                    },
+					request: function(config, $localStorage) {
+						if(!!config && !!config.url && !!config.url.indexOf('/api') === 0 && !!$localStorage.header) {
+							// We add authentication headers
+							config.headers['ApiToken'] = $localStorage.header;
+							console.log(config);
+						}
+						return config;
+					}
                 };
             }
         );
@@ -34,7 +45,7 @@ angular.module('samplereApp')
                 delete $rootScope.user;
                 // Needs a timeout to force a digest cycle, else the url is not changed
                 $timeout(function(){
-                    $location.url('/');
+                    $location.url('/login');
                 },0);
             };
 
