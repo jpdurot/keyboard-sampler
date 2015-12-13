@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Sampler.Server.Model;
@@ -37,10 +38,10 @@ namespace Sampler.Server.Services
             string cryptedPassword = CreateMd5(password);
 
             return _dataBase.Table<User>()
-                .Where(
+                .FirstOrDefault(
                     u =>
                         u.Name == userName &&
-                        u.Password == cryptedPassword).FirstOrDefault();
+                        u.Password == cryptedPassword);
         }
 
         public void Dispose()
@@ -62,6 +63,14 @@ namespace Sampler.Server.Services
                 sb.Append(hashBytes[i].ToString("X2"));
             }
             return sb.ToString();
+        }
+
+        public User GetUser(int connectedUser)
+        {
+            return _dataBase.Table<User>()
+                .FirstOrDefault(
+                    u =>
+                        u.Id == connectedUser);
         }
     }
 }

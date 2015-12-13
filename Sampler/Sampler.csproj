@@ -111,6 +111,7 @@
     <Compile Include="Server\Services\AuthenticationService.cs" />
     <Compile Include="Server\Services\DbConnectionService.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Server\Utils\RequestExtensions.cs" />
     <Compile Include="SoundInfo.cs" />
     <Compile Include="Server\SQLite\SQLite.cs" />
     <Compile Include="Server\SQLite\SQLiteAsync.cs" />

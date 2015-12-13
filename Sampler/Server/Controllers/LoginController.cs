@@ -18,7 +18,7 @@ namespace Sampler.Server.Controllers
             var user = AuthenticationService.Current.Authenticate(userInfo.UserName, userInfo.Password);
             if (user != null)
             {
-                var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user);
+                var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user.Id);
                 return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken });
 
             }
@@ -32,21 +32,7 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public LoginResponse Test()
         {
-            if (Request.Headers.Contains(CustomAuthorizationAttribute.AuthorizationHeaderName))
-            {
-                var authValue =
-                    Request.Headers.GetValues(CustomAuthorizationAttribute.AuthorizationHeaderName).FirstOrDefault();
-
-                if (authValue != null)
-                {
-                    var connectedUser = AuthenticationService.Current.GetUser(authValue);
-                    if (connectedUser != null)
-                    {
-                        return new LoginResponse() {UserName = connectedUser.Name};
-                    }
-                }
-            }
-            return new LoginResponse();
+            return new LoginResponse() {UserName = Request.GetUserContext().Name};
         }
     }
 }

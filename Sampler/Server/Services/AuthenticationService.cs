@@ -18,19 +18,28 @@ namespace Sampler.Server.Services
         }
         #endregion
 
-        private readonly Dictionary<string, User> _tokens;
-        private readonly Dictionary<User, string> _tokensByUser;
+        private readonly Dictionary<string, int> _tokens;
+        private readonly Dictionary<int, string> _tokensByUser;
 
         public AuthenticationService()
         {
-            _tokens = new Dictionary<string, User>();
-            _tokensByUser = new Dictionary<User, string>();
+            _tokens = new Dictionary<string, int>();
+            _tokensByUser = new Dictionary<int, string>();
         }
-        public User GetUser(string token)
+
+        /// <summary>
+        /// Returns user id corresponding to the token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>User identifier if it exists, otherwise -1</returns>
+        public int GetUserId(string token)
         {
-            User user;
-            _tokens.TryGetValue(token, out user);
-            return user;
+            int userId;
+            if (_tokens.TryGetValue(token, out userId))
+            {
+                return userId;
+            }
+            return -1;
         }
 
         public User Authenticate(string userName, string password)
@@ -38,17 +47,17 @@ namespace Sampler.Server.Services
             return DbConnectionService.Current.Authenticate(userName, password);
         }
 
-        public string GetAuthenticationToken(User user)
+        public string GetAuthenticationToken(int userId)
         {
             string oldToken;
-            if (_tokensByUser.TryGetValue(user, out oldToken))
+            if (_tokensByUser.TryGetValue(userId, out oldToken))
             {
                 _tokens.Remove(oldToken);
-                _tokensByUser.Remove(user);
+                _tokensByUser.Remove(userId);
             }
             string token = Guid.NewGuid().ToString("N");
-            _tokens[token] = user;
-            _tokensByUser[user] = token;
+            _tokens[token] = userId;
+            _tokensByUser[userId] = token;
 
             return token;
 
