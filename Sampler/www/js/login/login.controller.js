@@ -17,7 +17,7 @@ angular.module('samplereApp')
                 };
 				$localStorage.token = data.token;
 				$location.url('/sounds');
-                alertService.addAlert('Bienvenue '+$scope.login,'danger');
+                alertService.addAlert('Bienvenue '+$scope.login,'success');
             }, function(error) {
                 alertService.addAlert('Veuillez vérifier votre login/mot de passe','danger');
 				console.log('erreur login');
