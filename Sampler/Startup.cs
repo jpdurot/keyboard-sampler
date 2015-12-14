@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Owin;
@@ -16,14 +12,11 @@ namespace Sampler
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
+            // Activate SignalR for websocket with web app
+            appBuilder.MapSignalR("/socket", new HubConfiguration());
+            
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
-            /*config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );*/
-
             config.MapHttpAttributeRoutes();
 
             appBuilder.UseWebApi(config);
@@ -35,8 +28,6 @@ namespace Sampler
                 EnableDirectoryBrowsing = true,
                 FileSystem = fileSystem
             };
-
-
 
             appBuilder.UseFileServer(options);
 
