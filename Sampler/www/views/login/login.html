@@ -6,10 +6,5 @@
          placeholder="Identifiant" required autofocus>
   <input type="password" ng-model="password" class="form-control"
          placeholder="Mot de passe" required>
-  <div class="checkbox">
-    <label> <input type="checkbox" ng-model="rememberMe">
-      Se souvenir de moi
-    </label>
-  </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="doLogin()" ng-disabled="formLogin.$invalid">S'authentifier</button>
 </form>

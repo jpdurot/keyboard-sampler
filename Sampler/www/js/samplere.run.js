@@ -5,12 +5,15 @@
 
 // App startup
 angular.module('samplereApp')
-.run(function(Login, $rootScope) {
+.run(function(Login, $rootScope, $localStorage) {
   // At startup we check if user is logged in
-  Login.isLoggedIn(function(user) {
-    // Success, user is logged in so we save it into rootScope
-    $rootScope.user = {
-      userName: user.userName
-    };
-  })
+  if(!!$localStorage.token) {
+    $rootScope.token = $localStorage.token;
+    Login.isLoggedIn(function(user) {
+      // Success, user is logged in so we save it into rootScope
+      $rootScope.user = {
+        userName: user.userName
+      };
+    })
+  }
 });
