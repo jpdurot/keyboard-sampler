@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using Sampler.Server.Model;
@@ -22,6 +24,14 @@ namespace Sampler.Server.Controllers
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
             _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
+            Activity a = new Activity()
+            {
+                Horodate = new TimeSpan(DateTime.Now.Ticks),
+                Type = ActivityType.PlaySound,
+                UserId = Request.GetUserContext().Id,
+                Information = id.ToString(CultureInfo.InvariantCulture)
+            };
+            HistoryManager.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
         }
 
@@ -33,6 +43,13 @@ namespace Sampler.Server.Controllers
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
             _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
+            Activity a = new Activity()
+            {
+                Horodate = new TimeSpan(DateTime.Now.Ticks),
+                Type = ActivityType.PlaySound,
+                UserId = Request.GetUserContext().Id
+            };
+            HistoryManager.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
         }
 

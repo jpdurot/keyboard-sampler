@@ -14,8 +14,6 @@ angular.module('samplereApp')
 		$scope.alerts = alertService.getAlerts();
 		$scope.closeAlert = alertService.closeAlert;
 
-        // We check if user is logged in
-
         var completeSoundList = [];
 
         var accentMap = {

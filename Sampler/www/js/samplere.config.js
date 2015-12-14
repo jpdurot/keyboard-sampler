@@ -15,6 +15,7 @@ angular.module('samplereApp').config(
               delete $rootScope.user;
               if (!!$localStorage.token) {
                 delete $localStorage.token;
+                delete $rootScope.token;
                 delete $rootScope.user;
               }
               $location.url('/login');
@@ -26,7 +27,7 @@ angular.module('samplereApp').config(
             if (!!config && !!config.url && config.url.indexOf('/api') === 0
                 && !!$localStorage.token) {
               // We add authentication headers
-              config.headers['ApiToken'] = $localStorage.token;
+              config.headers['ApiToken'] = $rootScope.token;
             }
             return config;
           }
@@ -40,6 +41,7 @@ angular.module('samplereApp').config(
 
         var logout = function() {
           delete $rootScope.user;
+          delete $localStorage.token;
           // Needs a timeout to force a digest cycle, else the url is not
           // changed
           $timeout(function() {
@@ -53,11 +55,10 @@ angular.module('samplereApp').config(
           // Authenticated
           if (user !== '0') {
             deferred.resolve();
-            // TODO: Demander au serveur de renvoyer un objet avec le userName
-            // $rootScope.user = user;
-            /*
-             * $rootScope.user = { userName: '' };
-             */
+            // Success, user is logged in so we save it into rootScope
+            $rootScope.user = {
+                userName: user.userName
+            };
           }
 
           // Not Authenticated

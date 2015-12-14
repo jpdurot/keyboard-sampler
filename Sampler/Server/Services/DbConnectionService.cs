@@ -72,5 +72,10 @@ namespace Sampler.Server.Services
                     u =>
                         u.Id == connectedUser);
         }
+
+        public void AddActivity(Activity activity)
+        {
+            _dataBase.Insert(activity);
+        }
     }
 }

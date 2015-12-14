@@ -16,10 +16,11 @@ angular.module('samplereApp')
                     userName: $scope.login
                 };
 				$localStorage.token = data.token;
+                $rootScope.token = data.token;
 				$location.url('/sounds');
                 alertService.addAlert('Bienvenue '+$scope.login,'success');
             }, function(error) {
-                alertService.addAlert('Veuillez vérifier votre login/mot de passe','danger');
+                alertService.addAlert('Veuillez vÃ©rifier votre login/mot de passe','danger');
 				console.log('erreur login');
             });
         }
