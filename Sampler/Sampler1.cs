@@ -26,6 +26,23 @@ namespace Sampler
             get { return _config; }
         }
 
+        public bool IsMuted
+        {
+            get { return _isMuted; }
+
+            set
+            {
+                if (_isMuted != value)
+                {
+                    _isMuted = value;
+                    foreach (var player in _config.GetPlayers())
+                    {
+                        player.Stop();
+                    }
+                }
+            }
+        }
+
         public Sampler1()
         {
             LoadConfiguration();
@@ -67,15 +84,6 @@ namespace Sampler
         public IList<SoundInfo> GetSoundsInfo()
         {
             return _config.SoundsInfo;
-        }
-
-        public void MuteOrUnmute()
-        {
-            _isMuted = !_isMuted;
-            foreach (var player in _config.GetPlayers())
-            {
-                player.Stop();
-            }
         }
     }
 }

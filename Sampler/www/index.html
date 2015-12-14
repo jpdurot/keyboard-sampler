@@ -9,10 +9,12 @@
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
+
   <title>Samplère v2.0</title>
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+
 
   <!-- Custom styles for this template -->
   <link href="css/samplere.css" rel="stylesheet">
@@ -21,23 +23,33 @@
   <script src="assets/js/vendor/angular-resource.min.js"></script>
   <script src="assets/js/vendor/angular-route.min.js"></script>
   <script src="assets/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+  <script src="assets/js/vendor/ngStorage.min.js"></script>
 
-  <!-- SingalR realtime notifiucations -->
+  <!-- SingalR realtime notifications -->
   <script src="assets/js/vendor/jquery-1.6.4.min.js"></script>
   <script src="assets/js/vendor/jquery.signalR-1.0.0-rc2.min.js"></script>
   <script src="socket/hubs"></script>
   <script src="js/soundsNotifications.js"></script>
-
-  <!-- Samplèèèèèère -->
+  
   <script src="js/samplere.module.js"></script>
+  <script src="js/samplere.config.js"></script>
   <script src="js/samplere.controller.js"></script>
-  <script src="js/samplere.ressource.js"></script>
+  <script src="js/samplere.resource.js"></script>
+  <script src="js/samplere.run.js"></script>
+  
+  <script src="js/login/login.controller.js"></script>
+  <script src="js/login/login.resource.js"></script>
+  
+  <script src="js/sounds/sounds.controller.js"></script>
+  <!-- <script src="js/sounds/sounds.resource.js"></script> -->
+
+  <script src="js/helpers/alert.service.js"></script>
 
 </head>
 
 <body ng-controller="MainController">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
@@ -46,6 +58,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <span class="navbar-buttons-mobile" ng-if="user">
+        <a class="visible-xs-inline-block mute-mobile" href="#" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a>
+      </span>
       <a class="navbar-brand" href="#">Samplère v2.0</a>
     </div>
     <div id="navbar" uib-collapse="isCollapsed" class="collapse navbar-collapse">
@@ -53,11 +68,13 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#" ng-click="mute()">Mute/Unmute</a></li>
+        <li><a href="#" class="hidden-xs" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
       </ul>
-      <div class="col-md-4 navbar-form form-group has-feedback form-search">
-        <input id="search" type="search" class="form-control" placeholder="Recherche..." uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}" typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">
-        <button id="clearButton" type="button" class="close form-control-feedback" aria-label="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
+      <div ng-if="user" class="col-md-4 navbar-form form-group has-feedback form-search">
+        <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
+               uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
+               typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">
+        <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
       </div>
     </div>
   </div>
@@ -65,11 +82,18 @@
 
 <div class="container">
 
-  <div class="buttons" ng-repeat="sound in soundList | filter:{Name:searchString}">
-    <button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" ng-click="callSound(sound.Id)"><span ng-bind="sound.Name"></span></button>
+  <!-- Alerts -->
+  <div class="container">
+    <div class="row alert-container">
+      <div class="alert-subcontainer">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</uib-alert>
+      </div>
+    </div>
   </div>
 
-</div><!-- /.container -->
+  <div ng-view></div>
+  
+</div>
 
 </body>
 </html>

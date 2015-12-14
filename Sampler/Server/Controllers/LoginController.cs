@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
@@ -23,7 +18,7 @@ namespace Sampler.Server.Controllers
             var user = AuthenticationService.Current.Authenticate(userInfo.UserName, userInfo.Password);
             if (user != null)
             {
-                var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user);
+                var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user.Id);
                 return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken });
 
             }
@@ -35,9 +30,9 @@ namespace Sampler.Server.Controllers
         [HttpGet]
         [Route("test")]
         [CustomAuthorization]
-        public void Test()
+        public LoginResponse Test()
         {
-
+            return new LoginResponse() {UserName = Request.GetUserContext().Name};
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Http;
+using Sampler.Server.Model;
+using Sampler.Server.Utils;
 
 namespace Sampler.Server.Controllers
 {
@@ -16,6 +14,7 @@ namespace Sampler.Server.Controllers
         // GET
         [HttpGet]
         [Route("play/{id}")]
+        [CustomAuthorization]
         public void Get(int id)
         {
             _sampler.PlaySound(id, false);
@@ -24,6 +23,7 @@ namespace Sampler.Server.Controllers
         // POST
         [HttpPost]
         [Route("play/{id}")]
+        [CustomAuthorization]
         public void Post(int id)
         {
             _sampler.PlaySound(id, false);
@@ -32,6 +32,7 @@ namespace Sampler.Server.Controllers
         // GET
         [HttpGet]
         [Route("info")]
+        [CustomAuthorization]
         public IEnumerable<SoundInfo> GetSoundsInfo()
         {
             return _sampler.GetSoundsInfo();
@@ -40,10 +41,21 @@ namespace Sampler.Server.Controllers
         // POST
         [HttpPost]
         [Route("mute")]
-        public void Mute()
+        [CustomAuthorization]
+        public MuteResponse Mute()
         {
-            _sampler.MuteOrUnmute();
+            _sampler.IsMuted = !_sampler.IsMuted;
+
+            return new MuteResponse() { IsMuted = _sampler.IsMuted };
+        }
+
+        // GET
+        [HttpGet]
+        [Route("ismuted")]
+        [CustomAuthorization]
+        public MuteResponse IsMuted()
+        {
+            return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
     }
-
 }

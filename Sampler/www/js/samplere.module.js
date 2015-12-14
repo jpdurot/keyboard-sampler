@@ -10,5 +10,7 @@ angular.module('samplereApp', [
     /*'ngAnimate',
     'ngSanitize',*/
     'ui.bootstrap',
-    'ngResource'
+    'ngResource',
+    'ngRoute',
+    'ngStorage'
 ]);

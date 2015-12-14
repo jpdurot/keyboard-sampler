@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Owin.Hosting;
 using NAudio.Wave;
+using Sampler.Server.Services;
 
 namespace Sampler
 {
@@ -99,17 +100,22 @@ namespace Sampler
             _listener = new UsbListener();
             InitializeComponent();
 
+            DbConnectionService.Current.Connect();
+
             string baseAddress = "http://+:9000/";
 
             // Start OWIN host 
             _webServer = WebApp.Start<Startup>(url: baseAddress);
 
             Loaded += MainWindow_Loaded;
+            
             Application.Current.Exit += OnApplicationExit;
         }
 
         void OnApplicationExit(object sender, ExitEventArgs e)
         {
+            DbConnectionService.Current.Dispose();
+            
             StopListener();
             if (_webServer != null)
             {
@@ -119,9 +125,11 @@ namespace Sampler
 
         void OnUsbKeyDown(object sender, KeyDownEventArgs e)
         {
-            if (e.KeyCode == 1)
+            LastKeyCode = e.KeyCode;
+
+            if (e.KeyCode == 41)
             {
-                _sampler1.MuteOrUnmute();
+                _sampler1.IsMuted = !_sampler1.IsMuted;
             }
             else
             {

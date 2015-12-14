@@ -11,5 +11,8 @@ namespace Sampler.Server.Model
     {
         [JsonProperty("token")]
         public string Token { get; set; }
+
+        [JsonProperty("userName")]
+        public string UserName { get; set; }
     }
 }

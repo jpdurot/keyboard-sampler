@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Sampler.Server.Model;
 using Sampler.Server.Services;
 
 namespace Sampler.Server.Utils
 {
     class CustomAuthorizationAttribute : AuthorizationFilterAttribute
     {
-
-        private const string AuthorizationHeaderName = "ApiToken";
-        public bool AllowMultiple { get; private set; }
+        public const string AuthorizationHeaderName = "ApiToken";
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
@@ -27,15 +21,17 @@ namespace Sampler.Server.Utils
 
                 if (authValue != null)
                 {
-                    if (AuthenticationService.Current.GetUser(authValue) == null)
+                    var connectedUser = AuthenticationService.Current.GetUserId(authValue);
+                    if (connectedUser == -1)
                     {
                         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
                     }
                     else
                     {
                         // User is authenticated
+                        User user = DbConnectionService.Current.GetUser(connectedUser);
+                        actionContext.Request.SetUserContext(user);
                     }
-
                 }
                 else
                 {
@@ -48,6 +44,5 @@ namespace Sampler.Server.Utils
                 
             }
         }
-
     }
 }
