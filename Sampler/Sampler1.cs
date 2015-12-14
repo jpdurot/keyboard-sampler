@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using Microsoft.AspNet.SignalR;
+using Sampler.Server.Services;
 
 namespace Sampler
 {
@@ -84,6 +86,11 @@ namespace Sampler
         public IList<SoundInfo> GetSoundsInfo()
         {
             return _config.SoundsInfo;
+        }
+
+        public SoundInfo GetSoundInfo(int id)
+        {
+            return _config.GetSoundInfo(id);
         }
     }
 }

@@ -24,6 +24,17 @@ namespace Sampler
             get { return _soundsInfo; }
         }
 
+        public SoundInfo GetSoundInfo(int id)
+        {
+            // TODO Perf 
+            foreach (SoundInfo soundInfo in _soundsInfo)
+            {
+                if (soundInfo.Id == id)
+                    return soundInfo;
+            }
+            return null;
+        }
+
         private Configuration(string name)
         {
             _mappings = new Dictionary<int, Player>();

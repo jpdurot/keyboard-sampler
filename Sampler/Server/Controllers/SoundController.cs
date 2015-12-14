@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Microsoft.AspNet.SignalR;
 using Sampler.Server.Model;
+using Sampler.Server.Services;
 using Sampler.Server.Utils;
 
 namespace Sampler.Server.Controllers
@@ -10,6 +12,7 @@ namespace Sampler.Server.Controllers
     {
 
         private static Sampler1 _sampler = Sampler1.Current;
+        private static IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
         // GET
         [HttpGet]
@@ -17,6 +20,8 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public void Get(int id)
         {
+            SoundInfo soundInfo = _sampler.GetSoundInfo(id);
+            _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
             _sampler.PlaySound(id, false);
         }
 
@@ -26,6 +31,8 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public void Post(int id)
         {
+            SoundInfo soundInfo = _sampler.GetSoundInfo(id);
+            _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
             _sampler.PlaySound(id, false);
         }
 
