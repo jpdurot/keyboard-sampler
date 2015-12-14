@@ -49,6 +49,7 @@ namespace Sampler
             _isMuted = false;
         }
 
+
         private void LoadConfiguration()
         {
             _config = Configuration.Parse(XDocument.Load("Configuration.xml").Root.Elements().First());
