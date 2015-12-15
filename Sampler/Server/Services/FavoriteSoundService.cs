@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Sampler.Server.Model;
 
 namespace Sampler.Server.Services
@@ -42,6 +43,20 @@ namespace Sampler.Server.Services
                 .FirstOrDefault(f => f.UserId == userId && f.SoundId == soundId);
 
             return favoriteToRemove != null;
+        }
+
+        public void UpdateSoundsInfo(int userId, IEnumerable<SoundInfo> soundsInfo)
+        {
+            var userFavorites = DataBaseService.Current.Db.Table<FavoriteSound>().Where(f => f.UserId == userId);
+
+            foreach (var favoriteSound in userFavorites)
+            {
+                var soundInfo = soundsInfo.FirstOrDefault(s => s.Id == favoriteSound.SoundId);
+                if (soundInfo != null)
+                {
+                    soundInfo.IsFavorite = true;
+                }
+            }
         }
     }
 }

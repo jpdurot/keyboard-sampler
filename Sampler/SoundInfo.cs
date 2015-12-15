@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Sampler
 {
@@ -14,9 +8,10 @@ namespace Sampler
     {
         private int _id;
         private string _name;
+        private bool _isFavorite;
 
         private string _uri;
-
+        
         public SoundInfo(int id, string name, string uri)
         {
             _id = id;
@@ -36,6 +31,13 @@ namespace Sampler
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        [DataMember]
+        public bool IsFavorite
+        {
+            get { return _isFavorite; }
+            set { _isFavorite = value; }
         }
 
         [JsonIgnore]

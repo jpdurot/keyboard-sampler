@@ -61,7 +61,11 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public IEnumerable<SoundInfo> GetSoundsInfo()
         {
-            return _sampler.GetSoundsInfo();
+            IEnumerable<SoundInfo> soundsInfo = _sampler.GetSoundsInfo();
+
+            FavoriteSoundService.Current.UpdateSoundsInfo(Request.GetUserContext().Id, soundsInfo);
+
+            return soundsInfo;
         }
 
         // POST
