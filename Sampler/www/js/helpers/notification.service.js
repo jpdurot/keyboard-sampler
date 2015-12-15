@@ -24,7 +24,7 @@ function notificationService($rootScope, alertService) {
     soundsHub.client.addNewSoundMessageToPage = function (soundInfo, user, isMuted) {
         $rootScope.$apply(function () {
             if (isMuted)
-                alertService.addAlert(user + ' a tenté de jouer ' + soundInfo.Name + '.', 'warning');
+                alertService.addAlert(user + ' a tentÃ© de jouer ' + soundInfo.Name + '.', 'warning');
             else
                 alertService.addAlert(user + ' vient de jouer ' + soundInfo.Name + '.', 'success');
         });
