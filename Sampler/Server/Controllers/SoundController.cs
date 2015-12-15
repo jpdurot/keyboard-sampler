@@ -70,6 +70,8 @@ namespace Sampler.Server.Controllers
         {
             _sampler.IsMuted = !_sampler.IsMuted;
 
+            _soundsHubContext.Clients.All.syncIsMuted(_sampler.IsMuted);
+
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
 
