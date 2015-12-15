@@ -113,13 +113,14 @@ namespace Sampler.Server.Services
         /// <param name="user"></param>
         /// <param name="oldPassword"></param>
         /// <param name="newPassword"></param>
-        public void ModifyPassword(User user, string oldPassword, string newPassword)
+        public bool ModifyPassword(User user, string oldPassword, string newPassword)
         {
             if (string.Equals(user.Password, HashMd5(oldPassword), StringComparison.OrdinalIgnoreCase))
             {
                 user.Password = HashMd5(newPassword);
-                DataBaseService.Current.Db.Update(user);
+                return DataBaseService.Current.Db.Update(user) > 0;
             }
+            return false;
         }
 
         private static string HashMd5(string input)

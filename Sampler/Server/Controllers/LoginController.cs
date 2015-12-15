@@ -52,10 +52,15 @@ namespace Sampler.Server.Controllers
         [HttpPost]
         [Route("password")]
         [CustomAuthorization]
-        public void ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
+        public HttpResponseMessage ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
         {
-            AuthenticationService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
-                passwordBody.NewPassword);
+            if (AuthenticationService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
+                passwordBody.NewPassword))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 
