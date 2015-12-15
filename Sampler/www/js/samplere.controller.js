@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('MainController',
-    function ($scope, Sounds, alertService, notificationService) {
+    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage) {
 
         // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;
@@ -20,17 +20,17 @@ angular.module('samplereApp')
         var completeSoundList = [];
 
         var accentMap = {
-            "é": "e",
-            "è": "e",
-            "ê": "e",
-            "ë": "e",
-            "à": "a",
-            "â": "a",
-            "ä": "a",
-            "ö": "o",
-            "ô": "o",
-            "ù": "u",
-            "ç": "c"
+            "Ã©": "e",
+            "Ã¨": "e",
+            "Ãª": "e",
+            "Ã«": "e",
+            "Ã ": "a",
+            "Ã¢": "a",
+            "Ã¤": "a",
+            "Ã¶": "o",
+            "Ã´": "o",
+            "Ã¹": "u",
+            "Ã§": "c"
         };
         var normalize = function( term ) {
             var ret = "";
@@ -45,7 +45,14 @@ angular.module('samplereApp')
         };
 
         $scope.callSound = function (soundId){
-            Sounds.play({soundId: soundId});
+            Sounds.play({soundId: soundId}, function(success) {
+
+            }, function(error) {
+                if(error.status === 403) {
+                    // Quota exceeded
+                    alertService.addAlert('Quota dÃ©passÃ© !','danger');
+                }
+            });
         };
 
         $scope.mute = function (){
@@ -59,6 +66,16 @@ angular.module('samplereApp')
 				$scope.isMuted = isMuted;
 			});
 		});
+
+        $scope.logout = function () {
+            Login.logout(function() {
+                delete $localStorage.token;
+                delete $rootScope.token;
+                delete $rootScope.user;
+                $location.url('/login');
+            });
+        }
+
     });
 /*
  // Autocomplete on search field
