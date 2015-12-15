@@ -19,12 +19,12 @@ namespace Sampler.Server.Services
         #endregion
 
         private readonly Dictionary<string, int> _tokens;
-        private readonly Dictionary<int, string> _tokensByUser;
+        private readonly Dictionary<int, List<string>> _tokensByUser;
 
         public AuthenticationService()
         {
             _tokens = new Dictionary<string, int>();
-            _tokensByUser = new Dictionary<int, string>();
+            _tokensByUser = new Dictionary<int, List<string>>();
         }
 
         /// <summary>
@@ -49,15 +49,14 @@ namespace Sampler.Server.Services
 
         public string GetAuthenticationToken(int userId)
         {
-            string oldToken;
-            if (_tokensByUser.TryGetValue(userId, out oldToken))
+            List<string> oldTokens;
+            if (!_tokensByUser.TryGetValue(userId, out oldTokens))
             {
-                _tokens.Remove(oldToken);
-                _tokensByUser.Remove(userId);
+                _tokensByUser[userId] = new List<string>();
             }
             string token = Guid.NewGuid().ToString("N");
             _tokens[token] = userId;
-            _tokensByUser[userId] = token;
+            _tokensByUser[userId].Add(token);
 
             return token;
 
