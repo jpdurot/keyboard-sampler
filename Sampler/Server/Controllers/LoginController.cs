@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 using Sampler.Server.Utils;
@@ -47,5 +48,27 @@ namespace Sampler.Server.Controllers
 
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
+
+        [HttpPost]
+        [Route("password")]
+        [CustomAuthorization]
+        public void ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
+        {
+            AuthenticationService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
+                passwordBody.NewPassword);
+        }
     }
+
+    #region Modify password
+
+    public class ModifyPasswordBody
+    {
+        [JsonProperty("oldPassword")]
+        public string OldPassword { get; set; }
+
+        [JsonProperty("newPassword")]
+        public string NewPassword { get; set; }
+    }
+
+    #endregion
 }

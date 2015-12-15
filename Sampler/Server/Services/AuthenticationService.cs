@@ -107,6 +107,21 @@ namespace Sampler.Server.Services
             return _tokensByUser.Remove(user.Id);
         }
 
+        /// <summary>
+        /// Modify the user password
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        public void ModifyPassword(User user, string oldPassword, string newPassword)
+        {
+            if (string.Equals(user.Password, HashMd5(oldPassword), StringComparison.OrdinalIgnoreCase))
+            {
+                user.Password = HashMd5(newPassword);
+                DataBaseService.Current.Db.Update(user);
+            }
+        }
+
         private static string HashMd5(string input)
         {
             // Use input string to calculate MD5 hash
