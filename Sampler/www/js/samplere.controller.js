@@ -54,6 +54,10 @@ angular.module('samplereApp')
             });
         };
 		
+		$scope.callFavorite = function(soundId){
+			Sounds.favorite({soundId: soundId});
+		}
+		
 		notificationService.setMuteChangedHandler(function(isMuted){
 			$scope.$apply(function(){
 				$scope.isMuted = isMuted;

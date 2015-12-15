@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Sampler.Server.Model;
+using SQLite;
 
 namespace Sampler.Server.Services
 {
@@ -42,11 +46,24 @@ namespace Sampler.Server.Services
             return -1;
         }
 
-        public User Authenticate(string userName, string password)
+        /// <summary>
+        /// Gets the user by id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public User GetUser(int userId)
         {
-            return DbConnectionService.Current.Authenticate(userName, password);
+            return DataBaseService.Current.Db.Table<User>()
+                .FirstOrDefault(
+                    u =>
+                        u.Id == userId);
         }
 
+        /// <summary>
+        /// Gets the authentication token associated to the user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public string GetAuthenticationToken(int userId)
         {
             List<string> oldTokens;
@@ -63,6 +80,19 @@ namespace Sampler.Server.Services
         }
 
         /// <summary>
+        /// Authenticate a user
+        /// </summary>
+        /// <param name="userName">user name</param>
+        /// <param name="password">user password</param>
+        /// <returns></returns>
+        public User Authenticate(string userName, string password)
+        {
+            string cryptedPassword = HashMd5(password);
+
+            return DataBaseService.Current.Db.Table<User>().FirstOrDefault(u => u.Name == userName && u.Password == cryptedPassword);
+        }
+        
+        /// <summary>
         /// Disconnect an user from the server
         /// </summary>
         /// <param name="user"></param>
@@ -75,6 +105,22 @@ namespace Sampler.Server.Services
             }
 
             return _tokensByUser.Remove(user.Id);
+        }
+
+        private static string HashMd5(string input)
+        {
+            // Use input string to calculate MD5 hash
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Convert the byte array to hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
         }
     }
 }

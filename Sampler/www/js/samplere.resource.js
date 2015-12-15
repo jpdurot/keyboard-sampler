@@ -20,6 +20,10 @@ angular.module('samplereApp')
                 isMuted: {
                     method: 'GET',
                     url: '/api/Sounds/ismuted'
-                }
+                },
+				favorite: {
+					method: 'POST',
+                    url: '/api/Sounds/favorite'
+				}
             });
     }]);

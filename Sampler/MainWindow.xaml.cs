@@ -100,7 +100,7 @@ namespace Sampler
             _listener = new UsbListener();
             InitializeComponent();
 
-            DbConnectionService.Current.Connect();
+            DataBaseService.Current.Connect();
 
             string baseAddress = "http://+:9000/";
 
@@ -114,7 +114,7 @@ namespace Sampler
 
         void OnApplicationExit(object sender, ExitEventArgs e)
         {
-            DbConnectionService.Current.Dispose();
+            DataBaseService.Current.Dispose();
             
             StopListener();
             if (_webServer != null)

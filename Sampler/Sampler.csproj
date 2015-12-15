@@ -122,14 +122,16 @@
     <Compile Include="Player.cs" />
     <Compile Include="Server\Model\ActivityType.cs" />
     <Compile Include="Server\Model\Activity.cs" />
-    <Compile Include="Server\Model\LoginResponse.cs" />
-    <Compile Include="Server\Model\MuteResponse.cs" />
+    <Compile Include="Server\Model\FavoriteSound.cs" />
+    <Compile Include="Server\Model\Response\LoginResponse.cs" />
+    <Compile Include="Server\Model\Response\MuteResponse.cs" />
     <Compile Include="Server\Model\User.cs" />
-    <Compile Include="Server\Model\UserLogin.cs" />
+    <Compile Include="Server\Model\Response\UserLogin.cs" />
     <Compile Include="Server\Principal.cs" />
     <Compile Include="Server\Services\AuthenticationService.cs" />
-    <Compile Include="Server\Services\DbConnectionService.cs" />
-    <Compile Include="Server\Services\HistoryManager.cs" />
+    <Compile Include="Server\Services\DataBaseService.cs" />
+    <Compile Include="Server\Services\FavoriteSoundService.cs" />
+    <Compile Include="Server\Services\HistoryService.cs" />
     <Compile Include="Server\Services\QuotaService.cs">
       <SubType>Code</SubType>
     </Compile>

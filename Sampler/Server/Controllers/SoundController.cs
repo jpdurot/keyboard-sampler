@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 using Sampler.Server.Utils;
@@ -12,7 +13,6 @@ namespace Sampler.Server.Controllers
     [RoutePrefix("api/Sounds")]
     public class SoundController : ApiController
     {
-
         private static Sampler1 _sampler = Sampler1.Current;
         private static IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
@@ -32,7 +32,7 @@ namespace Sampler.Server.Controllers
                 UserId = Request.GetUserContext().Id,
                 Information = id.ToString(CultureInfo.InvariantCulture)
             };
-            HistoryManager.Current.AddActivity(a);
+            HistoryService.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
         }
 
@@ -51,7 +51,7 @@ namespace Sampler.Server.Controllers
                 Type = ActivityType.PlaySound,
                 UserId = Request.GetUserContext().Id
             };
-            HistoryManager.Current.AddActivity(a);
+            HistoryService.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
         }
 
@@ -85,5 +85,27 @@ namespace Sampler.Server.Controllers
         {
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
+
+        // POST
+        [HttpPost]
+        [Route("favorite")]
+        [CustomAuthorization]
+        public void MarkSoundFavorite([FromBody] FavoriteBody favoriteBody)
+        {
+            if (FavoriteSoundService.Current.IsFavorite(Request.GetUserContext().Id, favoriteBody.SoundId))
+            {
+                FavoriteSoundService.Current.RemoveFromFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+            }
+            else
+            {
+                FavoriteSoundService.Current.AddToFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+            }
+        }
+    }
+
+    public class FavoriteBody
+    {
+        [JsonProperty("soundId")]
+        public int SoundId { get; set; }
     }
 }
