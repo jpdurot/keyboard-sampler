@@ -73,7 +73,7 @@
       <div ng-if="user" class="col-md-4 navbar-form form-group has-feedback form-search">
         <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
                uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
-               typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="searchString" autofocus="true">
+               typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="search.query" autofocus="true">
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
       </div>
     </div>

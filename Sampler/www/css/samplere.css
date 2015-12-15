@@ -58,9 +58,9 @@ body {
 }
 .alert-container .alert-subcontainer {
   /* Make alerts displayed above page content */
-  position: absolute;
+  position: fixed;
   z-index: 1051;
-  right: 0;
+  right: 15px;
 }
 /* Permit alerts to have newlines */
 .alert-container .alert-subcontainer .alert>div>span {

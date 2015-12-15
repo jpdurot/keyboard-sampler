@@ -23,7 +23,6 @@ angular.module('samplereApp').config(
             return $q.reject(response);
           },
           request : function(config) {
-            console.log(config);
             if (!!config && !!config.url && config.url.indexOf('/api') === 0
                 && !!$localStorage.token) {
               // We add authentication headers

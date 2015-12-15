@@ -14,6 +14,9 @@ angular.module('samplereApp')
 		$scope.alerts = alertService.getAlerts();
 		$scope.closeAlert = alertService.closeAlert;
 
+        // To search sound with scope inheritance
+        $scope.search = {};
+
         var completeSoundList = [];
 
         var accentMap = {
@@ -38,7 +41,7 @@ angular.module('samplereApp')
         };
 
         $scope.clear = function() {
-            $scope.searchString = '';
+            $scope.search.query = '';
         };
 
         $scope.callSound = function (soundId){

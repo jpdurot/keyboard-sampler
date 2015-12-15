@@ -32,8 +32,6 @@ angular.module('samplereApp')
             return ret;
         };
 
-        $scope.callSound = $scope.$parent.callSound;
-
         // We check if sound is muted
         Sounds.isMuted(function(data) {
             $scope.$parent.isMuted = data.ismuted;
@@ -42,19 +40,8 @@ angular.module('samplereApp')
         Sounds.getList(function(data) {
             $scope.$parent.soundList = data;
         });
-
-        function getSounds() {
-            /*$.get('/api/sounds/info', function (data) {
-             data.forEach(function (sound) {
-             $('.buttons').append('<button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#" role="button" onclick="callSound(' + sound.Id + ')"><span>' + sound.Name + '</span></button>');
-             completeSoundList.push({
-             label: sound.Name,
-             value: sound.Id
-             });
-             });
-             });*/
-        }
-    });
+    }
+);
 /*
  // Autocomplete on search field
  $('#search').autocomplete({
