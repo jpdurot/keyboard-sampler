@@ -24,7 +24,7 @@ namespace Sampler.Server.Controllers
         public void Get(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
+            _soundsHubContext.Clients.All.addNewSoundMessageToPage(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
@@ -44,7 +44,7 @@ namespace Sampler.Server.Controllers
         public void Post(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.addNewMessageToPage((soundInfo!=null ? soundInfo.Name : "??"), Request.GetUserContext().Name);
+            _soundsHubContext.Clients.All.addNewSoundMessageToPage(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
@@ -72,7 +72,7 @@ namespace Sampler.Server.Controllers
         {
             _sampler.IsMuted = !_sampler.IsMuted;
 
-            _soundsHubContext.Clients.All.syncIsMuted(_sampler.IsMuted);
+            _soundsHubContext.Clients.All.syncIsMuted(_sampler.IsMuted, Request.GetUserContext().Name);
 
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
