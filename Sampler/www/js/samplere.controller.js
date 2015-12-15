@@ -53,6 +53,12 @@ angular.module('samplereApp')
                 $scope.isMuted = data.ismuted;
             });
         };
+		
+		notificationService.setMuteChangedHandler(function(isMuted){
+			$scope.$apply(function(){
+				$scope.isMuted = isMuted;
+			});
+		});
     });
 /*
  // Autocomplete on search field

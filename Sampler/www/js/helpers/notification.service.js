@@ -14,21 +14,36 @@ function notificationService($rootScope, alertService) {
    */
 
     var service = {};
-
+	
+	var _isMutedDelegate;
+	
     // Sounds hub defined on server
     var soundsHub = $.connection.soundsHub;
+	
     // Function invoked by server
     soundsHub.client.addNewMessageToPage = function (sound, user) {
         $rootScope.$apply(function() {
             alertService.addAlert(user + ' vient de jouer ' + sound + ' !!');
         });
     };
+	
+	soundsHub.client.syncIsMuted = function (isMuted) {
+		if (_isMutedDelegate)
+		{
+			_isMutedDelegate(isMuted);
+		}
+	}
+	
+	service.setMuteChangedHandler = function(handler)	{
+		_isMutedDelegate = handler;
+	}
+	
     // Start conection
     $.connection.hub.start();
 
   /*
    * Internal
    */
-
+  
   return service;
 }
