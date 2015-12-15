@@ -34,5 +34,18 @@ namespace Sampler.Server.Controllers
         {
             return new LoginResponse() {UserName = Request.GetUserContext().Name};
         }
+
+        [HttpGet]
+        [Route("logout")]
+        [CustomAuthorization]
+        public HttpResponseMessage Logout()
+        {
+            if (AuthenticationService.Current.Disconnect(Request.GetUserContext()))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound);
+        }
     }
 }
