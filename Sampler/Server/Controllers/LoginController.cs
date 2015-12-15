@@ -20,7 +20,7 @@ namespace Sampler.Server.Controllers
             if (user != null)
             {
                 var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user.Id);
-                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken });
+                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken, UserName = userInfo.UserName});
 
             }
 
