@@ -45,10 +45,14 @@ namespace Sampler.Server.Services
             return favoriteToRemove != null;
         }
 
-        public void UpdateSoundsInfo(int userId, IEnumerable<SoundInfo> soundsInfo)
+        public void UpdateSoundsInfo(int userId, List<SoundInfo> soundsInfo)
         {
-            var userFavorites = DataBaseService.Current.Db.Table<FavoriteSound>().Where(f => f.UserId == userId);
+            foreach (var soundInfo in soundsInfo)
+            {
+                soundInfo.IsFavorite = false;
+            }
 
+            var userFavorites = DataBaseService.Current.Db.Table<FavoriteSound>().Where(f => f.UserId == userId);
             foreach (var favoriteSound in userFavorites)
             {
                 var soundInfo = soundsInfo.FirstOrDefault(s => s.Id == favoriteSound.SoundId);
