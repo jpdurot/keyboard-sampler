@@ -21,16 +21,19 @@ function notificationService($rootScope, alertService) {
     var soundsHub = $.connection.soundsHub;
 	
     // Function invoked by server
-    soundsHub.client.addNewMessageToPage = function (sound, user) {
-        $rootScope.$apply(function() {
-            alertService.addAlert(user + ' vient de jouer ' + sound + ' !!');
+    soundsHub.client.addNewSoundMessageToPage = function (soundInfo, user, isMuted) {
+        $rootScope.$apply(function () {
+            if (isMuted)
+                alertService.addAlert(user + ' a tenté de jouer ' + soundInfo.Name + '.', 'warning');
+            else
+                alertService.addAlert(user + ' vient de jouer ' + soundInfo.Name + '.', 'success');
         });
     };
 	
-	soundsHub.client.syncIsMuted = function (isMuted) {
+	soundsHub.client.syncIsMuted = function (isMuted, user) {
 		if (_isMutedDelegate)
 		{
-			_isMutedDelegate(isMuted);
+			_isMutedDelegate(isMuted, user);
 		}
 	}
 	

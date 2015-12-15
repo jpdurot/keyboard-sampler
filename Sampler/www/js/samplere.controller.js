@@ -54,9 +54,13 @@ angular.module('samplereApp')
             });
         };
 		
-		notificationService.setMuteChangedHandler(function(isMuted){
+		notificationService.setMuteChangedHandler(function(isMuted, user){
 			$scope.$apply(function(){
-				$scope.isMuted = isMuted;
+			    $scope.isMuted = isMuted;
+			    if (isMuted)
+			        alertService.addAlert(user + ' vient de couper le son.', 'danger');
+			    else
+			        alertService.addAlert(user + ' vient de réactiver le son.', 'danger');
 			});
 		});
     });
