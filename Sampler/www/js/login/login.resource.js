@@ -13,6 +13,10 @@ angular.module('samplereApp')
                 isLoggedIn: {
                     method: 'GET',
                     url: '/api/login/test'
+                },
+                logout: {
+                    method: 'GET',
+                    url: '/api/login/logout'
                 }
             });
     }]);

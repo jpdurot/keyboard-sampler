@@ -61,5 +61,20 @@ namespace Sampler.Server.Services
             return token;
 
         }
+
+        /// <summary>
+        /// Disconnect an user from the server
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool Disconnect(User user)
+        {
+            foreach (var token in _tokensByUser[user.Id])
+            {
+                _tokens.Remove(token);
+            }
+
+            return _tokensByUser.Remove(user.Id);
+        }
     }
 }
