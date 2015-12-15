@@ -130,8 +130,14 @@
     <Compile Include="Server\Services\AuthenticationService.cs" />
     <Compile Include="Server\Services\DbConnectionService.cs" />
     <Compile Include="Server\Services\HistoryManager.cs" />
-	    <Compile Include="Server\Services\SoundsHub.cs" />
+    <Compile Include="Server\Services\QuotaService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Server\Services\SoundsHub.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Server\Utils\QuotaAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Server\Utils\RequestExtensions.cs" />
     <Compile Include="SoundInfo.cs" />
     <Compile Include="Server\SQLite\SQLite.cs" />

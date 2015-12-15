@@ -20,6 +20,7 @@ namespace Sampler.Server.Controllers
         [HttpGet]
         [Route("play/{id}")]
         [CustomAuthorization]
+        [Quota]
         public void Get(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
@@ -39,6 +40,7 @@ namespace Sampler.Server.Controllers
         [HttpPost]
         [Route("play/{id}")]
         [CustomAuthorization]
+        [Quota]
         public void Post(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
