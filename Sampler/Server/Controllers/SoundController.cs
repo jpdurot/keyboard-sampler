@@ -73,6 +73,7 @@ namespace Sampler.Server.Controllers
         [HttpPost]
         [Route("mute")]
         [CustomAuthorization]
+        [Quota]
         public MuteResponse Mute()
         {
             _sampler.IsMuted = !_sampler.IsMuted;
