@@ -90,22 +90,30 @@ namespace Sampler.Server.Controllers
         [HttpPost]
         [Route("favorite")]
         [CustomAuthorization]
-        public void MarkSoundFavorite([FromBody] FavoriteBody favoriteBody)
+        public FavoriteResponse MarkSoundFavorite([FromBody] FavoriteBody favoriteBody)
         {
             if (FavoriteSoundService.Current.IsFavorite(Request.GetUserContext().Id, favoriteBody.SoundId))
             {
                 FavoriteSoundService.Current.RemoveFromFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+                return new FavoriteResponse() {IsFavorite = false};
             }
-            else
-            {
-                FavoriteSoundService.Current.AddToFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
-            }
+            
+            FavoriteSoundService.Current.AddToFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+            return new FavoriteResponse() { IsFavorite = true };
         }
     }
 
+    #region Favorite classes
     public class FavoriteBody
     {
         [JsonProperty("soundId")]
         public int SoundId { get; set; }
     }
+
+    public class FavoriteResponse
+    {
+        [JsonProperty("isFavorite")]
+        public bool IsFavorite { get; set; }
+    }
+    #endregion
 }
