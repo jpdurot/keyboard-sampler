@@ -25,6 +25,9 @@ body {
   min-height: 50px;
   text-align: center;
 }
+.buttons .btn:focus {
+  background-color: transparent;
+}
 
 .buttons .btn span {
   white-space: normal;
@@ -36,8 +39,8 @@ body {
   right: 2px;
   font-size: 18px;
 }
-.buttons .span.glyphicon-star {
-  color: #ffff50;
+.buttons .btn span.glyphicon-star {
+  color: #DDDD00;
 }
 
 .form-search .close {
