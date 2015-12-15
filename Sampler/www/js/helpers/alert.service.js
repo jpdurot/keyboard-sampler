@@ -23,7 +23,7 @@ function alertService() {
    */
   service.addAlert = function(message,type,timeout) {
     if(!timeout) {
-      timeout = 10000;
+      timeout = 5000;
     }
     alerts.push({msg: message,type: type, timeout: timeout});
   };

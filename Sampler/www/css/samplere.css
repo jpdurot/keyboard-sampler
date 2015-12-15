@@ -30,6 +30,15 @@ body {
   white-space: normal;
   vertical-align: middle;
 }
+.buttons .btn span.glyphicon-star-empty,
+.buttons .btn span.glyphicon-star {
+  position: absolute;
+  right: 2px;
+  font-size: 18px;
+}
+.buttons .span.glyphicon-star {
+  color: #ffff50;
+}
 
 .form-search .close {
   text-align: left;
