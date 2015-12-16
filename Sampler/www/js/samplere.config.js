@@ -76,6 +76,9 @@ angular.module('samplereApp').config(
       $routeProvider.when('/login', {
         controller : 'LoginController',
         templateUrl : 'views/login/login.html'
+      }).when('/change_password', {
+        controller : 'ChangePasswordController',
+        templateUrl : 'views/change_password/change_password.html'
       }).when('/sounds', {
         controller : 'SoundsController',
         templateUrl : 'views/sounds/sounds.html',

@@ -33,6 +33,8 @@
   
   <script src="js/login/login.controller.js"></script>
   <script src="js/login/login.resource.js"></script>
+
+  <script src="js/change_password/change_password.controller.js"></script>
   
   <script src="js/sounds/sounds.controller.js"></script>
   <!-- <script src="js/sounds/sounds.resource.js"></script> -->
@@ -67,7 +69,7 @@
       <ul class="nav navbar-nav">
         <li ng-class="{active: isCurrentPage('') || isCurrentPage('/sounds')}"><a href="#">Home</a></li>
         <li ng-class="{active: isCurrentPage('/favorites')}"><a href="#/favorites">Favoris</a></li>
-        <li><a href="#about">À propos</a></li>
+        <li ng-class="{active: isCurrentPage('/about')}"><a href="#about">À propos</a></li>
         <li><a href="#" class="hidden-xs" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
       </ul>
       <div ng-if="user" class="col-md-4 navbar-form form-group has-feedback form-search">
@@ -77,6 +79,7 @@
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
       </div>
       <ul class="nav navbar-nav right">
+        <li ng-if="user" ng-class="{active: isCurrentPage('/change_password')}"><a href="#/change_password">Changer mot de passe</a></li>
         <li><a href="#" class="hidden-xs" ng-if="user" ng-click="logout(); $event.preventDefault()">Déconnexion</a></li>
       </ul>
     </div>

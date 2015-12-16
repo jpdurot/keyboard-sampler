@@ -17,6 +17,10 @@ angular.module('samplereApp')
                 logout: {
                     method: 'GET',
                     url: '/api/login/logout'
+                },
+                changePassword: {
+                    method: 'POST',
+                    url: '/api/login/password'
                 }
             });
     }]);
