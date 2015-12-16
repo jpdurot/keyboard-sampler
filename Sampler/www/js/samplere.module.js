@@ -12,5 +12,6 @@ angular.module('samplereApp', [
     'ui.bootstrap',
     'ngResource',
     'ngRoute',
-    'ngStorage'
+    'ngStorage',
+    'irontec.simpleChat'
 ]);

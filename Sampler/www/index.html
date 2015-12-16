@@ -14,16 +14,18 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
-
+  <!-- Chat -->
+  <link href="css/irontec-simple-chat/style.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/samplere.css" rel="stylesheet">
+
 
   <script src="assets/js/vendor/angular.min.js"></script>
   <script src="assets/js/vendor/angular-resource.min.js"></script>
   <script src="assets/js/vendor/angular-route.min.js"></script>
   <script src="assets/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
   <script src="assets/js/vendor/ngStorage.min.js"></script>
+  <script src="assets/js/vendor/lodash.min.js"></script>
   
   <script src="js/samplere.module.js"></script>
   <script src="js/samplere.config.js"></script>
@@ -37,9 +39,12 @@
   <script src="js/change_password/change_password.controller.js"></script>
   
   <script src="js/sounds/sounds.controller.js"></script>
-  <!-- <script src="js/sounds/sounds.resource.js"></script> -->
 
   <script src="js/helpers/alert.service.js"></script>
+
+  <!-- Chat -->
+  <script src="assets/js/vendor/irontec-simple-chat.js"></script>
+  <script src="js/chat/chat.controller.js"></script>
 
   <!-- SingalR realtime notifications -->
   <script src="assets/js/vendor/jquery-1.6.4.min.js"></script>
@@ -96,6 +101,21 @@
         <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</uib-alert>
       </div>
     </div>
+  </div>
+
+  <!-- Chat -->
+  <div ng-if="user" ng-controller="ChatController">
+    <irontec-simple-chat
+      messages="messages"
+      username="username"
+      input-placeholder-text="You can write here"
+      submit-button-text="Send your message"
+      title="Super Awesome Chat"
+      theme="material"
+      submit-function="sendMessage"
+      visible="visible"
+      expand-on-new="expandOnNew">
+    </irontec-simple-chat>
   </div>
 
   <div ng-view></div>

@@ -14,6 +14,7 @@ function notificationService($rootScope, alertService) {
    */
 
     var service = {};
+    service.messages = [];
 	
 	var _isMutedDelegate;
 	
@@ -27,6 +28,16 @@ function notificationService($rootScope, alertService) {
                 alertService.addAlert(user + ' a tenté de jouer "' + soundInfo.Name + '".', 'warning');
             else
                 alertService.addAlert(user + ' vient de jouer "' + soundInfo.Name + '".', 'success');
+        });
+    };
+
+    // Create a function that the hub can call to broadcast messages.
+    soundsHub.client.broadcastChatMessage = function (name, message) {
+        $rootScope.$apply(function() {
+            service.messages.push({
+                'username': name,
+                'content': message
+            });
         });
     };
 
@@ -51,7 +62,19 @@ function notificationService($rootScope, alertService) {
 	}
 	
     // Start conection
-    $.connection.hub.start();
+    // Start the connection.
+	$.connection.hub.start().done(function () {
+	    service.sendMessage = function (message) {
+	        if (message && message !== '') {
+	            // Call the Send method on the hub. 
+	            soundsHub.server.chatSend($rootScope.user.userName, message);
+	            service.messages.push({
+	                'username': $rootScope.user.userName,
+	                'content': message
+	            });
+	        }
+	    };
+	});
 
   /*
    * Internal
