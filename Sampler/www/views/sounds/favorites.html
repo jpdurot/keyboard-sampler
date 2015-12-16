@@ -1,4 +1,4 @@
 <div class="buttons">
-  <span ng-repeat="sound in soundList | filter:{IsFavorite:true}" ng-include src="'views/templates/sounds_list.html'">
+  <span ng-repeat="sound in soundList | filter:{IsFavorite:true, Name:search.query}" ng-include src="'views/templates/sounds_list.html'">
   </span>
 </div>
