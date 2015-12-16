@@ -15,6 +15,7 @@ namespace Sampler.Server.Controllers
     {
         [HttpGet]
         [Route("")]
+        [CustomAuthorization]
         public IEnumerable<User> GetUserList()
         {
             var users = AuthenticationService.Current.GetAuthenticatedtUsersList();
