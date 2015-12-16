@@ -13,8 +13,8 @@ namespace Sampler.Server.Controllers
     [RoutePrefix("api/Sounds")]
     public class SoundController : ApiController
     {
-        private static Sampler1 _sampler = Sampler1.Current;
-        private static IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
+        private static readonly Sampler1 _sampler = Sampler1.Current;
+        private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
         // GET
         [HttpGet]
@@ -24,7 +24,7 @@ namespace Sampler.Server.Controllers
         public void Get(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.addNewSoundMessageToPage(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
+            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
@@ -44,7 +44,7 @@ namespace Sampler.Server.Controllers
         public void Post(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.addNewSoundMessageToPage(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
+            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),

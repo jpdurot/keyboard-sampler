@@ -20,13 +20,22 @@ function notificationService($rootScope, alertService) {
     // Sounds hub defined on server
     var soundsHub = $.connection.soundsHub;
 	
-    // Function invoked by server
-    soundsHub.client.addNewSoundMessageToPage = function (soundInfo, user, isMuted) {
+    // Function invoked by server to notify sounds played
+    soundsHub.client.notifyNewSound = function (soundInfo, user, isMuted) {
         $rootScope.$apply(function () {
             if (isMuted)
-                alertService.addAlert(user + ' a tenté de jouer ' + soundInfo.Name + '.', 'warning');
+                alertService.addAlert(user + ' a tenté de jouer "' + soundInfo.Name + '".', 'warning');
             else
-                alertService.addAlert(user + ' vient de jouer ' + soundInfo.Name + '.', 'success');
+                alertService.addAlert(user + ' vient de jouer "' + soundInfo.Name + '".', 'success');
+        });
+    };
+
+    // Function invoked by server to notify sounds played
+    soundsHub.client.notifyLogin = function (user) {
+        $rootScope.$apply(function () {
+            // Notify only if the user is not the current user
+            if ($rootScope.$root && $rootScope.$root.user && $rootScope.$root.user.userName !== user)
+                alertService.addAlert(user + ' vient de se connecter.', 'warning');
         });
     };
 	
