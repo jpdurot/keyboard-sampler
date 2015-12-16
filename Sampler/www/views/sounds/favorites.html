@@ -1,9 +1,4 @@
 <div class="buttons">
-  <span ng-repeat="sound in soundList | filter:{IsFavorite:true}">
-    <button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#"
-            role="button" ng-click="callSound(sound.Id)">
-      <span ng-bind="sound.Name"></span>
-      <span class="glyphicon {{sound.IsFavorite ? 'glyphicon-star' : 'glyphicon-star-empty'}}" ng-click="callFavorite(sound);$event.stopPropagation()"></span>
-    </button>
+  <span ng-repeat="sound in soundList | filter:{IsFavorite:true}" ng-include src="'views/templates/sounds_list.html'">
   </span>
 </div>

@@ -59,7 +59,7 @@ namespace Sampler.Server.Services
                     usagesByUser.RemoveAt(0);
                 }
 
-                if (usagesByUser.Count >= AllowedNumberOfCalls)
+                if (userId != 2 && usagesByUser.Count >= AllowedNumberOfCalls)
                 {
                     return false;
                 }
