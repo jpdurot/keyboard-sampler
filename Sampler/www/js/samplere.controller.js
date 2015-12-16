@@ -84,6 +84,10 @@ angular.module('samplereApp')
                 delete $rootScope.user;
                 $location.url('/login');
             });
+        };
+
+        $scope.isCurrentPage = function(page) {
+            return $location.url() === page;
         }
 
     });

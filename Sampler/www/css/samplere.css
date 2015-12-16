@@ -25,6 +25,9 @@ body {
   min-height: 50px;
   text-align: center;
 }
+.buttons .btn:focus {
+  background-color: transparent;
+}
 
 .buttons .btn span {
   white-space: normal;
@@ -36,8 +39,17 @@ body {
   right: 2px;
   font-size: 18px;
 }
-.buttons .span.glyphicon-star {
-  color: #ffff50;
+span.glyphicon-star {
+  color: #DDDD00;
+}
+span.glyphicon-star:after {
+  color: #000;
+  content: "\e007";
+  margin-left: -1em;
+}
+
+.dropdown-menu span.glyphicon-star-empty {
+  position: absolute;
 }
 
 .form-search .close {
@@ -90,4 +102,31 @@ body {
 .alert-container .alert-subcontainer .alert.ng-leave, .alert-container .alert-subcontainer .alert.ng-enter {
   /* the transition is defined in the active class */
   transition: opacity ease 0.3s;
+}
+
+/* Typeahead and Dropdowns */
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:focus,
+.dropdown-menu>.active>a:hover {
+  background-color: #222;
+}
+.dropdown-menu a {
+  color: #222;
+}
+.dropdown-menu li {
+  position: relative;
+}
+.dropdown-menu li span.glyphicon {
+  position: absolute;
+  right: 5px;
+  line-height: 24px;
+}
+.dropdown-menu>.active> span.glyphicon {
+  color: #fff;
+}
+.dropdown-menu>.active> span.glyphicon-star {
+  color: #000;
+}
+.dropdown-menu>.active> span.glyphicon-star:after {
+  color: #DDDD00;
 }

@@ -84,6 +84,14 @@ angular.module('samplereApp').config(
             return checkLoggedin;
           }
         }
+      }).when('/favorites', {
+        controller : 'SoundsController',
+        templateUrl : 'views/sounds/favorites.html',
+        resolve : {
+          loggedIn : function() {
+            return checkLoggedin;
+          }
+        }
       }).otherwise({
         controller : 'SoundsController',
         templateUrl : 'views/sounds/sounds.html'

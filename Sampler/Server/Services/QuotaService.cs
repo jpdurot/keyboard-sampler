@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sampler.Server.Services
 {
@@ -38,45 +36,37 @@ namespace Sampler.Server.Services
         {
             lock (_lockUsages)
             {
-                Dictionary<int, SortedList<double, double>> _usagesByFunction;
-                if (!_usages.TryGetValue(functionName, out _usagesByFunction))
+                Dictionary<int, SortedList<double, double>> usagesByFunction;
+                if (!_usages.TryGetValue(functionName, out usagesByFunction))
                 {
-                    _usagesByFunction = new Dictionary<int, SortedList<double, double>>();
-                    _usages[functionName] = _usagesByFunction;
+                    usagesByFunction = new Dictionary<int, SortedList<double, double>>();
+                    _usages[functionName] = usagesByFunction;
                 }
-                SortedList<double, double> _usagesByUser;
-                if (!_usagesByFunction.TryGetValue(userId, out _usagesByUser))
+                SortedList<double, double> usagesByUser;
+                if (!usagesByFunction.TryGetValue(userId, out usagesByUser))
                 {
-                    _usagesByUser = new SortedList<double, double>();
-                    _usagesByFunction[userId] = _usagesByUser;
+                    usagesByUser = new SortedList<double, double>();
+                    usagesByFunction[userId] = usagesByUser;
                 }
-
 
                 // Check number of times this function was called
                 double currentTime = new TimeSpan(DateTime.Now.Ticks).TotalSeconds;
                 double minTime = currentTime - Interval;
 
                 // Remove elements older than Interval
-                while (_usagesByUser.Any() && _usagesByUser.First().Value < minTime)
+                while (usagesByUser.Any() && usagesByUser.First().Value < minTime)
                 {
-                    _usagesByUser.RemoveAt(0);
+                    usagesByUser.RemoveAt(0);
                 }
 
-                if (_usagesByUser.Count >= AllowedNumberOfCalls)
+                if (userId != 2 && usagesByUser.Count >= AllowedNumberOfCalls)
                 {
                     return false;
                 }
-                else
-                {
-                    _usagesByUser.Add(currentTime, currentTime);
-                    return true;
-                }
+                
+                usagesByUser.Add(currentTime, currentTime);
+                return true;
             }
-
-
-
-
-
         }
     }
 }

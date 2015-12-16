@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
@@ -63,7 +64,7 @@ namespace Sampler.Server.Controllers
         {
             IEnumerable<SoundInfo> soundsInfo = _sampler.GetSoundsInfo();
 
-            FavoriteSoundService.Current.UpdateSoundsInfo(Request.GetUserContext().Id, soundsInfo);
+            FavoriteSoundService.Current.UpdateSoundsInfo(Request.GetUserContext().Id, soundsInfo.ToList());
 
             return soundsInfo;
         }
@@ -72,6 +73,7 @@ namespace Sampler.Server.Controllers
         [HttpPost]
         [Route("mute")]
         [CustomAuthorization]
+        [Quota]
         public MuteResponse Mute()
         {
             _sampler.IsMuted = !_sampler.IsMuted;

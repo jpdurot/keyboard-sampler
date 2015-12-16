@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 using Sampler.Server.Utils;
@@ -22,7 +23,7 @@ namespace Sampler.Server.Controllers
             {
                 _soundsHubContext.Clients.All.notifyLogin(userInfo.UserName);
                 var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user.Id);
-                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken });
+                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken, UserName = userInfo.UserName});
 
             }
 
@@ -50,5 +51,32 @@ namespace Sampler.Server.Controllers
 
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
+
+        [HttpPost]
+        [Route("password")]
+        [CustomAuthorization]
+        public HttpResponseMessage ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
+        {
+            if (AuthenticationService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
+                passwordBody.NewPassword))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound);
+        }
     }
+
+    #region Modify password
+
+    public class ModifyPasswordBody
+    {
+        [JsonProperty("oldPassword")]
+        public string OldPassword { get; set; }
+
+        [JsonProperty("newPassword")]
+        public string NewPassword { get; set; }
+    }
+
+    #endregion
 }

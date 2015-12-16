@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configurations>
   <Configuration name="global">
-    <Sound keyCode="25" path="Sounds/voila.wav" />
+    <Sound keyCode="25" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="26" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="27" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="28" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="29" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="30" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="31" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="32" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="33" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="34" path="Sounds/voila.wav" name="Voilà" />
+    <Sound keyCode="35" path="Sounds/voila.wav" name="Voilà" />
   </Configuration>
 </Configurations>
