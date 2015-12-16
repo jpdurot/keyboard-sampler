@@ -24,11 +24,13 @@ namespace Sampler.Server.Services
 
         private readonly Dictionary<string, int> _tokens;
         private readonly Dictionary<int, List<string>> _tokensByUser;
+        private readonly List<User> _authenticatedUsers; 
 
         public AuthenticationService()
         {
             _tokens = new Dictionary<string, int>();
             _tokensByUser = new Dictionary<int, List<string>>();
+            _authenticatedUsers = new List<User>();
         }
 
         /// <summary>
@@ -44,6 +46,15 @@ namespace Sampler.Server.Services
                 return userId;
             }
             return -1;
+        }
+
+        /// <summary>
+        /// Gets the authenticated users list
+        /// </summary>
+        /// <returns>List of User</returns>
+        public IList<User> GetAuthenticatedtUsersList()
+        {
+            return _authenticatedUsers;
         }
 
         /// <summary>
@@ -88,8 +99,10 @@ namespace Sampler.Server.Services
         public User Authenticate(string userName, string password)
         {
             string cryptedPassword = HashMd5(password);
-
-            return DataBaseService.Current.Db.Table<User>().FirstOrDefault(u => u.Name == userName && u.Password == cryptedPassword);
+            User currentUser = DataBaseService.Current.Db.Table<User>().FirstOrDefault(u => u.Name == userName && u.Password == cryptedPassword);
+            if (currentUser != null)
+                _authenticatedUsers.Add(currentUser);
+            return currentUser;
         }
         
         /// <summary>
@@ -103,6 +116,7 @@ namespace Sampler.Server.Services
             {
                 _tokens.Remove(token);
             }
+            _authenticatedUsers.Remove(user);
 
             return _tokensByUser.Remove(user.Id);
         }

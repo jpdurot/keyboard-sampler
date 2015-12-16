@@ -115,6 +115,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Sampler1.cs" />
+    <Compile Include="Server\Controllers\UserController.cs" />
     <Compile Include="Server\Controllers\LoginController.cs" />
     <Compile Include="Server\Controllers\SoundController.cs" />
     <Compile Include="Configuration.cs" />
