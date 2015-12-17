@@ -14,6 +14,8 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Fontawesome core CSS -->
+  <link href="css/font-awesome.min.css" rel="stylesheet">
   <!-- Chat -->
   <link href="css/irontec-simple-chat/style.css" rel="stylesheet">
   <!-- Custom styles for this template -->
@@ -42,15 +44,15 @@
 
   <script src="js/helpers/alert.service.js"></script>
 
-  <!-- Chat -->
-  <script src="assets/js/vendor/irontec-simple-chat.js"></script>
-  <script src="js/chat/chat.controller.js"></script>
-
   <!-- SingalR realtime notifications -->
   <script src="assets/js/vendor/jquery-1.6.4.min.js"></script>
   <script src="assets/js/vendor/jquery.signalR-2.2.0.min.js"></script>
   <script src="socket/hubs"></script>
   <script src="js/helpers/notification.service.js"></script>
+
+  <!-- Chat -->
+  <script src="assets/js/vendor/irontec-simple-chat.js"></script>
+  <script src="js/chat/chat.controller.js"></script>
 
 </head>
 
@@ -92,7 +94,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="col-xs-12 col-sm-8 col-md-offset-2 col-md-8">
 
   <!-- Alerts -->
   <div class="container">
@@ -103,24 +105,24 @@
     </div>
   </div>
 
-  <!-- Chat -->
-  <div ng-if="user" ng-controller="ChatController">
-    <irontec-simple-chat
-      messages="messages"
-      username="username"
-      input-placeholder-text="You can write here"
-      submit-button-text="Send your message"
-      title="Super Awesome Chat"
-      theme="material"
-      submit-function="sendMessage"
-      visible="visible"
-      expand-on-new="expandOnNew">
-    </irontec-simple-chat>
-  </div>
-
   <div ng-view></div>
   
 </div>
+
+  <!-- Chat -->
+  <div class="chat-container hidden-xs col-sm-offset-9 col-sm-4 col-md-offset-10 col-md-2" ng-if="user" ng-controller="ChatController">
+    <irontec-simple-chat
+            messages="messages"
+            username="username"
+            input-placeholder-text="Ecris ici"
+            submit-button-text="Envoi"
+            title="Le Chat Du Samplère"
+            theme="material"
+            submit-function="sendMessage"
+            visible="visible"
+            expand-on-new="expandOnNew">
+    </irontec-simple-chat>
+  </div>
 
 </body>
 </html>

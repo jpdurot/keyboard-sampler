@@ -1,5 +1,5 @@
-<button class="btn btn-default col-xs-6 col-sm-3 col-md-2" href="#"
+<span class="btn btn-default" href="#"
         role="button" ng-click="callSound(sound.Id)">
   <span ng-bind="sound.Name"></span>
-  <span class="glyphicon {{sound.IsFavorite ? 'glyphicon-star' : 'glyphicon-star-empty'}}" ng-click="callFavorite(sound);$event.stopPropagation()"></span>
-</button>
+  <span class="fa {{sound.IsFavorite ? 'fa-star' : 'fa-star-o'}}" ng-click="callFavorite(sound);$event.stopPropagation()"></span>
+</span>

@@ -50,7 +50,7 @@ angular.module('samplereApp')
             }, function(error) {
                 if(error.status === 403) {
                     // Quota exceeded
-                    alertService.addAlert('Quota dépassé !','danger');
+                    alertService.addAlert('Quota de lecture dépassé !','danger');
                 }
             });
         };
@@ -58,6 +58,11 @@ angular.module('samplereApp')
         $scope.mute = function (){
             Sounds.muteUnmute(function(data) {
                 $scope.isMuted = data.ismuted;
+            }, function(error) {
+                if(error.status === 403) {
+                    // Quota exceeded
+                    alertService.addAlert('Quota de mute dépassé !','danger');
+                }
             });
         };
 		

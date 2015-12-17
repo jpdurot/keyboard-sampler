@@ -21,9 +21,19 @@ body {
   margin-top: 20px;
 }
 
+.buttons>span {
+  padding: 2px;
+}
+
 .buttons .btn {
   min-height: 50px;
   text-align: center;
+  background: rgb(206,220,231); /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, rgba(206,220,231,0.2) 0%, rgba(38,38,38,0.1) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(206,220,231,0.2) 0%,rgba(38,38,38,0.1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, rgba(206,220,231,0.2) 0%,rgba(38,38,38,0.1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  width: 100%;
+  word-wrap: break-word;
 }
 .buttons .btn:focus {
   background-color: transparent;
@@ -33,22 +43,23 @@ body {
   white-space: normal;
   vertical-align: middle;
 }
-.buttons .btn span.glyphicon-star-empty,
-.buttons .btn span.glyphicon-star {
+.buttons .btn span.fa-star-o,
+.buttons .btn span.fa-star {
   position: absolute;
   right: 2px;
+  top: 4px;
   font-size: 18px;
 }
-span.glyphicon-star {
-  color: #DDDD00;
+span.fa-star {
+  color: #FFDD00;
 }
-span.glyphicon-star:after {
+span.fa-star:after {
   color: #000;
-  content: "\e007";
+  content: "\f006";
   margin-left: -1em;
 }
 
-.dropdown-menu span.glyphicon-star-empty {
+.dropdown-menu span.fa-star-o {
   position: absolute;
 }
 
@@ -85,7 +96,7 @@ span.glyphicon-star:after {
   /* Make alerts displayed above page content */
   position: fixed;
   z-index: 1051;
-  right: 15px;
+  left: 15px;
 }
 /* Permit alerts to have newlines */
 .alert-container .alert-subcontainer .alert>div>span {
@@ -116,17 +127,29 @@ span.glyphicon-star:after {
 .dropdown-menu li {
   position: relative;
 }
-.dropdown-menu li span.glyphicon {
+.dropdown-menu li span.glyphicon,
+.dropdown-menu li span.fa{
   position: absolute;
   right: 5px;
   line-height: 24px;
 }
-.dropdown-menu>.active> span.glyphicon {
+.dropdown-menu>.active> span.glyphicon,
+.dropdown-menu>.active> span.fa {
   color: #fff;
 }
-.dropdown-menu>.active> span.glyphicon-star {
+.dropdown-menu>.active> span.fa-star {
   color: #000;
 }
-.dropdown-menu>.active> span.glyphicon-star:after {
-  color: #DDDD00;
+.dropdown-menu>.active> span.fa-star:after {
+  color: #FFDD00;
+}
+
+/* Chat */
+.chat-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 52px;
+  padding: 0;
+  box-shadow: 0px 0 1px;
 }

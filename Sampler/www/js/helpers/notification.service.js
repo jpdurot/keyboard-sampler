@@ -55,26 +55,26 @@ function notificationService($rootScope, alertService) {
 		{
 			_isMutedDelegate(isMuted, user);
 		}
-	}
+	};
 	
 	service.setMuteChangedHandler = function(handler)	{
 		_isMutedDelegate = handler;
-	}
+	};
+
+    service.sendMessage = function (message) {
+        if (message && message !== '') {
+            // Call the Send method on the hub.
+            soundsHub.server.chatSend($rootScope.user.userName, message);
+            service.messages.push({
+                'username': $rootScope.user.userName,
+                'content': message
+            });
+        }
+    };
 	
     // Start conection
     // Start the connection.
-	$.connection.hub.start().done(function () {
-	    service.sendMessage = function (message) {
-	        if (message && message !== '') {
-	            // Call the Send method on the hub. 
-	            soundsHub.server.chatSend($rootScope.user.userName, message);
-	            service.messages.push({
-	                'username': $rootScope.user.userName,
-	                'content': message
-	            });
-	        }
-	    };
-	});
+	$.connection.hub.start();
 
   /*
    * Internal
