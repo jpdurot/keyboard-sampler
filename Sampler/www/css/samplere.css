@@ -81,6 +81,19 @@ span.fa-star:after {
   margin-right: 15px;
 }
 
+.navbar-nav>li>a.btn-mute {
+  font-size: 19px;
+  padding-top: 14px;
+  padding-bottom: 13px;
+}
+
+.glyphicon-volume-up {
+  color: #00a500;
+}
+.glyphicon-volume-off {
+  color: #FD3010;
+}
+
 .mute-mobile {
   color: #9d9d9d;
   padding-top: 15px;
@@ -131,6 +144,7 @@ span.fa-star:after {
 .dropdown-menu li span.fa{
   position: absolute;
   right: 5px;
+  top: 0px;
   line-height: 24px;
 }
 .dropdown-menu>.active> span.glyphicon,
@@ -149,7 +163,18 @@ span.fa-star:after {
   position: fixed;
   right: 0;
   bottom: 0;
-  top: 52px;
-  padding: 0;
-  box-shadow: 0px 0 1px;
+  max-height: calc(100vh - 52px);
+  height: 600px;
+}
+
+.chat-container>div>div {
+  display: table;
+}
+.chat-container>div>div>.panel {
+  vertical-align: bottom;
+  display: table-cell;
+  float: none;
+}
+.chat-container .chat-top-bar {
+  height: auto;
 }
