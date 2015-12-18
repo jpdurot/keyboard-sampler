@@ -170,6 +170,15 @@ namespace Sampler.Server.Services
             return chatMessage;
         }
 
+        /// <summary>
+        /// Return all users from database
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<User> GetAllUsers()
+        {
+            return DataBaseService.Current.Db.Table<User>().ToList();
+        }
+
         private static string HashMd5(string input)
         {
             // Use input string to calculate MD5 hash

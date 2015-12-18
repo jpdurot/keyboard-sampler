@@ -111,18 +111,24 @@ namespace Sampler.Server.Controllers
         // GET
         [HttpGet]
         [Route("latest/{count}")]
-        [CustomAuthorization]
-        public IEnumerable<SoundInfo> GetLastPlayedSounds(int count)
+        public IEnumerable<PlayedSound> GetLastPlayedSounds(int count)
         {
-            var latestSounds = new List<SoundInfo>();
+            var latestSounds = new List<PlayedSound>();
             var latestActivities = HistoryService.Current.GetLatestPlayedSounds(count);
+            var allUsers = AuthenticationService.Current.GetAllUsers();
 
             foreach (var latestActivity in latestActivities)
             {
                 int soundId;
                 if (int.TryParse(latestActivity.Information, out soundId))
                 {
-                    latestSounds.Add(_sampler.GetSoundInfo(soundId));
+                    var playedSound = new PlayedSound()
+                    {
+                        SoundName = _sampler.GetSoundInfo(soundId).Name,
+                        UserName = allUsers.First(u => u.Id == latestActivity.UserId).Name,
+                        Time = new DateTime(latestActivity.Horodate.Ticks).ToString("dd/MM/yyyy HH:mm:ss")
+                    };
+                    latestSounds.Add(playedSound);
                 }
             }
 
@@ -142,5 +148,21 @@ namespace Sampler.Server.Controllers
         [JsonProperty("isFavorite")]
         public bool IsFavorite { get; set; }
     }
+    #endregion
+
+    #region Latest played sound
+
+    public class PlayedSound
+    {
+        [JsonProperty("soundname")]
+        public string SoundName { get; set; }
+
+        [JsonProperty("username")]
+        public string UserName { get; set; }
+
+        [JsonProperty("playtime")]
+        public string Time { get; set; }
+    }
+
     #endregion
 }
