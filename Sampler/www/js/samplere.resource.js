@@ -24,6 +24,10 @@ angular.module('samplereApp')
 				favorite: {
 					method: 'POST',
                     url: '/api/Sounds/favorite'
-				}
+				},
+                history: {
+                    method: 'GET',
+                    url: 'api/Sounds/latest/:count'
+                }
             });
     }]);

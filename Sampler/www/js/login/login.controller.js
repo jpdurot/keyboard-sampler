@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('LoginController',
-    function($scope, Login, alertService, $localStorage, $location, $rootScope) {
+    function($scope, Login, alertService, $localStorage, $location, $rootScope, notificationService) {
         $scope.doLogin = function () {
             Login.login({
                 userName: $scope.login,
@@ -19,6 +19,8 @@ angular.module('samplereApp')
                 $rootScope.token = data.token;
 				$location.url('/sounds');
                 alertService.addAlert('Bienvenue '+$scope.login,'success');
+                // We pull chat history
+                notificationService.initChat();
             }, function(error) {
                 alertService.addAlert('Veuillez vérifier votre login/mot de passe','danger');
 				console.log('erreur login');

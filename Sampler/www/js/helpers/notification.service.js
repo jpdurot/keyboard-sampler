@@ -7,7 +7,7 @@ angular
 /**
  * notification service: manage websocket notifications from server.
  */
-function notificationService($rootScope, alertService) {
+function notificationService($rootScope, alertService, User) {
 
   /*
    * Public interface
@@ -32,11 +32,12 @@ function notificationService($rootScope, alertService) {
     };
 
     // Create a function that the hub can call to broadcast messages.
-    soundsHub.client.broadcastChatMessage = function (name, message) {
+    soundsHub.client.broadcastChatMessage = function (name, message, time) {
         $rootScope.$apply(function() {
             service.messages.push({
                 'username': name,
-                'content': message
+                'content': message,
+                'time': time
             });
         });
     };
@@ -65,11 +66,19 @@ function notificationService($rootScope, alertService) {
         if (message && message !== '') {
             // Call the Send method on the hub.
             soundsHub.server.chatSend($rootScope.user.userName, message);
+            var currentDate = new Date();
             service.messages.push({
                 'username': $rootScope.user.userName,
-                'content': message
+                'content': message,
+                'time': currentDate.getDate()+'/'+(currentDate.getMonth()+1)+' à '+currentDate.getHours()+':'+currentDate.getMinutes()
             });
         }
+    };
+
+    service.initChat = function() {
+        // Let's pull latest 10 messages
+        service.messages = User.chatHistory();
+        console.log(service.messages)
     };
 	
     // Start conection

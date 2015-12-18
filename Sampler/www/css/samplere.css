@@ -26,7 +26,7 @@ body {
 }
 
 .buttons .btn {
-  min-height: 50px;
+  height: 55px;
   text-align: center;
   background: rgb(206,220,231); /* Old browsers */
   background: -moz-radial-gradient(center, ellipse cover, rgba(206,220,231,0.2) 0%, rgba(38,38,38,0.1) 100%); /* FF3.6-15 */
@@ -42,6 +42,12 @@ body {
 .buttons .btn span {
   white-space: normal;
   vertical-align: middle;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: inline; /* Fallback for non webkit */
+  display: -webkit-box;
+  overflow: hidden;
 }
 .buttons .btn span.fa-star-o,
 .buttons .btn span.fa-star {
@@ -92,6 +98,18 @@ span.fa-star:after {
 }
 .glyphicon-volume-off {
   color: #FD3010;
+}
+
+.navbar-nav.right .text {
+  display: none;
+}
+@media(min-width: 1200px) {
+  .navbar-nav.right .fa {
+    display: none;
+  }
+  .navbar-nav.right .text {
+    display: inline;
+  }
 }
 
 .mute-mobile {
@@ -163,8 +181,15 @@ span.fa-star:after {
   position: fixed;
   right: 0;
   bottom: 0;
-  max-height: calc(100vh - 52px);
+  max-height: calc(100% - 52px);
+  max-width: 350px;
   height: 600px;
+  pointer-events: none;
+}
+
+.chat-container .date {
+  font-style: italic;
+  color: grey;
 }
 
 .chat-container>div>div {
@@ -174,7 +199,20 @@ span.fa-star:after {
   vertical-align: bottom;
   display: table-cell;
   float: none;
+  background: transparent;
+}
+.chat-container>div>div>.panel>* {
+  pointer-events: auto;
 }
 .chat-container .chat-top-bar {
   height: auto;
+}
+
+.main-container {
+  padding-bottom: 116px; /* for chat on mobiles */
+}
+@media(min-width: 768px) {
+  .main-container {
+    padding-bottom: 5px;
+  }
 }

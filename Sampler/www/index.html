@@ -43,6 +43,8 @@
   <script src="js/login/login.controller.js"></script>
   <script src="js/login/login.resource.js"></script>
 
+  <script src="js/user/user.resource.js"></script>
+
   <script src="js/change_password/change_password.controller.js"></script>
   
   <script src="js/sounds/sounds.controller.js"></script>
@@ -92,14 +94,24 @@
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
       </div>
       <ul class="nav navbar-nav right">
-        <li ng-if="user" ng-class="{active: isCurrentPage('/change_password')}"><a href="#/change_password">Changer mot de passe</a></li>
-        <li><a href="#" class="hidden-xs" ng-if="user" ng-click="logout(); $event.preventDefault()">Déconnexion</a></li>
+        <li ng-if="user" ng-class="{active: isCurrentPage('/change_password')}">
+          <a href="#/change_password">
+            <span class="text">Changer mot de passe</span>
+            <span class="fa fa-key"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="hidden-xs" ng-if="user" ng-click="logout(); $event.preventDefault()">
+            <span class="text">Déconnexion</span>
+            <span class="fa fa-sign-out"></span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="col-xs-12 col-sm-8 col-md-offset-2 col-md-8">
+<div class="main-container col-xs-12 col-sm-8 col-md-offset-1 col-md-8">
 
   <!-- Alerts -->
   <div class="container">
@@ -115,7 +127,7 @@
 </div>
 
   <!-- Chat -->
-  <div class="chat-container hidden-xs col-sm-4 col-md-2" ng-if="user" ng-controller="ChatController">
+  <div class="chat-container col-xs-offset-1 col-xs-10 col-sm-4 col-md-3" ng-if="user" ng-controller="ChatController">
     <irontec-simple-chat
             messages="messages"
             username="username"
