@@ -75,35 +75,63 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-buttons-mobile" ng-if="user">
+        <a class="visible-xs-inline-block" href="#" class="hidden-xs" ng-click="logout(); $event.preventDefault()"><span class="fa fa-sign-out" title="Déconnexion"></span></a>
         <a class="visible-xs-inline-block mute-mobile" href="#" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a>
       </span>
       <a class="navbar-brand" href="#">Samplère v2.0</a>
-    </div>
-    <div id="navbar" uib-collapse="isCollapsed" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li ng-class="{active: isCurrentPage('') || isCurrentPage('/sounds')}"><a href="#">Accueil</a></li>
-        <li ng-class="{active: isCurrentPage('/favorites')}"><a href="#/favorites">Favoris</a></li>
-        <li ng-class="{active: isCurrentPage('/about')}"><a href="#about">À propos</a></li>
-        <li><a href="#" class="hidden-xs btn-mute" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
-      </ul>
-      <div ng-if="user" class="col-md-4 navbar-form form-group has-feedback form-search">
+      <div ng-if="user" class="visible-xs-inline-block navbar-form form-group has-feedback form-search form-search-mobile">
         <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
                uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
                typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="search.query" autofocus="true"
                typeahead-popup-template-url="views/templates/typeahead-popup.html">
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
       </div>
-      <ul class="nav navbar-nav right">
+    </div>
+    <div id="navbar" uib-collapse="isCollapsed" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: isCurrentPage('') || isCurrentPage('/sounds')}">
+          <a href="#">
+            <span class="text">Accueil</span>
+            <span class="glyphicon glyphicon-home" title="Accueil"></span>
+          </a>
+        </li>
+        <li ng-class="{active: isCurrentPage('/favorites')}">
+          <a href="#/favorites">
+            <span class="text">Favoris</span>
+            <span class="glyphicon glyphicon-star" title="Favoris"></span>
+          </a>
+        </li>
+        <li ng-class="{active: isCurrentPage('/about')}">
+          <a href="#about">
+            <span class="text">À propos</span>
+            <span class="glyphicon glyphicon-info-sign" title="À propos"></span>
+          </a>
+        </li>
+        <li ng-if="user" class="visible-xs-block" ng-class="{active: isCurrentPage('/change_password')}">
+          <a href="#/change_password">
+            <span class="text">Changer mot de passe</span>
+          </a>
+        </li>
+        <li><a href="#" class="hidden-xs btn-mute" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
+      </ul>
+      <div ng-if="user" class="hidden-xs col-md-4 col-sm-6 navbar-form form-group has-feedback form-search">
+        <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
+               uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
+               typeahead-on-select="callSound($item.Id)" autocomplete="off" ng-model="search.query" autofocus="true"
+               typeahead-popup-template-url="views/templates/typeahead-popup.html">
+        <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <ul class="nav navbar-nav right hidden-xs">
         <li ng-if="user" ng-class="{active: isCurrentPage('/change_password')}">
           <a href="#/change_password">
             <span class="text">Changer mot de passe</span>
-            <span class="fa fa-key"></span>
+            <span class="fa fa-key" title="Changer mot de passe"></span>
           </a>
         </li>
-        <li>
-          <a href="#" class="hidden-xs" ng-if="user" ng-click="logout(); $event.preventDefault()">
+        <li ng-if="user">
+          <a href="#" class="hidden-xs" ng-click="logout(); $event.preventDefault()">
             <span class="text">Déconnexion</span>
-            <span class="fa fa-sign-out"></span>
+            <span class="fa fa-sign-out" title="Déconnexion"></span>
           </a>
         </li>
       </ul>
