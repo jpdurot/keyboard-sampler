@@ -10,12 +10,12 @@
 			    '<div class="col-xs-12 col-md-12">' +
 			        '<div class="panel">' +
 			            '<div class="panel-heading chat-top-bar">' +
-				            '<div class="col-md-8 col-xs-8">' +
+				            '<div class="col-md-10 col-xs-10">' +
 				                '<h3 class="panel-title"><span class="fa fa-comment-o"></span> {{vm.title}}</h3>' +
 				            '</div>' +
-				            '<div class="col-md-4 col-xs-4 window-actions" style="text-align: right;">' +
+				            '<div class="col-md-2 col-xs-2 window-actions" style="text-align: right;">' +
 				                '<span class="fa" ng-class="vm.chatButtonClass" ng-click="vm.toggle()"></span>' +
-				                '<span class="fa fa-close" ng-click="vm.close()"></span>' +
+				                /*'<span class="fa fa-close" ng-click="vm.close()"></span>' +*/
 			                '</div>' +
 			            '</div>' +
 						'<div class="panel-body msg-container-base" ng-style="vm.panelStyle">' +
@@ -119,7 +119,7 @@
 		vm.theme = 'chat-th-' + $scope.theme;
 		vm.writingMessage = '';
 		vm.panelStyle = {'display': 'block'};
-		vm.chatButtonClass= 'fa-angle-double-down icon_minim';
+		vm.chatButtonClass= 'fa-minus icon_minim';
 
 		vm.toggle = toggle;
 		vm.close = close;
@@ -156,12 +156,12 @@
 
 		function toggle() {
 			if(vm.isHidden) {
-				vm.chatButtonClass = 'fa-angle-double-down icon_minim';
+				vm.chatButtonClass = 'fa-minus icon_minim';
 				vm.panelStyle = {'display': 'block'};
 				vm.isHidden = false;
 				scrollToBottom();
 			} else {
-				vm.chatButtonClass = 'fa-expand icon_minim';
+				vm.chatButtonClass = 'fa-chevron-up icon_minim';
 				vm.panelStyle = {'display': 'none'};
 				vm.isHidden = true;
 			}
