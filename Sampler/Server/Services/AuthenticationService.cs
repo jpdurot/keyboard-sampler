@@ -158,7 +158,8 @@ namespace Sampler.Server.Services
             {
                 _chatHistory.RemoveAt(0);
             }
-            _chatHistory.Add(new ChatMessage(){Name = name, Message = message});
+
+            _chatHistory.Add(new ChatMessage() { Name = name, Message = message, Time = DateTime.Now.ToString("dd/MM HH:mm:ss") });
         }
 
         private static string HashMd5(string input)

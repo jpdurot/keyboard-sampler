@@ -31,11 +31,14 @@ namespace Sampler.Server.Controllers
 
     public class ChatMessage
     {
-        [JsonProperty("name")]
+        [JsonProperty("username")]
         public string Name { get; set; }
 
-        [JsonProperty("message")]
+        [JsonProperty("content")]
         public string Message { get; set; }
+
+        [JsonProperty("time")]
+        public string Time { get; set; }
     }
 
 }
