@@ -152,14 +152,22 @@ namespace Sampler.Server.Services
         /// </summary>
         /// <param name="name">user name</param>
         /// <param name="message">chat message</param>
-        public void AddChatMessage(string name, string message)
+        public ChatMessage AddChatMessage(string name, string message)
         {
             if (_chatHistory.Count >= ChatMaxHistory)
             {
                 _chatHistory.RemoveAt(0);
             }
 
-            _chatHistory.Add(new ChatMessage() { Name = name, Message = message, Time = DateTime.Now.ToString("dd/MM HH:mm:ss") });
+            var chatMessage = new ChatMessage()
+            {
+                Name = name,
+                Message = message,
+                Time = DateTime.Now.ToString("dd/MM à HH:mm")
+            };
+            _chatHistory.Add(chatMessage);
+
+            return chatMessage;
         }
 
         private static string HashMd5(string input)
