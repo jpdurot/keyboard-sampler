@@ -64,7 +64,7 @@ namespace Sampler.Server.Controllers
         {
             IEnumerable<SoundInfo> soundsInfo = _sampler.GetSoundsInfo();
 
-            FavoriteSoundService.Current.UpdateSoundsInfo(Request.GetUserContext().Id, soundsInfo.ToList());
+            SoundService.Current.UpdateSoundsInfo(Request.GetUserContext().Id, soundsInfo.ToList());
 
             return soundsInfo;
         }
@@ -98,14 +98,35 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public FavoriteResponse MarkSoundFavorite([FromBody] FavoriteBody favoriteBody)
         {
-            if (FavoriteSoundService.Current.IsFavorite(Request.GetUserContext().Id, favoriteBody.SoundId))
+            if (SoundService.Current.IsFavorite(Request.GetUserContext().Id, favoriteBody.SoundId))
             {
-                FavoriteSoundService.Current.RemoveFromFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+                SoundService.Current.RemoveFromFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
                 return new FavoriteResponse() {IsFavorite = false};
             }
             
-            FavoriteSoundService.Current.AddToFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
+            SoundService.Current.AddToFavorite(Request.GetUserContext().Id, favoriteBody.SoundId);
             return new FavoriteResponse() { IsFavorite = true };
+        }
+
+        // GET
+        [HttpGet]
+        [Route("latest/{count}")]
+        [CustomAuthorization]
+        public IEnumerable<SoundInfo> GetLastPlayedSounds(int count)
+        {
+            var latestSounds = new List<SoundInfo>();
+            var latestActivities = HistoryService.Current.GetLatestPlayedSounds(count);
+
+            foreach (var latestActivity in latestActivities)
+            {
+                int soundId;
+                if (int.TryParse(latestActivity.Information, out soundId))
+                {
+                    latestSounds.Add(_sampler.GetSoundInfo(soundId));
+                }
+            }
+
+            return latestSounds;
         }
     }
 

@@ -131,7 +131,7 @@
     <Compile Include="Server\Principal.cs" />
     <Compile Include="Server\Services\AuthenticationService.cs" />
     <Compile Include="Server\Services\DataBaseService.cs" />
-    <Compile Include="Server\Services\FavoriteSoundService.cs" />
+    <Compile Include="Server\Services\SoundService.cs" />
     <Compile Include="Server\Services\HistoryService.cs" />
     <Compile Include="Server\Services\QuotaService.cs">
       <SubType>Code</SubType>

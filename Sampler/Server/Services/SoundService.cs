@@ -4,17 +4,17 @@ using Sampler.Server.Model;
 
 namespace Sampler.Server.Services
 {
-    public class FavoriteSoundService
+    public class SoundService
     {
         #region Singleton
 
-        private static FavoriteSoundService _instance;
+        private static SoundService _instance;
 
-        public static FavoriteSoundService Current
+        public static SoundService Current
         {
             get
             {
-                return (_instance ?? (_instance = new FavoriteSoundService()));
+                return (_instance ?? (_instance = new SoundService()));
             }
         }
 
