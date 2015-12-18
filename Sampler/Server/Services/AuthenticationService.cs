@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Sampler.Server.Controllers;
 using Sampler.Server.Model;
 using SQLite;
 
@@ -22,15 +23,24 @@ namespace Sampler.Server.Services
         }
         #endregion
 
+        private const int ChatMaxHistory = 10;
+
+        private readonly List<ChatMessage> _chatHistory;
         private readonly Dictionary<string, int> _tokens;
         private readonly Dictionary<int, List<string>> _tokensByUser;
-        private readonly List<User> _authenticatedUsers; 
+        private readonly List<User> _authenticatedUsers;
+
+        public List<ChatMessage> ChatHistory
+        {
+            get { return _chatHistory; }
+        }
 
         public AuthenticationService()
         {
             _tokens = new Dictionary<string, int>();
             _tokensByUser = new Dictionary<int, List<string>>();
             _authenticatedUsers = new List<User>();
+            _chatHistory = new List<ChatMessage>();
         }
 
         /// <summary>
@@ -135,6 +145,20 @@ namespace Sampler.Server.Services
                 return DataBaseService.Current.Db.Update(user) > 0;
             }
             return false;
+        }
+
+        /// <summary>
+        ///  Store previous chat in memory
+        /// </summary>
+        /// <param name="name">user name</param>
+        /// <param name="message">chat message</param>
+        public void AddChatMessage(string name, string message)
+        {
+            if (_chatHistory.Count >= ChatMaxHistory)
+            {
+                _chatHistory.RemoveAt(0);
+            }
+            _chatHistory.Add(new ChatMessage(){Name = name, Message = message});
         }
 
         private static string HashMd5(string input)

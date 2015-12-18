@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
@@ -22,6 +19,23 @@ namespace Sampler.Server.Controllers
 
             return users;
         }
+
+        [HttpGet]
+        [Route("messages")]
+        [CustomAuthorization]
+        public IEnumerable<ChatMessage> GetChatHistory()
+        {
+            return AuthenticationService.Current.ChatHistory;
+        }
+    }
+
+    public class ChatMessage
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
     }
 
 }
