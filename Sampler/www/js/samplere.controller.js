@@ -19,7 +19,7 @@ angular.module('samplereApp')
 
         var completeSoundList = [];
 
-        var accentMap = {
+        /*var accentMap = {
             "é": "e",
             "è": "e",
             "ê": "e",
@@ -38,7 +38,7 @@ angular.module('samplereApp')
                 ret += accentMap[ term.charAt(i) ] || term.charAt(i);
             }
             return ret;
-        };
+        };*/
 
         $scope.clear = function() {
             $scope.search.query = '';

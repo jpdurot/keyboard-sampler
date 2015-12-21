@@ -6,11 +6,16 @@
 angular.module('samplereApp')
     .controller('ChatController', chatController);
 
-function chatController(notificationService, $scope, $timeout) {
+function chatController(notificationService, $scope, Sounds) {
 
     // Visible if user is connected
     $scope.visible = true;
     $scope.messages = notificationService.messages;
     $scope.expandOnNew = true;
     $scope.sendMessage = notificationService.sendMessage;
+
+    /*$scope.soundHistory = Sounds.history(function(result){
+        console.log(result);
+    });*/
+
 }

@@ -27,6 +27,9 @@ angular.module('samplereApp')
 				},
                 history: {
                     method: 'GET',
+                    params: {
+                        count: 10
+                    },
                     url: 'api/Sounds/latest/:count'
                 }
             });

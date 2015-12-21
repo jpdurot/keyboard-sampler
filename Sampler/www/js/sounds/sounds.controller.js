@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * Created by Ludo on 04/12/2015.
  */
 'use strict';
@@ -12,17 +12,17 @@ angular.module('samplereApp')
         var completeSoundList = [];
 
         var accentMap = {
-            "é": "e",
-            "è": "e",
-            "ê": "e",
-            "ë": "e",
-            "à": "a",
-            "â": "a",
-            "ä": "a",
-            "ö": "o",
-            "ô": "o",
-            "ù": "u",
-            "ç": "c"
+            "Ã©": "e",
+            "Ã¨": "e",
+            "Ãª": "e",
+            "Ã«": "e",
+            "Ã ": "a",
+            "Ã¢": "a",
+            "Ã¤": "a",
+            "Ã¶": "o",
+            "Ã´": "o",
+            "Ã¹": "u",
+            "Ã§": "c"
         };
         var normalize = function( term ) {
             var ret = "";

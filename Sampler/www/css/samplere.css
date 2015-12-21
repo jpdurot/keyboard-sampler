@@ -104,6 +104,11 @@ span.fa-star:after {
 .navbar-nav>li>a>span.glyphicon {
   display: none;
 }
+.navbar-nav>li>a>span.glyphicon.glyphicon-volume-up,
+.navbar-nav>li>a>span.glyphicon.glyphicon-volume-off {
+  display: inline;
+}
+
 @media(min-width: 768px) and (max-width: 1199px) {
   .navbar-nav .text {
     display: none;
@@ -182,6 +187,18 @@ span.fa-star:after {
 .alert-container .alert-subcontainer .alert.ng-leave, .alert-container .alert-subcontainer .alert.ng-enter {
   /* the transition is defined in the active class */
   transition: opacity ease 0.3s;
+}
+
+/* Make alerts transparent on mobile and ability to click through */
+@media(max-width: 767px) {
+  .alert-subcontainer {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .alert-subcontainer button.close {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 /* Typeahead and Dropdowns */
