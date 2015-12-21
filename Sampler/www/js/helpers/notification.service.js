@@ -7,7 +7,7 @@ angular
 /**
  * notification service: manage websocket notifications from server.
  */
-function notificationService($rootScope, alertService, User) {
+function notificationService($rootScope, alertService, User, Sounds) {
 
   /*
    * Public interface
@@ -15,6 +15,7 @@ function notificationService($rootScope, alertService, User) {
 
     var service = {};
     service.messages = [];
+    service.soundsHistory = [];
 	
 	var _isMutedDelegate;
 	
@@ -78,7 +79,7 @@ function notificationService($rootScope, alertService, User) {
     service.initChat = function() {
         // Let's pull latest 10 messages
         service.messages = User.chatHistory();
-        console.log(service.messages)
+        service.soundsHistory = Sounds.history();
     };
 	
     // Start conection

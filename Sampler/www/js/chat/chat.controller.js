@@ -6,7 +6,7 @@
 angular.module('samplereApp')
     .controller('ChatController', chatController);
 
-function chatController(notificationService, $scope, Sounds) {
+function chatController(notificationService, $scope) {
 
     // Visible if user is connected
     $scope.visible = true;
@@ -14,8 +14,7 @@ function chatController(notificationService, $scope, Sounds) {
     $scope.expandOnNew = true;
     $scope.sendMessage = notificationService.sendMessage;
 
-    /*$scope.soundHistory = Sounds.history(function(result){
-        console.log(result);
-    });*/
+    // Sounds history
+    $scope.soundsHistory = notificationService.soundsHistory;
 
 }

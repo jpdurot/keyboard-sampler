@@ -271,3 +271,11 @@ span.fa-star:after {
     padding-bottom: 5px;
   }
 }
+
+.msg-container-base .msg-container {
+  padding: 4px 10px;
+}
+
+.msg-container-base .msg-container .chat-msg {
+  padding-bottom: 10px;
+}

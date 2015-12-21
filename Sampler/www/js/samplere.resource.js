@@ -30,7 +30,8 @@ angular.module('samplereApp')
                     params: {
                         count: 10
                     },
-                    url: 'api/Sounds/latest/:count'
+                    url: 'api/Sounds/latest/:count',
+                    isArray: true
                 }
             });
     }]);
