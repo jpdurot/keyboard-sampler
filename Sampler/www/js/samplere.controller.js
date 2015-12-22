@@ -45,6 +45,9 @@ angular.module('samplereApp')
         };
 
         $scope.callSound = function (soundId){
+			
+			createjs.Sound.play(soundId);
+			
             Sounds.play({soundId: soundId}, function(success) {
 
             }, function(error) {

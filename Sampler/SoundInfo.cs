@@ -40,7 +40,7 @@ namespace Sampler
             set { _isFavorite = value; }
         }
 
-        [JsonIgnore]
+        [DataMember]
         public string Uri
         {
             get { return _uri; }
