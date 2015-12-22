@@ -26,7 +26,7 @@ namespace Sampler.Server.Controllers
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id); 
             User user = Request.GetUserContext();
-            user.PlaySoundCount++;
+            UserService.Current.AddPlayedSound(user, id);
             _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
