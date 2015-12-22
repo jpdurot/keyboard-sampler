@@ -25,7 +25,7 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public IEnumerable<ChatMessage> GetChatHistory()
         {
-            return AuthenticationService.Current.ChatHistory;
+            return UserService.Current.ChatHistory;
         }
     }
 

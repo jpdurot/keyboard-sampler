@@ -57,7 +57,7 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public HttpResponseMessage ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
         {
-            if (AuthenticationService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
+            if (UserService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,
                 passwordBody.NewPassword))
             {
                 return Request.CreateResponse(HttpStatusCode.OK);

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using Sampler.Server.Controllers;
 using Sampler.Server.Model;
+using Sampler.Server.Utils;
 using SQLite;
 
 namespace Sampler.Server.Services
@@ -23,24 +22,15 @@ namespace Sampler.Server.Services
         }
         #endregion
 
-        private const int ChatMaxHistory = 10;
-
-        private readonly List<ChatMessage> _chatHistory;
         private readonly Dictionary<string, int> _tokens;
         private readonly Dictionary<int, List<string>> _tokensByUser;
         private readonly List<User> _authenticatedUsers;
-
-        public List<ChatMessage> ChatHistory
-        {
-            get { return _chatHistory; }
-        }
 
         public AuthenticationService()
         {
             _tokens = new Dictionary<string, int>();
             _tokensByUser = new Dictionary<int, List<string>>();
             _authenticatedUsers = new List<User>();
-            _chatHistory = new List<ChatMessage>();
         }
 
         /// <summary>
@@ -65,19 +55,6 @@ namespace Sampler.Server.Services
         public IList<User> GetAuthenticatedtUsersList()
         {
             return _authenticatedUsers;
-        }
-
-        /// <summary>
-        /// Gets the user by id
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public User GetUser(int userId)
-        {
-            return DataBaseService.Current.Db.Table<User>()
-                .FirstOrDefault(
-                    u =>
-                        u.Id == userId);
         }
 
         /// <summary>
@@ -108,7 +85,7 @@ namespace Sampler.Server.Services
         /// <returns></returns>
         public User Authenticate(string userName, string password)
         {
-            string cryptedPassword = HashMd5(password);
+            string cryptedPassword = Encryption.HashMd5(password);
             User currentUser = DataBaseService.Current.Db.Table<User>().FirstOrDefault(u => u.Name == userName && u.Password == cryptedPassword);
             if (currentUser != null)
                 _authenticatedUsers.Add(currentUser);
@@ -129,70 +106,6 @@ namespace Sampler.Server.Services
             _authenticatedUsers.Remove(user);
 
             return _tokensByUser.Remove(user.Id);
-        }
-
-        /// <summary>
-        /// Modify the user password
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="oldPassword"></param>
-        /// <param name="newPassword"></param>
-        public bool ModifyPassword(User user, string oldPassword, string newPassword)
-        {
-            if (string.Equals(user.Password, HashMd5(oldPassword), StringComparison.OrdinalIgnoreCase))
-            {
-                user.Password = HashMd5(newPassword);
-                return DataBaseService.Current.Db.Update(user) > 0;
-            }
-            return false;
-        }
-
-        /// <summary>
-        ///  Store previous chat in memory
-        /// </summary>
-        /// <param name="name">user name</param>
-        /// <param name="message">chat message</param>
-        public ChatMessage AddChatMessage(string name, string message)
-        {
-            if (_chatHistory.Count >= ChatMaxHistory)
-            {
-                _chatHistory.RemoveAt(0);
-            }
-
-            var chatMessage = new ChatMessage()
-            {
-                Name = name,
-                Message = message,
-                Time = DateTime.Now.ToString("dd/MM à HH:mm")
-            };
-            _chatHistory.Add(chatMessage);
-
-            return chatMessage;
-        }
-
-        /// <summary>
-        /// Return all users from database
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<User> GetAllUsers()
-        {
-            return DataBaseService.Current.Db.Table<User>().ToList();
-        }
-
-        private static string HashMd5(string input)
-        {
-            // Use input string to calculate MD5 hash
-            MD5 md5 = MD5.Create();
-            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-            byte[] hashBytes = md5.ComputeHash(inputBytes);
-
-            // Convert the byte array to hexadecimal string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hashBytes.Length; i++)
-            {
-                sb.Append(hashBytes[i].ToString("X2"));
-            }
-            return sb.ToString();
         }
     }
 }

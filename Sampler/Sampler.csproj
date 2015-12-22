@@ -137,7 +137,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Server\Services\SoundsHub.cs" />
+    <Compile Include="Server\Services\UserService.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Server\Utils\Encryption.cs" />
     <Compile Include="Server\Utils\QuotaAttribute.cs">
       <SubType>Code</SubType>
     </Compile>

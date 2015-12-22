@@ -18,5 +18,7 @@ namespace Sampler.Server.Model
                 return false;
             return (this.Id.Equals(otherUser.Id));
         } 
+
+        public int PlaySoundCount { get; set; }
     }
 }

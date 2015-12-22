@@ -12,7 +12,7 @@ namespace Sampler.Server.Services
         public void ChatSend(string name, string message)
         {
             // Store previous chat in memory
-            var chatMessage = AuthenticationService.Current.AddChatMessage(name, message);
+            var chatMessage = UserService.Current.AddChatMessage(name, message);
 
             // Call the broadcastChatMessage method to update all clients.
             Clients.Others.broadcastChatMessage(name, message, chatMessage.Time);

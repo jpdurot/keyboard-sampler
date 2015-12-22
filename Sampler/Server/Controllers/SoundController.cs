@@ -24,8 +24,10 @@ namespace Sampler.Server.Controllers
         [Quota]
         public void Get(int id)
         {
-            SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
+            SoundInfo soundInfo = _sampler.GetSoundInfo(id); 
+            User user = Request.GetUserContext();
+            user.PlaySoundCount++;
+            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
@@ -45,7 +47,10 @@ namespace Sampler.Server.Controllers
         public void Post(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
-            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, Request.GetUserContext().Name, _sampler.IsMuted);
+            User user = Request.GetUserContext();
+            UserService.Current.AddPlayedSound(user, id);
+            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
+
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
@@ -115,7 +120,7 @@ namespace Sampler.Server.Controllers
         {
             var latestSounds = new List<PlayedSound>();
             var latestActivities = HistoryService.Current.GetLatestPlayedSounds(count);
-            var allUsers = AuthenticationService.Current.GetAllUsers();
+            var allUsers = UserService.Current.GetAllUsers();
 
             foreach (var latestActivity in latestActivities)
             {

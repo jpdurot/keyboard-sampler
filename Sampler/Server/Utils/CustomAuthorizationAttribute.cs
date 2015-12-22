@@ -29,7 +29,7 @@ namespace Sampler.Server.Utils
                     else
                     {
                         // User is authenticated
-                        User user = AuthenticationService.Current.GetUser(connectedUser);
+                        User user = UserService.Current.GetUser(connectedUser);
                         actionContext.Request.SetUserContext(user);
                     }
                 }
