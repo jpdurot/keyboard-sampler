@@ -39,6 +39,10 @@ angular.module('samplereApp')
 
         Sounds.getList(function(data) {
             $scope.$parent.soundList = data;
+			
+			angular.forEach(data, function(d){
+				createjs.Sound.registerSound("../" + d.Uri, d.Id);
+			});
         });
     }
 );

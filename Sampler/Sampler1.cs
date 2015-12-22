@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
 using System.Xml.Linq;
-using Microsoft.AspNet.SignalR;
-using Sampler.Server.Services;
 
 namespace Sampler
 {

@@ -7,10 +7,10 @@ namespace Sampler
     public class Player
     {
         private IWavePlayer _mediaPlayer;
-        private WaveFileReader _soundReader;
+        private WaveStream _soundReader;
         private WaveChannel32 _soundChannel;
 
-        private string _soundFile;
+        private readonly string _soundFile;
 
         public bool IsLooping { get; private set; }
 
@@ -22,12 +22,25 @@ namespace Sampler
         public void SetDevice(Guid deviceId)
         {
             Reset();
-            _soundReader = new WaveFileReader(_soundFile);
+
+            if (_soundFile.EndsWith(".wav"))
+            {
+                _soundReader = new WaveFileReader(_soundFile);
+                
+            }
+            else if (_soundFile.EndsWith(".mp3"))
+            {
+                _soundReader = new Mp3FileReader(_soundFile);
+            }
+            else
+            {
+                throw new NotSupportedException("Invalid format " + _soundFile);
+            }
+
             _soundChannel = new WaveChannel32(_soundReader) { PadWithZeroes = false };
             _soundReader.Seek(0, SeekOrigin.Begin);
             _mediaPlayer = new DirectSoundOut(deviceId);
             _mediaPlayer.Init(_soundChannel);
-
             _mediaPlayer.PlaybackStopped += OnPlaybackStopped;
         }
 
