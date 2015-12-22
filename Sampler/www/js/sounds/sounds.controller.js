@@ -41,7 +41,7 @@ angular.module('samplereApp')
             $scope.$parent.soundList = data;
 			
 			angular.forEach(data, function(d){
-				createjs.Sound.registerSound("../" + d.Uri, d.Id);
+				createjs.Sound.registerSound('../' + d.Uri, d.Id);
 			});
         });
     }
