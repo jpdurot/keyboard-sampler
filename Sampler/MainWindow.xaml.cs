@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 using NAudio.Wave;
 using Sampler.Server.Services;
@@ -15,9 +16,8 @@ namespace Sampler
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
+        private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
         private readonly UsbListener _listener;
-
-        private bool _communicationEstablished = false;
 
         private Sampler1 _sampler1;
 
@@ -27,7 +27,7 @@ namespace Sampler
         private ObservableCollection<DirectSoundDeviceInfo> _devices;
         private DirectSoundDeviceInfo _device;
 
-        private IDisposable _webServer;
+        private readonly IDisposable _webServer;
 
         public ICommand TaskbarClickCommand
         {
@@ -130,9 +130,13 @@ namespace Sampler
             if (e.KeyCode == 41)
             {
                 _sampler1.IsMuted = !_sampler1.IsMuted;
+                _soundsHubContext.Clients.All.syncIsMuted(_sampler1.IsMuted, "Keyboard");
             }
             else
             {
+                /*SoundInfo soundInfo = _sampler1.GetSoundInfo(e.KeyCode);
+                _soundsHubContext.Clients.All.notifyNewSound(soundInfo, "Keyboard", _sampler1.IsMuted);*/
+
                 _sampler1.PlaySound(e.KeyCode, e.IsShiftPressed);
             }
         }
