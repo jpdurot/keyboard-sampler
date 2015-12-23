@@ -54,10 +54,6 @@ angular.module('samplereApp').config(
           // Authenticated
           if (user !== '0') {
             deferred.resolve();
-            // Success, user is logged in so we save it into rootScope
-            $rootScope.user = {
-                userName: user.userName
-            };
           }
 
           // Not Authenticated

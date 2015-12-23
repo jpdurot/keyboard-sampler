@@ -23,8 +23,14 @@ namespace Sampler.Server.Controllers
             {
                 _soundsHubContext.Clients.All.notifyLogin(userInfo.UserName);
                 var authenticationToken = AuthenticationService.Current.GetAuthenticationToken(user.Id);
-                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse { Token = authenticationToken, UserName = userInfo.UserName});
-
+                return Request.CreateResponse(HttpStatusCode.OK, new LoginResponse
+                {
+                    Token = authenticationToken, 
+                    UserName = userInfo.UserName,
+                    AllowBroadcastSounds = user.AllowBroadcastSounds,
+                    PlayingProfil = user.PlayingProfil,
+                    PlaySoundCount = user.PlaySoundCount
+                });
             }
 
             return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -36,7 +42,13 @@ namespace Sampler.Server.Controllers
         [CustomAuthorization]
         public LoginResponse Test()
         {
-            return new LoginResponse() {UserName = Request.GetUserContext().Name};
+            return new LoginResponse()
+            {
+                UserName = Request.GetUserContext().Name,
+                AllowBroadcastSounds = Request.GetUserContext().AllowBroadcastSounds,
+                PlayingProfil = Request.GetUserContext().PlayingProfil,
+                PlaySoundCount = Request.GetUserContext().PlaySoundCount
+            };
         }
 
         [HttpGet]

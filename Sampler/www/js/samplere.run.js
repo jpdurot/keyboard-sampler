@@ -12,7 +12,9 @@ angular.module('samplereApp')
     Login.isLoggedIn(function(user) {
       // Success, user is logged in so we save it into rootScope
       $rootScope.user = {
-        userName: user.userName
+        userName: user.userName,
+		playingProfil: user.playingProfil,
+		allowBroadcastSounds: user.allowBroadcastSounds
       };
       // We pull chat history
       notificationService.initChat();

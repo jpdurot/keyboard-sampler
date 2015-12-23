@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('SoundsController',
-    function($scope, Sounds) {
+    function($scope, Sounds, $rootScope) {
       
       console.log('SoundsController');
 
@@ -40,9 +40,11 @@ angular.module('samplereApp')
         Sounds.getList(function(data) {
             $scope.$parent.soundList = data;
 			
-			angular.forEach(data, function(d){
-				createjs.Sound.registerSound('../' + d.Uri, d.Id);
-			});
+			if ($rootScope.user.playingProfil != 2) {
+				angular.forEach(data, function(d){
+					createjs.Sound.registerSound('../' + d.Uri, d.Id);
+				});
+			}
         });
     }
 );

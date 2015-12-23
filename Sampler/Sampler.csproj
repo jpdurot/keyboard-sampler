@@ -124,6 +124,7 @@
     <Compile Include="Server\Model\ActivityType.cs" />
     <Compile Include="Server\Model\Activity.cs" />
     <Compile Include="Server\Model\FavoriteSound.cs" />
+    <Compile Include="Server\Model\PlayingProfilType.cs" />
     <Compile Include="Server\Model\Response\LoginResponse.cs" />
     <Compile Include="Server\Model\Response\MuteResponse.cs" />
     <Compile Include="Server\Model\User.cs" />

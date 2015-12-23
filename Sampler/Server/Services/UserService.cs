@@ -109,5 +109,19 @@ namespace Sampler.Server.Services
         {
             return DataBaseService.Current.Db.Table<User>().ToList();
         }
+
+        /// <summary>
+        /// Modify user profil
+        /// </summary>
+        /// <param name="userFromContext">old user</param>
+        /// <param name="newUser">new user</param>
+        /// <returns></returns>
+        public bool ModifyUserProfil(User userFromContext, User newUser)
+        {
+            userFromContext.PlayingProfil = newUser.PlayingProfil;
+            userFromContext.AllowBroadcastSounds = newUser.AllowBroadcastSounds;
+
+            return DataBaseService.Current.Db.Update(userFromContext) > 0;
+        }
     }
 }
