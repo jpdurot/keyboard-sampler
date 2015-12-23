@@ -13,5 +13,6 @@ angular.module('samplereApp', [
     'ngResource',
     'ngRoute',
     'ngStorage',
+    'ngAnimate',
     'irontec.simpleChat'
 ]);

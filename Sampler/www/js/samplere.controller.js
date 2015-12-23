@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('MainController',
-    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage, waitSpinnerService) {
+    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage, waitSpinnerService, $timeout) {
 
         // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;
@@ -104,7 +104,14 @@ angular.module('samplereApp')
         };
 
         // Spinner animation while waiting response
-        $scope.displaySpinner = waitSpinnerService.isDisplaySpinner;
+        $scope.displaySpinner = waitSpinnerService.displaySpinner;
+        $scope.$on('spinner', function() {
+            // Do it inside $timeout to automatically and safely $apply
+            $timeout(function(){
+                $scope.displaySpinner = waitSpinnerService.displaySpinner;
+            },0);
+        });
+
 
     });
 /*

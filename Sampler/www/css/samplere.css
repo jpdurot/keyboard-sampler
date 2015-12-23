@@ -297,23 +297,23 @@ span.fa-star:after {
 .wait-frame.ng-hide {
   background-color: rgba(160,160,160,0);
 }
-.wait-frame .spinner-container {
+.wait-frame.ng-hide .spinner-container {
   opacity: 0;
 }
-.wait-frame .spinner {
+.wait-frame.ng-hide .spinner {
   height: 0;
 }
 .wait-frame.ng-hide-remove, .wait-frame.ng-hide-add {
-                     /* this is required as of 1.3x to properly
-                        apply all styling in a show/hide animation */
-                     transition: background-color ease-in-out 0s;
+   /* this is required as of 1.3x to properly
+      apply all styling in a show/hide animation */
+   transition: background-color ease-in-out 0s;
 }
 .wait-frame.ng-hide-remove .spinner-container,
 .wait-frame.ng-hide-add .spinner-container {
   transition: all ease-in-out 0s;
 }
-.wait-frame.ng-hide-remove .spinner, .wait-frame.ng-hide-remove .wait-text,
-.wait-frame.ng-hide-add .spinner, .wait-frame.ng-hide-add .wait-text {
+.wait-frame.ng-hide-remove .spinner-container .spinner, .wait-frame.ng-hide-remove .spinner-container .wait-text,
+.wait-frame.ng-hide-add .spinner-container .spinner, .wait-frame.ng-hide-add .spinner-container .wait-text {
   transition: all ease-in-out 0s;
 }
 .wait-frame.ng-hide-remove-active, .wait-frame.ng-hide-add-active {
@@ -324,8 +324,8 @@ span.fa-star:after {
 .wait-frame.ng-hide-add-active .spinner-container {
   transition: opacity ease-in-out 0.6s;
 }
-.wait-frame.ng-hide-remove-active .spinner,
-.wait-frame.ng-hide-add-active .spinner {
+.wait-frame.ng-hide-remove-active .spinner-container .spinner,
+.wait-frame.ng-hide-add-active .spinner-container .spinner {
   transition: height ease-in-out 0.6s;
 }
 
@@ -338,14 +338,15 @@ span.fa-star:after {
   background-color: #ffffff;
   vertical-align: middle;
   text-align: center;
+}
 
-.wait-frame .spinner {
-  background: url(images/spinner.gif) center no-repeat;
+.wait-frame .spinner-container .spinner {
+  background: url(../img/spinner.gif) center no-repeat;
   width: 100px;
   height: 100px;
   margin: 0 auto;
 }
 
-.wait-frame .wait-text {
+.wait-frame .spinner-container .wait-text {
   padding: 3px;
 }
