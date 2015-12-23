@@ -123,9 +123,13 @@
     <Compile Include="Player.cs" />
     <Compile Include="Server\Model\ActivityType.cs" />
     <Compile Include="Server\Model\Activity.cs" />
+    <Compile Include="Server\Model\DatabaseOperation.cs" />
     <Compile Include="Server\Model\FavoriteSound.cs" />
     <Compile Include="Server\Model\Response\LoginResponse.cs" />
     <Compile Include="Server\Model\Response\MuteResponse.cs" />
+    <Compile Include="Server\Model\Trophy.cs" />
+    <Compile Include="Server\Model\Types\DatabaseOperationType.cs" />
+    <Compile Include="Server\Model\Types\TrophyType.cs" />
     <Compile Include="Server\Model\User.cs" />
     <Compile Include="Server\Model\Response\UserLogin.cs" />
     <Compile Include="Server\Principal.cs" />
@@ -137,6 +141,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Server\Services\SoundsHub.cs" />
+    <Compile Include="Server\Services\TrophyService.cs" />
     <Compile Include="Server\Services\UserService.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
     <Compile Include="Server\Utils\Encryption.cs" />
@@ -144,6 +149,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Server\Utils\RequestExtensions.cs" />
+    <Compile Include="Server\Utils\TrophyAttribute.cs" />
     <Compile Include="SoundInfo.cs" />
     <Compile Include="Server\SQLite\SQLite.cs" />
     <Compile Include="Server\SQLite\SQLiteAsync.cs" />

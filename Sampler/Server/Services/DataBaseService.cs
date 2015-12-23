@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Sampler.Server.Model;
+using Sampler.Server.Model.Types;
 using SQLite;
 
 namespace Sampler.Server.Services
@@ -12,7 +13,7 @@ namespace Sampler.Server.Services
         private SQLiteConnection _dataBase;
 
         private readonly object _lockQueue = new object();
-        private readonly Queue<object> _objectToInsert = new Queue<object>();
+        private readonly Queue<DatabaseOperation> _objectToOperate = new Queue<DatabaseOperation>();
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private volatile bool _stopRequested;
 
@@ -56,7 +57,25 @@ namespace Sampler.Server.Services
         {
             lock (_lockQueue)
             {
-                _objectToInsert.Enqueue(obj);
+                _objectToOperate.Enqueue(new DatabaseOperation(obj, DatabaseOperationType.Insert));
+                _resetEvent.Set();
+            }
+        }
+
+        public void UpdateData(object obj)
+        {
+            lock (_lockQueue)
+            {
+                _objectToOperate.Enqueue(new DatabaseOperation(obj, DatabaseOperationType.Update));
+                _resetEvent.Set();
+            }
+        }
+
+        public void DeleteData(object obj)
+        {
+            lock (_lockQueue)
+            {
+                _objectToOperate.Enqueue(new DatabaseOperation(obj, DatabaseOperationType.Delete));
                 _resetEvent.Set();
             }
         }
@@ -66,19 +85,30 @@ namespace Sampler.Server.Services
             while (!_stopRequested)
             {
                 _resetEvent.WaitOne();
-                object obj = null;
+                DatabaseOperation obj = null;
                 lock (_lockQueue)
                 {
-                    if (_objectToInsert.Count > 0)
-                        obj = _objectToInsert.Dequeue();
+                    if (_objectToOperate.Count > 0)
+                        obj = _objectToOperate.Dequeue();
                 }
                 if (obj != null)
                 {
-                    _dataBase.Insert(obj);
+                    switch (obj.Type)
+                    {
+                        case DatabaseOperationType.Insert :
+                            _dataBase.Insert(obj.Object);
+                            break;
+                        case DatabaseOperationType.Update :
+                            _dataBase.Update(obj.Object);
+                            break;
+                        case DatabaseOperationType.Delete :
+                            _dataBase.Delete(obj.Object);
+                            break;
+                    }
                 }
                 lock (_lockQueue)
                 {
-                    if (_objectToInsert.Count == 0)
+                    if (_objectToOperate.Count == 0)
                         _resetEvent.Reset();
                 }
             }
