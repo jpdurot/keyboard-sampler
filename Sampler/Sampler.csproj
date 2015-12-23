@@ -115,6 +115,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Sampler1.cs" />
+    <Compile Include="Server\Controllers\TrophyController.cs" />
     <Compile Include="Server\Controllers\UserController.cs" />
     <Compile Include="Server\Controllers\LoginController.cs" />
     <Compile Include="Server\Controllers\SoundController.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Server\Model\ActivityType.cs" />
     <Compile Include="Server\Model\Activity.cs" />
+    <Compile Include="Server\Model\Contract\TrophyInfo.cs" />
     <Compile Include="Server\Model\DatabaseOperation.cs" />
     <Compile Include="Server\Model\FavoriteSound.cs" />
     <Compile Include="Server\Model\PlayingProfilType.cs" />

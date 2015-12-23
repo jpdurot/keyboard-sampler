@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.AspNet.SignalR;
 using Sampler.Properties;
 using Sampler.Server.Model;
+using Sampler.Server.Model.Contract;
 
 namespace Sampler.Server.Services
 {
@@ -134,6 +135,16 @@ namespace Sampler.Server.Services
             ToastNewTrophy(user.Name, trophy);
         }
 
+        public IEnumerable<TrophyInfo> GetAllTrophyInfos()
+        {
+            var trophyInfos = new List<TrophyInfo>();
+            foreach (Trophy trophy in AllTrophies.Values)
+            {
+                trophyInfos.Add(new TrophyInfo(trophy.Id, trophy.Name, trophy.Description));
+            }
+            return trophyInfos;
+        }
+
         internal void UpdateTrophy(string actionId, User user)
         {
             lock (_lockUsages)
@@ -164,6 +175,23 @@ namespace Sampler.Server.Services
                 //        trophyAchievedList.Add(trophy);
                 //    }
                 //}
+            }
+        }
+
+        internal void UpdateUserTrophyInfos(int userId, List<TrophyInfo> trophyInfos)
+        {
+            foreach (var trophyInfo in trophyInfos)
+            {
+                trophyInfo.IsAchieved = true;
+            }
+
+            foreach (Trophy trophy in CurrentUsersTrophiesToAchieve[userId])
+            {
+                var trophyInfo = trophyInfos.FirstOrDefault(s => s.Id == trophy.Id);
+                if (trophyInfo != null)
+                {
+                    trophyInfo.IsAchieved = false;
+                }
             }
         }
     }
