@@ -22,6 +22,7 @@ namespace Sampler.Server.Controllers
         [Route("play/{id}")]
         [CustomAuthorization]
         [Quota]
+        [Trophy]
         public void Get(int id)
         {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id); 

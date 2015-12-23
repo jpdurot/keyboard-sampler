@@ -14,13 +14,13 @@ namespace Sampler.Server.Utils
 {
     public class TrophyAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        public override void OnActionExecuted(HttpActionExecutedContext httpActionContext)
         {
-            string actionId = string.Concat(actionContext.ControllerContext.ControllerDescriptor.ControllerName, "/",
-                actionContext.ActionDescriptor.ActionName);
+            string actionId = string.Concat(httpActionContext.ActionContext.ControllerContext.ControllerDescriptor.ControllerName, "/",
+                httpActionContext.ActionContext.ActionDescriptor.ActionName);
 
             // Check current user
-            User currentUser = actionContext.Request.GetUserContext();
+            User currentUser = httpActionContext.Request.GetUserContext();
 
             if (currentUser != null)
             {

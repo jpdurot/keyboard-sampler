@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular
     .module('samplereApp')
@@ -46,6 +46,13 @@ function notificationService($rootScope, alertService, User, Sounds) {
                 'content': message,
                 'time': time
             });
+        });
+    };
+
+    // Create a function that the hub can call to broadcast messages.
+    soundsHub.client.broadcastTrophy = function (user, trophy) {
+        $rootScope.$apply(function() {
+            alertService.addAlert(user + ' a obtenu le trophée "' + trophy + '".', 'success');
         });
     };
 
