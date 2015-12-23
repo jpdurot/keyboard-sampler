@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('SoundsController',
-    function($scope, Sounds, waitSpinnerService) {
+    function($scope, Sounds, waitSpinnerService, $rootScope) {
       
       console.log('SoundsController');
 
@@ -39,17 +39,23 @@ angular.module('samplereApp')
 
         Sounds.getList(function(sounds) {
             $scope.$parent.soundList = sounds;
-            waitSpinnerService.showSpinner();
+            
+            // If user enabled play sound on his device we get the sounds
+			if ($rootScope.user.playingProfil != 2) {
 
-            var queue = new createjs.LoadQueue();
-            queue.installPlugin(createjs.Sound);
-            queue.setMaxConnections(3);
-			angular.forEach(sounds, function(sound){
-                queue.loadFile({
-                    id: sound.Id,
-                    src: sound.Uri
-                });
-			});
+                waitSpinnerService.showSpinner();
+
+                var queue = new createjs.LoadQueue();
+                queue.installPlugin(createjs.Sound);
+                queue.setMaxConnections(3);
+                
+				angular.forEach(sounds, function(sound){
+                    queue.loadFile({
+                        id: sound.Id,
+                        src: sound.Uri
+                    });
+				});
+			}
             queue.on("complete", function() {
                 waitSpinnerService.hideSpinner();
             }, this);

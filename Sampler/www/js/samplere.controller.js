@@ -45,14 +45,20 @@ angular.module('samplereApp')
         };
 
         $scope.callSound = function (soundId){
-            Sounds.play({soundId: soundId}, function(success) {
+			if ($rootScope.user.playingProfil == 1) {
+				if (!$scope.isMuted) {
+					createjs.Sound.play(soundId);
+				}
+			} else {
+				Sounds.play({soundId: soundId}, function(success) {
 
-            }, function(error) {
-                if(error.status === 403) {
-                    // Quota exceeded
-                    alertService.addAlert('Quota de lecture dépassé !','danger');
-                }
-            });
+				}, function(error) {
+					if(error.status === 403) {
+						// Quota exceeded
+						alertService.addAlert('Quota de lecture dépassé !','danger');
+					}
+				});
+			}
         };
 
         $scope.mute = function (){

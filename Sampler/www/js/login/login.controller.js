@@ -13,7 +13,9 @@ angular.module('samplereApp')
             }, function(data) {
                 // Authentication successful
                 $rootScope.user = {
-                    userName: $scope.login
+                    userName: $scope.login,
+					playingProfil: $scope.playingProfil,
+					allowBroadcastSounds: $scope.allowBroadcastSounds
                 };
 				$localStorage.token = data.token;
                 $rootScope.token = data.token;
