@@ -7,7 +7,7 @@ angular
 /**
  * waitSpinner service: displays waitSpinners to make user wait.
  */
-function waitSpinnerService() {
+function waitSpinnerService($rootScope) {
 
   /*
    * Public interface
@@ -19,28 +19,23 @@ function waitSpinnerService() {
    * Shows a spinner for long operations
    */
   service.showSpinner = function() {
-    displaySpinner = true;
+    service.displaySpinner = true;
+    $rootScope.$broadcast('spinner');
   };
 
   /**
    * Hides the spinner
    */
   service.hideSpinner = function() {
-    displaySpinner = false;
-  };
-
-  /**
-   * Getter for waitSpinners
-   */
-  service.isDisplaySpinner = function() {
-    return displaySpinner;
+    service.displaySpinner = false;
+    $rootScope.$broadcast('spinner');
   };
 
   /*
    * Internal
    */
 
-  var displaySpinner = false;
+  service.displaySpinner = false;
 
   return service;
 }

@@ -48,6 +48,10 @@ angular.module('samplereApp')
                 var queue = new createjs.LoadQueue();
                 queue.installPlugin(createjs.Sound);
                 queue.setMaxConnections(3);
+                queue.on("complete", function() {
+                    console.log('chargement terminé');
+                    waitSpinnerService.hideSpinner();
+                }, this);
                 
 				angular.forEach(sounds, function(sound){
                     queue.loadFile({
@@ -56,9 +60,6 @@ angular.module('samplereApp')
                     });
 				});
 			}
-            queue.on("complete", function() {
-                waitSpinnerService.hideSpinner();
-            }, this);
         });
     }
 );

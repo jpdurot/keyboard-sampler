@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Owin;
+using Sampler.Server.Utils;
 
 namespace Sampler
 {
@@ -18,7 +19,7 @@ namespace Sampler
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-
+            
             appBuilder.UseWebApi(config);
 
             var fileSystem = new PhysicalFileSystem("www");
@@ -26,8 +27,9 @@ namespace Sampler
             var options = new FileServerOptions
             {
                 EnableDirectoryBrowsing = true,
-                FileSystem = fileSystem
+                FileSystem = fileSystem,
             };
+            options.StaticFileOptions.ContentTypeProvider = new CustomContentTypeProvider();
 
             appBuilder.UseFileServer(options);
 

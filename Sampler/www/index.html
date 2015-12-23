@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="samplereApp">
+<html lang="en" ng-app="samplereApp" manifest="samplere.appcache">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,6 +29,7 @@
   <script src="assets/js/vendor/angular.min.js"></script>
   <script src="assets/js/vendor/angular-resource.min.js"></script>
   <script src="assets/js/vendor/angular-route.min.js"></script>
+  <script src="assets/js/vendor/angular-animate.min.js"></script>
   <script src="assets/js/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
   <script src="assets/js/vendor/ngStorage.min.js"></script>
   <script src="assets/js/vendor/lodash.min.js"></script>
@@ -156,7 +157,12 @@
   </div>
 
   <!-- Spin animation on long server treatments -->
-  <div ui-loading="displaySpinner()" message="Veuillez patienter pendant le chargement des sons..."></div>
+  <div class="wait-frame" ng-show="displaySpinner">
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <div class="wait-text" >Veuillez patienter pendant le chargement des sons...</div>
+    </div>
+  </div>
 
   <div ng-view></div>
   

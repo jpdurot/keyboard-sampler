@@ -146,6 +146,7 @@
     <Compile Include="Server\Services\TrophyService.cs" />
     <Compile Include="Server\Services\UserService.cs" />
     <Compile Include="Server\Utils\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Server\Utils\CustomContentTypeProvider.cs" />
     <Compile Include="Server\Utils\Encryption.cs" />
     <Compile Include="Server\Utils\QuotaAttribute.cs">
       <SubType>Code</SubType>
