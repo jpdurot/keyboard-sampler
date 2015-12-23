@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Sampler.Server.Model
 {
@@ -14,5 +9,14 @@ namespace Sampler.Server.Model
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
+
+        [JsonProperty("playingProfil")]
+        public PlayingProfilType PlayingProfil { get; set; }
+
+        [JsonProperty("allowBroadcastSounds")]
+        public bool AllowBroadcastSounds { get; set; }
+
+        [JsonProperty("playSoundCount")]
+        public int PlaySoundCount { get; set; }
     }
 }

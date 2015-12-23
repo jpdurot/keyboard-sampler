@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('MainController',
-    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage) {
+    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage, waitSpinnerService) {
 
         // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;
@@ -45,14 +45,20 @@ angular.module('samplereApp')
         };
 
         $scope.callSound = function (soundId){
-            Sounds.play({soundId: soundId}, function(success) {
+			if ($rootScope.user.playingProfil == 1) {
+				if (!$scope.isMuted) {
+					createjs.Sound.play(soundId);
+				}
+			} else {
+				Sounds.play({soundId: soundId}, function(success) {
 
-            }, function(error) {
-                if(error.status === 403) {
-                    // Quota exceeded
-                    alertService.addAlert('Quota de lecture dépassé !','danger');
-                }
-            });
+				}, function(error) {
+					if(error.status === 403) {
+						// Quota exceeded
+						alertService.addAlert('Quota de lecture dépassé !','danger');
+					}
+				});
+			}
         };
 
         $scope.mute = function (){
@@ -75,8 +81,10 @@ angular.module('samplereApp')
 		notificationService.setMuteChangedHandler(function(isMuted, user){
 			$scope.$apply(function(){
 				$scope.isMuted = isMuted;
-			    if (isMuted)
-			        alertService.addAlert(user + ' vient de couper le son.', 'danger');
+			    if (isMuted) {
+                    createjs.Sound.stop();
+                    alertService.addAlert(user + ' vient de couper le son.', 'danger');
+                }
 			    else
 			        alertService.addAlert(user + ' vient de réactiver le son.', 'danger');
 			});
@@ -93,7 +101,10 @@ angular.module('samplereApp')
 
         $scope.isCurrentPage = function(page) {
             return $location.url() === page;
-        }
+        };
+
+        // Spinner animation while waiting response
+        $scope.displaySpinner = waitSpinnerService.isDisplaySpinner;
 
     });
 /*

@@ -26,7 +26,6 @@
   <!-- Custom styles for this template -->
   <link href="css/samplere.css" rel="stylesheet">
 
-
   <script src="assets/js/vendor/angular.min.js"></script>
   <script src="assets/js/vendor/angular-resource.min.js"></script>
   <script src="assets/js/vendor/angular-route.min.js"></script>
@@ -34,23 +33,25 @@
   <script src="assets/js/vendor/ngStorage.min.js"></script>
   <script src="assets/js/vendor/lodash.min.js"></script>
   <script src="assets/js/vendor/createjs-2015.11.26.min.js"></script>
-  
+  <script src="assets/js/vendor/preloadjs-0.6.2.min.js"></script>
+
   <script src="js/samplere.module.js"></script>
   <script src="js/samplere.config.js"></script>
   <script src="js/samplere.controller.js"></script>
   <script src="js/samplere.resource.js"></script>
   <script src="js/samplere.run.js"></script>
-  
+
   <script src="js/login/login.controller.js"></script>
   <script src="js/login/login.resource.js"></script>
 
   <script src="js/user/user.resource.js"></script>
 
   <script src="js/change_password/change_password.controller.js"></script>
-  
+
   <script src="js/sounds/sounds.controller.js"></script>
 
   <script src="js/helpers/alert.service.js"></script>
+  <script src="js/helpers/wait-spinner.service.js"></script>
 
   <!-- SingalR realtime notifications -->
   <script src="assets/js/vendor/jquery-1.6.4.min.js"></script>
@@ -154,6 +155,9 @@
     </div>
   </div>
 
+  <!-- Spin animation on long server treatments -->
+  <div ui-loading="displaySpinner()" message="Veuillez patienter pendant le chargement des sons..."></div>
+
   <div ng-view></div>
   
 </div>
@@ -171,6 +175,5 @@
             expand-on-new="expandOnNew">
     </irontec-simple-chat>
   </div>
-
 </body>
 </html>

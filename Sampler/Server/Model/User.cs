@@ -20,5 +20,9 @@ namespace Sampler.Server.Model
         } 
 
         public int PlaySoundCount { get; set; }
+
+        public PlayingProfilType PlayingProfil { get; set; }
+
+        public bool AllowBroadcastSounds { get; set; }
     }
 }

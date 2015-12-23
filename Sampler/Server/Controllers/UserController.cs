@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
 using Sampler.Server.Model;
@@ -26,6 +28,19 @@ namespace Sampler.Server.Controllers
         public IEnumerable<ChatMessage> GetChatHistory()
         {
             return UserService.Current.ChatHistory;
+        }
+
+        [HttpPost]
+        [Route("modifyprofil")]
+        [CustomAuthorization]
+        public HttpResponseMessage ModifyUserProfil([FromBody] User user)
+        {
+            if (UserService.Current.ModifyUserProfil(Request.GetUserContext(), user))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 

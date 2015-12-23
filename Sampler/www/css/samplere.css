@@ -279,3 +279,73 @@ span.fa-star:after {
 .msg-container-base .msg-container .chat-msg {
   padding-bottom: 10px;
 }
+
+
+/* Spinner animation on long treatments */
+ .wait-frame {
+   z-index: 10000;
+   background-color: rgba(160,160,160,0.3);
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   text-align: center;
+   line-height: 100vh;
+}
+/* To animate background color on display/hide */
+.wait-frame.ng-hide {
+  background-color: rgba(160,160,160,0);
+}
+.wait-frame .spinner-container {
+  opacity: 0;
+}
+.wait-frame .spinner {
+  height: 0;
+}
+.wait-frame.ng-hide-remove, .wait-frame.ng-hide-add {
+                     /* this is required as of 1.3x to properly
+                        apply all styling in a show/hide animation */
+                     transition: background-color ease-in-out 0s;
+}
+.wait-frame.ng-hide-remove .spinner-container,
+.wait-frame.ng-hide-add .spinner-container {
+  transition: all ease-in-out 0s;
+}
+.wait-frame.ng-hide-remove .spinner, .wait-frame.ng-hide-remove .wait-text,
+.wait-frame.ng-hide-add .spinner, .wait-frame.ng-hide-add .wait-text {
+  transition: all ease-in-out 0s;
+}
+.wait-frame.ng-hide-remove-active, .wait-frame.ng-hide-add-active {
+  /* the transition is defined in the active class */
+  transition: background-color ease-in-out 0.6s;
+}
+.wait-frame.ng-hide-remove-active .spinner-container,
+.wait-frame.ng-hide-add-active .spinner-container {
+  transition: opacity ease-in-out 0.6s;
+}
+.wait-frame.ng-hide-remove-active .spinner,
+.wait-frame.ng-hide-add-active .spinner {
+  transition: height ease-in-out 0.6s;
+}
+
+.wait-frame .spinner-container {
+  display: inline-block;
+  line-height: normal;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+  vertical-align: middle;
+  text-align: center;
+
+.wait-frame .spinner {
+  background: url(images/spinner.gif) center no-repeat;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.wait-frame .wait-text {
+  padding: 3px;
+}

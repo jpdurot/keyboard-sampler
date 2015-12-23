@@ -133,9 +133,9 @@
 
 		$scope.$watch('visible', function() { // make sure scroll to bottom on visibility change w/ history items
 			scrollToBottom();
-			$timeout(function() {
+			/*$timeout(function() {
 				$scope.$chatInput.focus();
-			}, 250);
+			}, 250);*/
 		});
 		$scope.$watch('messages.length', function() {
 			if (!$scope.historyLoading) scrollToBottom(); // don't scrollToBottom if just loading history
