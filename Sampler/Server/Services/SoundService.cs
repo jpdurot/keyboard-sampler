@@ -33,7 +33,7 @@ namespace Sampler.Server.Services
 
             if (favoriteToRemove != null)
             {
-                DataBaseService.Current.Db.Delete<FavoriteSound>(favoriteToRemove.Id);
+                DataBaseService.Current.DeleteData(favoriteToRemove);
             }
         }
 

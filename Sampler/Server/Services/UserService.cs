@@ -56,10 +56,10 @@ namespace Sampler.Server.Services
         /// <param name="soundId">the sound id</param>
         /// <param name="user">the user</param>
         /// <returns>true if successfully updated, false instead</returns>
-        public bool AddPlayedSound(User user, int soundId)
+        public void AddPlayedSound(User user, int soundId)
         {
             user.PlaySoundCount++;
-            return DataBaseService.Current.Db.Update(user) > 0;
+            DataBaseService.Current.UpdateData(user);
         }
 
         /// <summary>
@@ -73,7 +73,8 @@ namespace Sampler.Server.Services
             if (string.Equals(user.Password, Encryption.HashMd5(oldPassword), StringComparison.OrdinalIgnoreCase))
             {
                 user.Password = Encryption.HashMd5(newPassword);
-                return DataBaseService.Current.Db.Update(user) > 0;
+                DataBaseService.Current.UpdateData(user);
+                return true;
             }
             return false;
         }
