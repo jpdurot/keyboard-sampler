@@ -5,7 +5,7 @@
 
 angular.module('samplereApp')
     .controller('SoundsController',
-    function($scope, Sounds) {
+    function($scope, Sounds, waitSpinnerService) {
       
       console.log('SoundsController');
 
@@ -37,12 +37,22 @@ angular.module('samplereApp')
             $scope.$parent.isMuted = data.ismuted;
         });
 
-        Sounds.getList(function(data) {
-            $scope.$parent.soundList = data;
-			
-			angular.forEach(data, function(d){
-				createjs.Sound.registerSound('../' + d.Uri, d.Id);
+        Sounds.getList(function(sounds) {
+            $scope.$parent.soundList = sounds;
+            waitSpinnerService.showSpinner();
+
+            var queue = new createjs.LoadQueue();
+            queue.installPlugin(createjs.Sound);
+            queue.setMaxConnections(3);
+			angular.forEach(sounds, function(sound){
+                queue.loadFile({
+                    id: sound.Id,
+                    src: sound.Uri
+                });
 			});
+            queue.on("complete", function() {
+                waitSpinnerService.hideSpinner();
+            }, this);
         });
     }
 );
