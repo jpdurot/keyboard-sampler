@@ -1,5 +1,5 @@
 <span class="btn btn-default" href="#"
-        role="button" ng-click="callSound(sound.Id)">
+        role="button" ng-click="callSound(sound)">
   <span ng-bind="sound.Name"></span>
   <span class="fa {{sound.IsFavorite ? 'fa-star' : 'fa-star-o'}}" ng-click="callFavorite(sound);$event.stopPropagation()"></span>
 </span>

@@ -44,13 +44,16 @@ angular.module('samplereApp')
             $scope.search.query = '';
         };
 
-        $scope.callSound = function (soundId){
+        $scope.callSound = function (sound){
 			if ($rootScope.user.playingProfil == 1) {
 				if (!$scope.isMuted) {
-					createjs.Sound.play(soundId);
+                    // We register sound, if false then fileload will play sound if true (already loaded) then we play
+                    if(createjs.Sound.registerSound({id: sound.Id, src: sound.Uri})) {
+                        createjs.Sound.play(sound.Id);
+                    }
 				}
 			} else {
-				Sounds.play({soundId: soundId}, function(success) {
+				Sounds.play({soundId: sound.Id}, function(success) {
 
 				}, function(error) {
 					if(error.status === 403) {
