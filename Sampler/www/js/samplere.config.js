@@ -70,13 +70,13 @@ angular.module('samplereApp').config(
       };
       
       var checkNotLoggedIn = function($localStorage, $location, $timeout, $q) {
-        console.log('checkNotLoggedIn')
+        console.log('checkNotLoggedIn');
         // Initialize a new promise
         var deferred = $q.defer();
         // Needs a timeout to force a digest cycle, else the url is not
         // changed
         if(angular.isDefined($localStorage.token)) {
-          console.log('already logged in')
+          console.log('already logged in');
           deferred.reject();
           $timeout(function() {
             $location.url('/');
@@ -85,7 +85,7 @@ angular.module('samplereApp').config(
           deferred.resolve();
         }
         return deferred.promise;
-      }
+      };
 
       $routeProvider.when('/login', {
         controller : 'LoginController',

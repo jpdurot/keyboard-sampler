@@ -32,7 +32,11 @@ function notificationService($rootScope, alertService, User, Sounds) {
                 if ($rootScope.user.playingProfil !== 2 || 
 					$rootScope.user.allowBroadcastSounds ||
 					(!$rootScope.user.allowBroadcastSounds && $rootScope.user.userName === user)) {
-					createjs.Sound.play(soundInfo.Id);
+
+                    // We register sound, if false then fileload will play sound if true (already loaded) then we play
+                    if(createjs.Sound.registerSound({id: soundInfo.Id, src: soundInfo.Uri})) {
+                        createjs.Sound.play(soundInfo.Id);
+                    }
 				}
             }
         });

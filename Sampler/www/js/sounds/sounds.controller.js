@@ -42,7 +42,7 @@ angular.module('samplereApp')
                 $scope.$parent.soundList = sounds;
 
                 // If user enabled play sound on his device we get the sounds
-                if ($rootScope.user.playingProfil != 2) {
+                /*if ($rootScope.user.playingProfil != 2) {
 
                     waitSpinnerService.showSpinner();
 
@@ -59,7 +59,7 @@ angular.module('samplereApp')
                             src: sound.Uri
                         });
                     });
-                }
+                }*/
             });
         }
     }

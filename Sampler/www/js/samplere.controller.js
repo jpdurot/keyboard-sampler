@@ -112,6 +112,11 @@ angular.module('samplereApp')
             },0);
         });
 
+        // When a sound is loaded, it means we must play it
+        createjs.Sound.on("fileload", function(event) {
+            createjs.Sound.play(event.id);
+        });
+
 
     });
 /*
