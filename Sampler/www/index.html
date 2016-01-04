@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="samplereApp" manifest="samplere.appcache">
+<html lang="en" ng-app="samplereApp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,6 +46,8 @@
   <script src="js/login/login.resource.js"></script>
 
   <script src="js/user/user.resource.js"></script>
+
+  <script src="js/profile/profile.controller.js"></script>
 
   <script src="js/change_password/change_password.controller.js"></script>
 
@@ -114,8 +116,8 @@
           </a>
         </li>
         <li ng-if="user" class="visible-xs-block" ng-class="{active: isCurrentPage('/change_password')}">
-          <a href="#/change_password">
-            <span class="text">Changer mot de passe</span>
+          <a href="#/profile">
+            <span class="text">Profil</span>
           </a>
         </li>
         <li><a href="#" class="hidden-xs btn-mute" ng-if="user" ng-click="mute(); $event.preventDefault()"><span class="glyphicon {{isMuted ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}}" title="{{isMuted ? 'Activer le son' : 'Couper le son'}}"></span></a></li>
@@ -129,9 +131,9 @@
       </div>
       <ul class="nav navbar-nav right hidden-xs">
         <li ng-if="user" ng-class="{active: isCurrentPage('/change_password')}">
-          <a href="#/change_password">
-            <span class="text">Changer mot de passe</span>
-            <span class="fa fa-key" title="Changer mot de passe"></span>
+          <a href="#/profile">
+            <span class="text">Profil</span>
+            <span class="fa fa-key" title="Profil"></span>
           </a>
         </li>
         <li ng-if="user">
@@ -172,7 +174,7 @@
   <div class="chat-container col-xs-offset-1 col-xs-10 col-sm-4 col-md-3" ng-if="user" ng-controller="ChatController">
     <irontec-simple-chat
             messages="messages"
-            username="username"
+            username="user.userName"
             input-placeholder-text="Ecris ici"
             submit-button-text="Envoi"
             title="Le 🐈 Du Samplère"

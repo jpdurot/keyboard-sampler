@@ -262,6 +262,12 @@ span.fa-star:after {
 .chat-container .chat-top-bar {
   height: auto;
 }
+.chat-msg.chat-msg-sent {
+  background-color: #f3f3ff;
+}
+.chat-msg.chat-msg-recieved {
+  background-color: rgba(73, 251, 0, 0.23);
+}
 
 .main-container {
   padding-bottom: 116px; /* for chat on mobiles */
@@ -349,4 +355,14 @@ span.fa-star:after {
 
 .wait-frame .spinner-container .wait-text {
   padding: 3px;
+}
+
+/* Profile page */
+
+/* Trophies */
+.trophies div {
+  color: red;
+}
+.trophies div.achieved {
+  color: green;
 }

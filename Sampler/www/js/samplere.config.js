@@ -114,6 +114,9 @@ angular.module('samplereApp').config(
             return checkLoggedin($q, $timeout, Login, $location, $rootScope,$localStorage);
           }
         }
+      }).when('/profile', {
+        controller : 'ProfileController',
+        templateUrl : 'views/profile/profile.html'
       }).otherwise({
         controller : 'SoundsController',
         templateUrl : 'views/sounds/sounds.html'

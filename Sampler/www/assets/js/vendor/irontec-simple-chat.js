@@ -19,7 +19,7 @@
 			                '</div>' +
 			            '</div>' +
 						'<div class="panel-body msg-container-base" ng-style="vm.panelStyle">' +
-							'<div class="row msg-container" ng-repeat="message in vm.messages" ng-init="selfAuthored = vm.myUserId == message.fromUserId">' +
+							'<div class="row msg-container" ng-repeat="message in vm.messages" ng-init="selfAuthored = vm.myUserId == message.username">' +
 			'<div class="col-md-12 col-xs-12">' +
 									'<div class="chat-msg" ng-class="{\'chat-msg-sent\': selfAuthored, \'chat-msg-recieved\': !selfAuthored}">' +
 										'<span class="hide">myUserId:{{vm.myUserId}}</span>' +
@@ -112,7 +112,8 @@
         vm.isHidden = false;
 		vm.messages = $scope.messages;
 		vm.username = $scope.username;
-		vm.myUserId = $scope.myUserId;
+		//vm.myUserId = $scope.myUserId;
+		vm.myUserId = $scope.username;
 		vm.inputPlaceholderText = $scope.inputPlaceholderText;
 		vm.submitButtonText = $scope.submitButtonText;
 		vm.title = $scope.title;

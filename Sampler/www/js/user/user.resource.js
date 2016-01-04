@@ -11,6 +11,11 @@ angular.module('samplereApp')
                     method: 'GET',
                     url: '/api/user/messages',
                     isArray: true
+                },
+                trophies: {
+                    method: 'GET',
+                    url: '/api/Trophies/info',
+                    isArray: true
                 }
             });
     }]);
