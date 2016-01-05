@@ -106,15 +106,15 @@ function notificationService($rootScope, alertService, User, Sounds) {
     // Auto reconnection
     function reconnect() {
         setTimeout(function() {
-            console.log('reconnecting signalAir');
+            alertService.addAlert('Tentative de reconnexion de signalAir. Dernière Erreur : '+$.connection.hub.lastError.message, 'info');
             console.dir($.connection.hub.lastError);
             $.connection.hub.start();
         }, 1000); // Restart connection after 1 seconds.
     }
     $.connection.hub.disconnected(function() {
-        //if(navigator.onLine) {
+        if(navigator.onLine) {
             reconnect();
-        //}
+        }
         // Test pour voir si ça résoud le problème de son qui se coupe après une longue inactivité
         if (!createjs.initializeDefaultPlugins()) { return; }
     });
