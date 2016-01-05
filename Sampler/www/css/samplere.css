@@ -252,7 +252,7 @@ span.fa-star:after {
 }
 .chat-container>div>div>.panel {
   display: block;
-  bottom: 0;
+  bottom: -28px;
   position: absolute;
   background: transparent;
   width: 100%;
@@ -268,6 +268,7 @@ span.fa-star:after {
 }
 .chat-window.minimized .panel {
   height: 111px;
+  bottom: 0;
 }
 .chat-msg.chat-msg-sent {
   background-color: #f3f3ff;
@@ -285,9 +286,6 @@ span.fa-star:after {
   }
 }
 
-.msg-container-base {
-  height: calc(100% - 110px);
-}
 .msg-container-base .msg-container {
   padding: 4px 10px;
 }
