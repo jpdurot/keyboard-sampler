@@ -56,7 +56,7 @@ function notificationService($rootScope, alertService, User, Sounds) {
     // Create a function that the hub can call to broadcast messages.
     soundsHub.client.broadcastTrophy = function (user, trophy) {
         $rootScope.$apply(function() {
-            alertService.addAlert(user + ' a obtenu le trophée "' + trophy + '".', 'success');
+            alertService.addAlert(user + ' a obtenu le trophée "' + trophy + '".', 'info');
         });
     };
 
