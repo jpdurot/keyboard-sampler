@@ -103,6 +103,25 @@ function notificationService($rootScope, alertService, User, Sounds) {
     // Start the connection.
 	$.connection.hub.start();
 
+    // Auto reconnection
+    function reconnect() {
+        setTimeout(function() {
+            console.log('reconnecting signalAir');
+            console.dir($.connection.hub.lastError);
+            $.connection.hub.start();
+        }, 1000); // Restart connection after 1 seconds.
+    }
+    $.connection.hub.disconnected(function() {
+        //if(navigator.onLine) {
+            reconnect();
+        //}
+        // Test pour voir si ça résoud le problème de son qui se coupe après une longue inactivité
+        if (!createjs.initializeDefaultPlugins()) { return; }
+    });
+    document.addEventListener('online', function() {
+        reconnect();
+    });
+
   /*
    * Internal
    */
