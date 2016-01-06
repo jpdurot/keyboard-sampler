@@ -84,11 +84,16 @@ function notificationService($rootScope, alertService, User, Sounds) {
         if (message && message !== '') {
             // Call the Send method on the hub.
             soundsHub.server.chatSend($rootScope.user.userName, message);
-            var currentDate = new Date();
+            var now = new Date();
+            var mm = (now.getMonth()+1).toString(); // getMonth() is zero-based
+            var dd  = now.getDate().toString();
+            var hh  = now.getHours().toString();
+            var min  = now.getMinutes().toString();
+            var nowStr = (dd[1]?dd:"0"+dd[0])+ '/'+ (mm[1]?mm:"0"+mm[0]) + ' à '+ (hh[1]?hh:"0"+hh[0])+':'+(min[1]?min:"0"+min[0]); // padding
             service.messages.push({
                 'username': $rootScope.user.userName,
                 'content': message,
-                'time': currentDate.getDate()+'/'+(currentDate.getMonth()+1)+' à '+currentDate.getHours()+':'+currentDate.getMinutes()
+                'time': nowStr
             });
         }
     };
