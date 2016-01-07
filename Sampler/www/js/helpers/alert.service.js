@@ -25,7 +25,7 @@ function alertService() {
     if(!timeout) {
       timeout = 5000;
     }
-    alerts.push({msg: message,type: type, timeout: timeout});
+    alerts.push({msg: message,type: type, image: image, timeout: timeout});
   };
 
   /**

@@ -40,26 +40,6 @@ angular.module('samplereApp')
         if(!$scope.$parent.soundList) {
             Sounds.getList(function(sounds) {
                 $scope.$parent.soundList = sounds;
-
-                // If user enabled play sound on his device we get the sounds
-                /*if ($rootScope.user.playingProfil != 2) {
-
-                    waitSpinnerService.showSpinner();
-
-                    var queue = new createjs.LoadQueue();
-                    queue.installPlugin(createjs.Sound);
-                    queue.setMaxConnections(3);
-                    queue.on("complete", function() {
-                        waitSpinnerService.hideSpinner();
-                    }, this);
-
-                    angular.forEach(sounds, function(sound){
-                        queue.loadFile({
-                            id: sound.Id,
-                            src: sound.Uri
-                        });
-                    });
-                }*/
             });
         }
     }

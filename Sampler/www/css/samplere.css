@@ -182,6 +182,20 @@ span.fa-star:after {
   white-space: pre-wrap;
 }
 
+/* Integrate images in alerts */
+.alert-container .alert-subcontainer .alert.with-img>div {
+  display: table;
+}
+.alert-container .alert-subcontainer .alert.with-img>div>span {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+.alert-container .alert-subcontainer .alert .alert-img {
+  display: table-cell;
+}
+
 /* We animate show/hide */
 .alert-container .alert-subcontainer .alert.ng-leave.ng-leave-active, .alert-container .alert-subcontainer .alert.ng-enter {
   opacity: 0;
