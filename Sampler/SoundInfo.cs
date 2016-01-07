@@ -8,15 +8,18 @@ namespace Sampler
     {
         private int _id;
         private string _name;
+
         private bool _isFavorite;
 
         private string _uri;
-        
-        public SoundInfo(int id, string name, string uri)
+        private string _imageUri;
+
+        public SoundInfo(int id, string name, string uri, string imageUri)
         {
             _id = id;
             _name = name;
             _uri = uri;
+            _imageUri = imageUri;
         }
 
         [DataMember]
@@ -45,6 +48,13 @@ namespace Sampler
         {
             get { return _uri; }
             set { _uri = value; }
+        }
+
+        [DataMember]
+        public string ImageUri
+        {
+            get { return _imageUri; }
+            set { _imageUri = value; }
         }
     }
 }

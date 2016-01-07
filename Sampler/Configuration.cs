@@ -55,6 +55,12 @@ namespace Sampler
             {
                 var keyCode = int.Parse(child.Attribute("keyCode").Value);
                 var soundUri = new Uri(child.Attribute("path").Value, UriKind.Relative);
+
+                string imageUri = string.Empty;
+                if (child.Attribute("img") != null)
+                {
+                    imageUri = new Uri(child.Attribute("img").Value, UriKind.Relative).OriginalString;
+                }
                 var name = string.Empty;
                 if (child.Attribute("name") != null)
                 {
@@ -62,7 +68,7 @@ namespace Sampler
                 }
                 Player p = new Player(soundUri);
                 config._mappings.Add(keyCode, p);
-                config._soundsInfo.Add(new SoundInfo(keyCode, name, soundUri.OriginalString));
+                config._soundsInfo.Add(new SoundInfo(keyCode, name, soundUri.OriginalString, imageUri));
             }
 
             return config;
