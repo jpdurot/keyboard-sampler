@@ -33,6 +33,14 @@ namespace Sampler.Server.Services
             }
         }
 
+        private void AddPlayedSound(int soundId)
+        {
+            if (!soundDictionary.ContainsKey(soundId))
+                soundDictionary.Add(soundId, 1);
+            else
+                soundDictionary[soundId]++;
+        }
+
         public void AddToFavorite(int userId, int soundId)
         {
             var favoriteSound = new FavoriteSound() {UserId = userId, SoundId = soundId};
@@ -80,12 +88,13 @@ namespace Sampler.Server.Services
             
         }
 
-        internal void AddPlayedSound(int soundId)
+        internal void AddPlayedSound(SoundInfo sound)
         {
-            if (!soundDictionary.ContainsKey(soundId))
-                soundDictionary.Add(soundId, 1);
+            sound.PlayedCount++;
+            if (!soundDictionary.ContainsKey(sound.Id))
+                soundDictionary.Add(sound.Id, sound.PlayedCount);
             else
-                soundDictionary[soundId]++;
+                soundDictionary[sound.Id] = sound.PlayedCount;
         }
     }
 }

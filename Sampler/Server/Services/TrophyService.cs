@@ -174,16 +174,6 @@ namespace Sampler.Server.Services
                 {
                     CurrentUsersTrophiesToAchieve[user.Id].Remove(trophy);
                 }
-                //TODO : Improve message use
-                //List<Trophy> trophyAchievedList = new List<Trophy>();
-                //foreach (Trophy trophy in )
-                //{
-                //    if (trophy.IsTrophyUnlocked(ServiceGamer.Gamer))
-                //    {
-                //        AddTrophyToGamer(trophy.Id);
-                //        trophyAchievedList.Add(trophy);
-                //    }
-                //}
             }
         }
 
