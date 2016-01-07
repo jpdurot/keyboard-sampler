@@ -194,7 +194,7 @@ span.fa-star:after {
   padding-left: 10px;
 }
 
-.alert-container .alert-subcontainer .alert .alert-img {
+.alert-container .alert-subcontainer .alert.with-img .alert-img {
   display: table-cell;
 }
 
