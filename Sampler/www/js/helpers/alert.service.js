@@ -21,7 +21,7 @@ function alertService() {
    * @param {string} type criticity of alert (refer to bootstrap alert types)
    * @param {number} [timeout] - Timeout before alert is closed
    */
-  service.addAlert = function(message,type,timeout) {
+  service.addAlert = function(message,type,image,timeout) {
     if(!timeout) {
       timeout = 5000;
     }
