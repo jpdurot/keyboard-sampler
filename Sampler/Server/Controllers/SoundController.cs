@@ -25,20 +25,7 @@ namespace Sampler.Server.Controllers
         [Trophy]
         public void Get(int id)
         {
-            SoundInfo soundInfo = _sampler.GetSoundInfo(id); 
-            User user = Request.GetUserContext();
-            UserService.Current.AddPlayedSound(user, id);
-            SoundService.Current.AddPlayedSound(soundInfo);
-            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
-            Activity a = new Activity()
-            {
-                Horodate = new TimeSpan(DateTime.Now.Ticks),
-                Type = ActivityType.PlaySound,
-                UserId = Request.GetUserContext().Id,
-                Information = id.ToString(CultureInfo.InvariantCulture)
-            };
-            HistoryService.Current.AddActivity(a);
-            _sampler.PlaySound(id, false);
+            PlaySoundInternal(id);
         }
 
         // POST
@@ -48,20 +35,35 @@ namespace Sampler.Server.Controllers
         [Quota]
         public void Post(int id)
         {
+            PlaySoundInternal(id);
+        }
+
+        private void PlaySoundInternal(int id)
+        {
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
             User user = Request.GetUserContext();
-            UserService.Current.AddPlayedSound(user, id);
-            SoundService.Current.AddPlayedSound(soundInfo);
-            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
+            ActivityType activityType;
+            if (!_sampler.IsMuted)
+            {
+                // We add sound only if it's not muted
+                activityType = ActivityType.PlaySound;
+                UserService.Current.AddPlayedSound(user, id);
+                SoundService.Current.AddPlayedSound(soundInfo);
+            }
+            else
+            {
+                activityType = ActivityType.PlaySoundWhileMuted;
+            }
 
             Activity a = new Activity()
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
-                Type = ActivityType.PlaySound,
+                Type = activityType,
                 UserId = Request.GetUserContext().Id
             };
             HistoryService.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
+            _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
         }
 
         // GET

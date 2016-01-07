@@ -3,6 +3,7 @@
     public enum ActivityType
     {
         None = 0,
-        PlaySound = 1
+        PlaySound = 1,
+        PlaySoundWhileMuted = 2,
     }
 }

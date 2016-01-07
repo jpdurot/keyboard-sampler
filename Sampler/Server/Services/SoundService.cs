@@ -25,7 +25,9 @@ namespace Sampler.Server.Services
         internal SoundService()
         {
             soundDictionary = new Dictionary<int, int>();
-            var activityList = DataBaseService.Current.Db.Table<Activity>();
+
+            // Get all Play Sound activity (only ActivityType.PlaySound)
+            var activityList = DataBaseService.Current.Db.Table<Activity>().Where(t => t.Type == ActivityType.PlaySound);
             foreach (Activity activity in activityList)
             {
                 int soundId = int.Parse(activity.Information);
@@ -72,7 +74,11 @@ namespace Sampler.Server.Services
             {
                 soundInfo.IsFavorite = false;
                 if (soundDictionary.ContainsKey(soundInfo.Id))
-                    soundInfo.PlayedCount = soundDictionary[soundInfo.Id];
+                {
+                    // Prevent replacing by 0 when playing a sound while calculating
+                    if (soundInfo.PlayedCount < soundDictionary[soundInfo.Id])
+                        soundInfo.PlayedCount = soundDictionary[soundInfo.Id];
+                }
             }
 
             var userFavorites = DataBaseService.Current.Db.Table<FavoriteSound>().Where(f => f.UserId == userId);
@@ -84,8 +90,6 @@ namespace Sampler.Server.Services
                     soundInfo.IsFavorite = true;
                 }
             }
-
-            
         }
 
         internal void AddPlayedSound(SoundInfo sound)
