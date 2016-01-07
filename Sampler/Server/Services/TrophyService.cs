@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using System.Windows.Media.Imaging;
 using Microsoft.AspNet.SignalR;
 using Sampler.Properties;
@@ -65,11 +66,6 @@ namespace Sampler.Server.Services
             }
         }
 
-        private static bool CheckNumberOfGamePlayed(User user, int step)
-        {
-            return user.PlaySoundCount >= step;
-        }
-
         private void PrepareTrophies()
         {
             var trophy = new Trophy();
@@ -113,6 +109,34 @@ namespace Sampler.Server.Services
             trophy.Type = Model.Types.TrophyType.Bronze;
             trophy.Description = "Joue 2500 sons";
             trophy.IsTrophyUnlocked = g => CheckNumberOfGamePlayed(g, 2500);
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "Chuuuuut on t'a dit !!!";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Joue un son alors que le son est coupé";
+            trophy.IsTrophyUnlocked = CheckIfUserHasPlayedWhileMuted;
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "T'es pas couché ??";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Joue un son tardivement";
+            trophy.IsTrophyUnlocked = 
+                g => CheckPlayedSoundAfterAndBefore(g, new TimeSpan(1, 0, 0), new TimeSpan(4, 0, 0));
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "T'es déjà levé ??";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Joue un son dès potron-minet (ou presque)";
+            trophy.IsTrophyUnlocked = g => CheckPlayedSoundAfterAndBefore(g, new TimeSpan(5, 0, 0), new TimeSpan(7, 0, 0));
             trophy.Id = _trophyCurrentId;
             trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
             AddTrophyToDictionary(trophy);
@@ -193,5 +217,40 @@ namespace Sampler.Server.Services
                 }
             }
         }
+
+        #region IsTrophyUnlocked Methods
+
+        private static bool CheckNumberOfGamePlayed(User user, int step)
+        {
+            return user.PlaySoundCount >= step;
+        }
+
+        private static bool CheckIfUserHasPlayedWhileMuted(User user)
+        {
+            return
+                DataBaseService.Current.Db.Table<Activity>()
+                    .Any(a => a.UserId == user.Id && a.Type == ActivityType.PlaySoundWhileMuted);
+        }
+
+        private static bool CheckPlayedSoundBefore(User user, TimeSpan timeSpan)
+        {
+            return
+                DataBaseService.Current.Db.Table<Activity>()
+                    .Any(
+                        a =>
+                            a.UserId == user.Id && a.Type == ActivityType.PlaySound && a.Horodate.Hours < timeSpan.Hours);
+        }
+
+        private static bool CheckPlayedSoundAfterAndBefore(User user, TimeSpan after, TimeSpan before)
+        {
+            return
+                DataBaseService.Current.Db.Table<Activity>()
+                    .Any(
+                        a =>
+                            a.UserId == user.Id && a.Type == ActivityType.PlaySound &&
+                            a.Horodate.Hours < before.Hours && a.Horodate.Hours >= after.Hours);
+        }
+
+        #endregion
     }
 }

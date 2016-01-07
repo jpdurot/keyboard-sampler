@@ -59,7 +59,8 @@ namespace Sampler.Server.Controllers
             {
                 Horodate = new TimeSpan(DateTime.Now.Ticks),
                 Type = activityType,
-                UserId = Request.GetUserContext().Id
+                UserId = user.Id,
+                Information = id.ToString(CultureInfo.InvariantCulture)
             };
             HistoryService.Current.AddActivity(a);
             _sampler.PlaySound(id, false);
