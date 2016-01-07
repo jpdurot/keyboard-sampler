@@ -120,6 +120,16 @@ angular.module('samplereApp')
             createjs.Sound.play(event.id);
         });
 
+        // Updates sound play counter
+        $scope.$on('soundPlayed', function($event, sound) {
+            for(var i=0; i<$scope.soundList.length; i++) {
+                if($scope.soundList[i].Id === sound.Id) {
+                    $scope.soundList[i].PlayedCount = sound.PlayedCount;
+                    break;
+                }
+            }
+        });
+
 
     });
 /*

@@ -28,8 +28,8 @@ function notificationService($rootScope, alertService, User, Sounds) {
             if (isMuted)
                 alertService.addAlert(user + ' a tenté de jouer "' + soundInfo.Name + '".', 'warning');
             else {
-                console.log(soundInfo);
                 alertService.addAlert(user + ' vient de jouer "' + soundInfo.Name + '".', 'success', soundInfo.ImageUri);
+                $rootScope.$broadcast('soundPlayed', soundInfo);
                 if ($rootScope.user.playingProfil !== 2 || 
 					$rootScope.user.allowBroadcastSounds ||
 					(!$rootScope.user.allowBroadcastSounds && $rootScope.user.userName === user)) {
