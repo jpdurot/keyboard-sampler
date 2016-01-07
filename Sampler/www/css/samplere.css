@@ -58,8 +58,10 @@ body {
 }
 .buttons .btn .playedcount {
   position: absolute;
-  right: 5px;
+  right: 8px;
   bottom: 5px;
+  color: blue;
+  font-size: smaller; 
 }
 span.fa-star {
   color: #FFDD00;

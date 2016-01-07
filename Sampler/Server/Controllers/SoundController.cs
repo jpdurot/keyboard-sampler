@@ -28,6 +28,7 @@ namespace Sampler.Server.Controllers
             SoundInfo soundInfo = _sampler.GetSoundInfo(id); 
             User user = Request.GetUserContext();
             UserService.Current.AddPlayedSound(user, id);
+            SoundService.Current.AddPlayedSound(id);
             _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
             Activity a = new Activity()
             {
@@ -50,6 +51,7 @@ namespace Sampler.Server.Controllers
             SoundInfo soundInfo = _sampler.GetSoundInfo(id);
             User user = Request.GetUserContext();
             UserService.Current.AddPlayedSound(user, id);
+            SoundService.Current.AddPlayedSound(id);
             _soundsHubContext.Clients.All.notifyNewSound(soundInfo, user.Name, _sampler.IsMuted);
 
             Activity a = new Activity()

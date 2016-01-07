@@ -10,6 +10,7 @@ namespace Sampler
         private string _name;
 
         private bool _isFavorite;
+        private int _playedCount;
 
         private string _uri;
         private string _imageUri;
@@ -20,6 +21,7 @@ namespace Sampler
             _name = name;
             _uri = uri;
             _imageUri = imageUri;
+            _playedCount = 0;
         }
 
         [DataMember]
@@ -55,6 +57,13 @@ namespace Sampler
         {
             get { return _imageUri; }
             set { _imageUri = value; }
+        }
+
+        [DataMember]
+        public int PlayedCount
+        {
+            get { return _playedCount; }
+            set { _playedCount = value; }
         }
     }
 }
