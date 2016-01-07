@@ -20,6 +20,19 @@ namespace Sampler.Server.Services
 
         #endregion
 
+        private Dictionary<int, int> soundDictionary;
+
+        internal SoundService()
+        {
+            soundDictionary = new Dictionary<int, int>();
+            var activityList = DataBaseService.Current.Db.Table<Activity>();
+            foreach (Activity activity in activityList)
+            {
+                int soundId = int.Parse(activity.Information);
+                AddPlayedSound(soundId);
+            }
+        }
+
         public void AddToFavorite(int userId, int soundId)
         {
             var favoriteSound = new FavoriteSound() {UserId = userId, SoundId = soundId};
@@ -50,6 +63,8 @@ namespace Sampler.Server.Services
             foreach (var soundInfo in soundsInfo)
             {
                 soundInfo.IsFavorite = false;
+                if (soundDictionary.ContainsKey(soundInfo.Id))
+                    soundInfo.PlayedCount = soundDictionary[soundInfo.Id];
             }
 
             var userFavorites = DataBaseService.Current.Db.Table<FavoriteSound>().Where(f => f.UserId == userId);
@@ -61,6 +76,16 @@ namespace Sampler.Server.Services
                     soundInfo.IsFavorite = true;
                 }
             }
+
+            
+        }
+
+        internal void AddPlayedSound(int soundId)
+        {
+            if (!soundDictionary.ContainsKey(soundId))
+                soundDictionary.Add(soundId, 1);
+            else
+                soundDictionary[soundId]++;
         }
     }
 }

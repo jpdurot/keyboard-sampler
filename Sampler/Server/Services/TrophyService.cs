@@ -107,6 +107,15 @@ namespace Sampler.Server.Services
             trophy.Id = _trophyCurrentId;
             trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
             AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "Est-ce que c'est vraiment sérieux ?";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Joue 2500 sons";
+            trophy.IsTrophyUnlocked = g => CheckNumberOfGamePlayed(g, 2500);
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
         }
 
         private void AddTrophyToDictionary(Trophy trophy)
