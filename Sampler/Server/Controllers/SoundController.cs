@@ -88,6 +88,11 @@ namespace Sampler.Server.Controllers
         [Trophy]
         public MuteResponse Mute()
         {
+            // Sound is up and will be cut
+            if (!_sampler.IsMuted && _sampler.Config.GetPlayers().Any(p => p.IsPlaying()))
+            {
+                Request.GetUserContext().Infos.MutedSounds++;
+            }
             _sampler.IsMuted = !_sampler.IsMuted;
 
             _soundsHubContext.Clients.All.syncIsMuted(_sampler.IsMuted, Request.GetUserContext().Name);

@@ -24,5 +24,8 @@ namespace Sampler.Server.Model
         public PlayingProfilType PlayingProfil { get; set; }
 
         public bool AllowBroadcastSounds { get; set; }
+
+        [Ignore]
+        public UserInfos Infos { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace Sampler.Server.Services
         private const int ChatMaxHistory = 10;
 
         private readonly List<ChatMessage> _chatHistory;
+        private Dictionary<int, UserInfos> _userInfos; 
         public List<ChatMessage> ChatHistory
         {
             get { return _chatHistory; }
@@ -35,6 +36,11 @@ namespace Sampler.Server.Services
         public UserService()
         {
             _chatHistory = new List<ChatMessage>();
+            _userInfos = new Dictionary<int, UserInfos>();
+            foreach (User user in GetAllUsers())
+            {
+                _userInfos.Add(user.Id, new UserInfos());
+            }
         }
 
         /// <summary>
@@ -44,10 +50,17 @@ namespace Sampler.Server.Services
         /// <returns></returns>
         public User GetUser(int userId)
         {
-            return DataBaseService.Current.Db.Table<User>()
+            User user = DataBaseService.Current.Db.Table<User>()
                 .FirstOrDefault(
                     u =>
                         u.Id == userId);
+            user.Infos = GetUserInfos(user.Id);
+            return user;
+        }
+
+        private UserInfos GetUserInfos(int id)
+        {
+            return _userInfos[id];
         }
 
         /// <summary>

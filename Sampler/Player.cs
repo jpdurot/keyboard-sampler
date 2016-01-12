@@ -14,6 +14,7 @@ namespace Sampler
 
         public bool IsLooping { get; private set; }
 
+
         public Player(Uri sound)
         {
             _soundFile = sound.OriginalString;
@@ -76,6 +77,15 @@ namespace Sampler
                 IsLooping = false;
                 _mediaPlayer.Stop(); 
             }
+        }
+
+        public bool IsPlaying()
+        {
+            if (_mediaPlayer != null)
+            {
+                return _mediaPlayer.PlaybackState == PlaybackState.Playing;
+            }
+            return false;
         }
 
         public void SetVolume(float scale)

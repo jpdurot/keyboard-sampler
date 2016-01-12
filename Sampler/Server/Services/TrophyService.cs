@@ -140,6 +140,24 @@ namespace Sampler.Server.Services
             trophy.Id = _trophyCurrentId;
             trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
             AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "Tu l'as calmé :D";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Mute un son en cours de lecture";
+            trophy.IsTrophyUnlocked = g => CheckMutedSound(g, 1);
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
+
+            trophy = new Trophy();
+            trophy.Name = "Lucky Luke du mute";
+            trophy.Type = Model.Types.TrophyType.Bronze;
+            trophy.Description = "Mute 50 sons en cours de lecture";
+            trophy.IsTrophyUnlocked = g => CheckMutedSound(g, 50);
+            trophy.Id = _trophyCurrentId;
+            trophy.Image = new BitmapImage(new Uri("/Images/Trophy/Bronze_32.png", UriKind.RelativeOrAbsolute));
+            AddTrophyToDictionary(trophy);
         }
 
         private void AddTrophyToDictionary(Trophy trophy)
@@ -249,6 +267,11 @@ namespace Sampler.Server.Services
                         a =>
                             a.UserId == user.Id && a.Type == ActivityType.PlaySound &&
                             a.Horodate.Hours < before.Hours && a.Horodate.Hours >= after.Hours);
+        }
+
+        private static bool CheckMutedSound(User user, int limit)
+        {
+            return user.Infos.MutedSounds >= limit;
         }
 
         #endregion
