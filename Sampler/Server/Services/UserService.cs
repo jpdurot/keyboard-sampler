@@ -26,6 +26,36 @@ namespace Sampler.Server.Services
 
         private const int ChatMaxHistory = 10;
 
+        #region SoundsHubUser property and methods
+        private int _nbSoundsHubUsers;
+
+        /// <summary>
+        /// Add a new connected User
+        /// </summary>
+        internal void AddConnectedSoundsHubUser()
+        {
+            _nbSoundsHubUsers++;
+        }
+
+        /// <summary>
+        /// Remove a connected User
+        /// </summary>
+        internal void RemoveConnectedSoundsHubUser()
+        {
+            _nbSoundsHubUsers--;
+        }
+
+        /// <summary>
+        /// Get the connected User count
+        /// </summary>
+        /// <returns>user count</returns>
+        internal int GetConnectedSoundsHubUserCount()
+        {
+            return _nbSoundsHubUsers;
+        }
+
+        #endregion
+
         private readonly List<ChatMessage> _chatHistory;
         private Dictionary<int, UserInfos> _userInfos; 
         public List<ChatMessage> ChatHistory

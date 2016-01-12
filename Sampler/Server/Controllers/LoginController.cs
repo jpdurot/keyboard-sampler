@@ -34,7 +34,6 @@ namespace Sampler.Server.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.NotFound);
-
         }
 
         [HttpGet]

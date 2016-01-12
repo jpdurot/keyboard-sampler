@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 
 namespace Sampler.Server.Services
 {
@@ -16,6 +17,27 @@ namespace Sampler.Server.Services
 
             // Call the broadcastChatMessage method to update all clients.
             Clients.Others.broadcastChatMessage(name, message, chatMessage.Time);
+        }
+
+        public override Task OnConnected()
+        {
+            UserService.Current.AddConnectedSoundsHubUser();
+            Clients.All.syncSoundsHubUserCount(UserService.Current.GetConnectedSoundsHubUserCount());
+            return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            UserService.Current.RemoveConnectedSoundsHubUser();
+            Clients.All.syncSoundsHubUserCount(UserService.Current.GetConnectedSoundsHubUserCount());
+            return base.OnDisconnected(stopCalled);
+        }
+
+        public override Task OnReconnected()
+        {
+            UserService.Current.AddConnectedSoundsHubUser();
+            Clients.All.syncSoundsHubUserCount(UserService.Current.GetConnectedSoundsHubUserCount());
+            return base.OnReconnected();
         }
     }
 }
