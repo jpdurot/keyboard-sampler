@@ -156,7 +156,7 @@
     </Compile>
     <Compile Include="Server\Utils\RequestExtensions.cs" />
     <Compile Include="Server\Utils\TrophyAttribute.cs" />
-    <Compile Include="SoundInfo.cs" />
+    <Compile Include="Server\Model\SoundInfo.cs" />
     <Compile Include="Server\SQLite\SQLite.cs" />
     <Compile Include="Server\SQLite\SQLiteAsync.cs" />
     <Compile Include="Startup.cs" />

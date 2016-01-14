@@ -1,0 +1,7 @@
+CREATE TABLE `SoundInfo` (
+	`Id`	INTEGER NOT NULL UNIQUE,
+	`Name`	TEXT NOT NULL UNIQUE,
+	`Uri`	TEXT NOT NULL,
+	`ImageUri`	TEXT,
+	PRIMARY KEY(Id)
+)

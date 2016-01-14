@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sampler.Server.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
@@ -52,7 +53,8 @@ namespace Sampler
 
         private void LoadConfiguration()
         {
-            _config = Configuration.Parse(XDocument.Load("Configuration.xml").Root.Elements().First());
+            Configuration.CheckNewSoundInConfig(XDocument.Load("Configuration.xml").Root.Elements().First());
+            _config = Configuration.GetConfiguration();
         }
 
         public void PlaySound(int soundId, bool repeat)

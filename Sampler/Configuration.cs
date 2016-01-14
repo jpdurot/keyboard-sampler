@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sampler.Server.Model;
+using Sampler.Server.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,11 +48,22 @@ namespace Sampler
         {
             return _mappings.Values.ToList();
         }
-         
-        public static Configuration Parse(XElement element)
-        {
-            Configuration config  = new Configuration(element.Attribute("name").Value);
 
+        public static Configuration GetConfiguration()
+        {
+            Configuration config = new Configuration("Configuration");
+            var soundList = DataBaseService.Current.Db.Table<SoundInfo>().ToList();
+            foreach (SoundInfo sound in soundList)
+            {
+                Player p = new Player(new Uri(sound.Uri, UriKind.Relative));
+                config._mappings.Add(sound.Id, p);
+                config._soundsInfo.Add(sound);
+            }
+            return config;
+        }
+         
+        public static void CheckNewSoundInConfig(XElement element)
+        {
             foreach (var child in element.Descendants("Sound"))
             {
                 var keyCode = int.Parse(child.Attribute("keyCode").Value);
@@ -66,12 +79,13 @@ namespace Sampler
                 {
                     name = child.Attribute("name").Value;
                 }
-                Player p = new Player(soundUri);
-                config._mappings.Add(keyCode, p);
-                config._soundsInfo.Add(new SoundInfo(keyCode, name, soundUri.OriginalString, imageUri));
-            }
 
-            return config;
+                if (!DataBaseService.Current.Db.Table<SoundInfo>().Any(s => s.Id == keyCode))
+                {
+                    var sound = new SoundInfo(keyCode, name, soundUri.OriginalString, imageUri);
+                    DataBaseService.Current.Db.Insert(sound);
+                }
+            }
         }
 
         public Player GetSound(int keyCode)
