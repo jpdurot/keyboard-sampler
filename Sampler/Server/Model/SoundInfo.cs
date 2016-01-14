@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using SQLite;
+using System;
 
 namespace Sampler.Server.Model
 {
@@ -25,6 +26,7 @@ namespace Sampler.Server.Model
             _uri = uri;
             _imageUri = imageUri;
             _playedCount = 0;
+            Horodate = new TimeSpan(DateTime.Now.Ticks);
         }
 
         [DataMember]
@@ -70,5 +72,8 @@ namespace Sampler.Server.Model
             get { return _playedCount; }
             set { _playedCount = value; }
         }
+
+        [DataMember]
+        public TimeSpan Horodate { get; set; }
     }
 }
