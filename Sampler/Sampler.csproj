@@ -124,10 +124,12 @@
     <Compile Include="Player.cs" />
     <Compile Include="Server\Model\ActivityType.cs" />
     <Compile Include="Server\Model\Activity.cs" />
+    <Compile Include="Server\Model\Contract\AddSoundBody.cs" />
     <Compile Include="Server\Model\Contract\TrophyInfo.cs" />
     <Compile Include="Server\Model\DatabaseOperation.cs" />
     <Compile Include="Server\Model\FavoriteSound.cs" />
     <Compile Include="Server\Model\PlayingProfilType.cs" />
+    <Compile Include="Server\Model\Response\AddSoundResponse.cs" />
     <Compile Include="Server\Model\Response\LoginResponse.cs" />
     <Compile Include="Server\Model\Response\MuteResponse.cs" />
     <Compile Include="Server\Model\Trophy.cs" />

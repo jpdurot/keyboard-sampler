@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 using Sampler.Server.Utils;
+using Sampler.Server.Model.Response;
+using Sampler.Server.Model.Contract;
 
 namespace Sampler.Server.Controllers
 {
@@ -98,6 +100,16 @@ namespace Sampler.Server.Controllers
             _soundsHubContext.Clients.All.syncIsMuted(_sampler.IsMuted, Request.GetUserContext().Name);
 
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
+        }
+
+        [HttpPost]
+        [Route("add")]
+        [CustomAuthorization]
+        [Trophy]
+        public AddSoundResponse AddSound([FromBody] AddSoundBody body)
+        {
+            string errorResponse = SoundService.Current.AddSound(body);
+            return new AddSoundResponse() { IsAdded = string.IsNullOrEmpty(errorResponse), Error = errorResponse };
         }
 
         // GET

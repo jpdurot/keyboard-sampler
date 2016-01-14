@@ -53,12 +53,18 @@ namespace Sampler
         {
             Configuration config = new Configuration("Configuration");
             var soundList = DataBaseService.Current.Db.Table<SoundInfo>().ToList();
+            int maxId = -1;
             foreach (SoundInfo sound in soundList)
             {
                 Player p = new Player(new Uri(sound.Uri, UriKind.Relative));
                 config._mappings.Add(sound.Id, p);
                 config._soundsInfo.Add(sound);
+                if (sound.Id > maxId)
+                {
+                    maxId = sound.Id;
+                }
             }
+            SoundService.Current.SetLastSoundId(maxId + 1);
             return config;
         }
          

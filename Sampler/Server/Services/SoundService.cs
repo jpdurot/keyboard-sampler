@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sampler.Server.Model;
+using System;
 
 namespace Sampler.Server.Services
 {
@@ -21,6 +22,12 @@ namespace Sampler.Server.Services
         #endregion
 
         private Dictionary<int, int> soundDictionary;
+        private int _lastSoundId;
+
+        public void SetLastSoundId(int id)
+        {
+            _lastSoundId = id;
+        }
 
         internal SoundService()
         {
@@ -99,6 +106,21 @@ namespace Sampler.Server.Services
                 soundDictionary.Add(sound.Id, sound.PlayedCount);
             else
                 soundDictionary[sound.Id] = sound.PlayedCount;
+        }
+
+        internal string AddSound(Model.Contract.AddSoundBody body)
+        {
+            var sound = new SoundInfo(_lastSoundId, body.Name, body.Uri, body.ImageUri);
+            string retour = String.Empty;
+            try
+            {
+                DataBaseService.Current.AddData(sound);
+            }
+            catch (Exception ex)
+            {
+                retour = ex.Message;
+            }
+            return retour;
         }
     }
 }
