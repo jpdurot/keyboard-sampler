@@ -45,6 +45,10 @@ function notificationService($rootScope, alertService, User, Sounds) {
           playtime: getNowStr(),
           imageUri: soundInfo.ImageUri
         });
+        if(service.soundsHistory.length > 20) {
+          console.log('suppression dans l\'historique de '+(service.soundsHistory.length-20)+' élements');
+          service.soundsHistory.splice(19,service.soundsHistory.length-20);
+        }
         $rootScope.$broadcast('soundPlayed', soundInfo);
         if ($rootScope.user.playingProfil !== 2 ||
           $rootScope.user.allowBroadcastSounds ||

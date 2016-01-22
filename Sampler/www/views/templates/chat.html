@@ -41,7 +41,7 @@
                             <div class="chat-msg" ng-class="{'chat-msg-sent': selfAuthored, 'chat-msg-recieved': !selfAuthored}">
                                 <div class="chat-sound">
                                     <img ng-if="sound.imageUri" class="sound-image" ng-src="{{sound.imageUri}}" />
-                                    <span>{{sound.soundname}}</span>
+                                    <span><i class="fa fa-music"></i> {{sound.soundname}}</span>
                                 </div>
                                 <div class="chat-msg-author">
                                     <span class="date">{{sound.playtime}}</span>&nbsp;
