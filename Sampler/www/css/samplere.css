@@ -283,7 +283,12 @@ span.fa-star:after {
 }
 .chat-container>div>div>.panel .window-actions {
   cursor: pointer;
+  padding: 0;
+  text-align: right;
 }
+.chat-container>div>div>.panel .window-actions>* {
+   margin: 0 2px;
+ }
 .chat-container .chat-top-bar {
   height: auto;
 }
@@ -313,6 +318,11 @@ span.fa-star:after {
 
 .msg-container-base .msg-container .chat-msg {
   padding-bottom: 10px;
+}
+
+.msg-container-base .table,
+.msg-container-base .table .chat-user p{
+  margin-bottom: 0;
 }
 
 

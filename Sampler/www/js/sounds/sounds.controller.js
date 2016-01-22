@@ -42,6 +42,8 @@ angular.module('samplereApp')
                 $scope.$parent.soundList = sounds;
             });
         }
+
+
     }
 );
 /*

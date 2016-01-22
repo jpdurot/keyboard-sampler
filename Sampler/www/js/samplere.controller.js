@@ -5,7 +5,8 @@
 
 angular.module('samplereApp')
     .controller('MainController',
-    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location, $localStorage, waitSpinnerService, $timeout) {
+    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location,
+              $localStorage, waitSpinnerService, $timeout) {
 
         // Menu is collapsed by default on mobile devices
         $scope.isCollapsed = true;

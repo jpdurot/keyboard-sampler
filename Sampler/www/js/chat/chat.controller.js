@@ -11,6 +11,8 @@ function chatController(notificationService, $scope) {
     // Visible if user is connected
     $scope.visible = true;
     $scope.messages = notificationService.messages;
+    $scope.users = notificationService.users;
+    console.log($scope.users);
     $scope.expandOnNew = true;
     $scope.sendMessage = notificationService.sendMessage;
 

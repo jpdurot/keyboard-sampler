@@ -16,6 +16,10 @@ angular.module('samplereApp')
                     method: 'GET',
                     url: '/api/Trophies/info',
                     isArray: true
+                },
+                getAll: {
+                    method: 'GET',
+                    isArray: true
                 }
             });
     }]);

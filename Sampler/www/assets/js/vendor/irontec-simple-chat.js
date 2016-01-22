@@ -5,54 +5,56 @@
 	angular.module('irontec.simpleChat').directive('irontecSimpleChat', ['$timeout', SimpleChat]);
 
 	function SimpleChat($timeout) {
+		/* NOT USED */
 		var chatTemplate =
 			'<div ng-show="visible" class="row chat-window col-xs-5 col-md-3 {{vm.theme}}" ng-class="{minimized: vm.isHidden}">' +
-			    '<div class="col-xs-12 col-md-12">' +
-			        '<div class="panel">' +
-			            '<div class="panel-heading chat-top-bar">' +
-				            '<div class="col-md-10 col-xs-10">' +
-				                '<h3 class="panel-title"><span class="fa fa-comment-o"></span> {{vm.title}}</h3>' +
-				            '</div>' +
-				            '<div class="col-md-2 col-xs-2 window-actions" style="text-align: right;">' +
-				                '<span class="fa" ng-class="vm.chatButtonClass" ng-click="vm.toggle()"></span>' +
-				                /*'<span class="fa fa-close" ng-click="vm.close()"></span>' +*/
-			                '</div>' +
-			            '</div>' +
-						'<div class="panel-body msg-container-base" ng-style="vm.panelStyle">' +
-							'<div class="row msg-container" ng-repeat="message in vm.messages" ng-init="selfAuthored = vm.myUserId == message.username">' +
+			'<div class="col-xs-12 col-md-12">' +
+			'<div class="panel">' +
+			'<div class="panel-heading chat-top-bar">' +
+			'<div class="col-md-10 col-xs-10">' +
+			'<h3 class="panel-title"><span class="fa fa-comment-o"></span> {{vm.title}}</h3>' +
+			'</div>' +
+			'<div class="col-md-2 col-xs-2 window-actions" style="text-align: right;">' +
+			'<span class="fa" ng-class="vm.chatButtonClass" ng-click="vm.toggle()"></span>' +
+				/*'<span class="fa fa-close" ng-click="vm.close()"></span>' +*/
+			'</div>' +
+			'</div>' +
+			'<div class="panel-body msg-container-base" ng-style="vm.panelStyle">' +
+			'<div class="row msg-container" ng-repeat="message in vm.messages" ng-init="selfAuthored = vm.myUserId == message.username">' +
 			'<div class="col-md-12 col-xs-12">' +
-									'<div class="chat-msg" ng-class="{\'chat-msg-sent\': selfAuthored, \'chat-msg-recieved\': !selfAuthored}">' +
-										'<span class="hide">myUserId:{{vm.myUserId}}</span>' +
-										'<img ng-if="message.imageUrl" class="profile" ng-class="{\'pull-right\': selfAuthored, \'pull-left\': !selfAuthored}" ng-src="{{message.imageUrl}}" />' +
-										'<p>{{message.content}}</p>' +
-										'<div class="chat-msg-author">' +
-											'<span class="date">{{message.time}}</span>&nbsp;' +
-											'<strong>{{message.username}}</strong>' +
-										'</div>' +
-									'</div>' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div class="panel-footer chat-bottom-bar">' +
-							'<form style="display:inherit" ng-submit="vm.submitFunction()">' +
-								'<div class="input-group" >' +
-									'<input type="text" class="form-control input-sm chat-input" placeholder="{{vm.inputPlaceholderText}}" ng-model="vm.writingMessage" />' +
-									'<span class="input-group-btn">' +
-										'<input type="submit" class="btn btn-sm chat-submit-button" value="{{vm.submitButtonText}}" />' +
-									'</span>' +
-								'</div>' +
-							'</form>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
+			'<div class="chat-msg" ng-class="{\'chat-msg-sent\': selfAuthored, \'chat-msg-recieved\': !selfAuthored}">' +
+			'<span class="hide">myUserId:{{vm.myUserId}}</span>' +
+			'<img ng-if="message.imageUrl" class="profile" ng-class="{\'pull-right\': selfAuthored, \'pull-left\': !selfAuthored}" ng-src="{{message.imageUrl}}" />' +
+			'<p>{{message.content}}</p>' +
+			'<div class="chat-msg-author">' +
+			'<span class="date">{{message.time}}</span>&nbsp;' +
+			'<strong>{{message.username}}</strong>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="panel-footer chat-bottom-bar">' +
+			'<form style="display:inherit" ng-submit="vm.submitFunction()">' +
+			'<div class="input-group" >' +
+			'<input type="text" class="form-control input-sm chat-input" placeholder="{{vm.inputPlaceholderText}}" ng-model="vm.writingMessage" />' +
+			'<span class="input-group-btn">' +
+			'<input type="submit" class="btn btn-sm chat-submit-button" value="{{vm.submitButtonText}}" />' +
+			'</span>' +
+			'</div>' +
+			'</form>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
 			'</div>';
 
 		var directive = {
 			restrict: 'EA',
-			template: chatTemplate,
+			templateUrl: 'views/templates/chat.html',
 			replace: true,
 			scope: {
 				messages: '=',
+				users: '=',
 				username: '=',
 				myUserId: '=',
 				inputPlaceholderText: '@',
@@ -62,7 +64,7 @@
 				submitFunction: '&',
 				visible: '=',
 				infiniteScroll: '&',
-                expandOnNew: '='
+				expandOnNew: '='
 			},
 			link: link,
 			controller: ChatCtrl,
@@ -109,7 +111,7 @@
 	function ChatCtrl($scope, $timeout) {
 		var vm = this;
 
-        vm.isHidden = false;
+		vm.isHidden = false;
 		vm.messages = $scope.messages;
 		vm.username = $scope.username;
 		//vm.myUserId = $scope.myUserId;
@@ -135,14 +137,14 @@
 		$scope.$watch('visible', function() { // make sure scroll to bottom on visibility change w/ history items
 			scrollToBottom();
 			/*$timeout(function() {
-				$scope.$chatInput.focus();
-			}, 250);*/
+			 $scope.$chatInput.focus();
+			 }, 250);*/
 		});
 		$scope.$watch('messages.length', function() {
 			if (!$scope.historyLoading) scrollToBottom(); // don't scrollToBottom if just loading history
-            if ($scope.expandOnNew && vm.isHidden) {
-                toggle();
-            }
+			if ($scope.expandOnNew && vm.isHidden) {
+				toggle();
+			}
 		});
 
 		function scrollToBottom() {
@@ -166,6 +168,24 @@
 				vm.panelStyle = {'display': 'none'};
 				vm.isHidden = true;
 			}
+		}
+
+		// Do we show connected users instead of messages ?
+		vm.userButtonClass = 'fa-users';
+		vm.isUsersShown = false;
+		vm.users = $scope.users;
+		vm.toggleUsers = function() {
+			if(vm.isUsersShown) {
+				vm.isUsersShown = false;
+				vm.userButtonClass = 'fa-users';
+			} else {
+				vm.isUsersShown = true;
+				vm.userButtonClass = 'fa-envelope';
+			}
+			// If chat was hidden we show it
+			vm.isHidden = false;
+			vm.panelStyle = {'display': 'block'};
+			vm.chatButtonClass = 'fa-minus icon_minim';
 		}
 	}
 })();
