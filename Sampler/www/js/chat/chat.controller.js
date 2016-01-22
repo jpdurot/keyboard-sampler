@@ -12,7 +12,8 @@ function chatController(notificationService, $scope) {
     $scope.visible = true;
     $scope.messages = notificationService.messages;
     $scope.users = notificationService.users;
-    console.log($scope.users);
+    $scope.sounds = notificationService.soundsHistory;
+    console.log($scope.sounds);
     $scope.expandOnNew = true;
     $scope.sendMessage = notificationService.sendMessage;
 

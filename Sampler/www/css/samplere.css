@@ -61,7 +61,7 @@ body {
   right: 8px;
   bottom: 5px;
   color: blue;
-  font-size: smaller; 
+  font-size: smaller;
 }
 span.fa-star {
   color: #FFDD00;
@@ -120,7 +120,7 @@ span.fa-star:after {
   .navbar-nav .text {
     display: none;
   }
-  
+
   .navbar-nav>li>a>span.fa,
   .navbar-nav>li>a>span.glyphicon {
     display: inline;
@@ -158,7 +158,7 @@ span.fa-star:after {
   .navbar-header {
     text-align: center;
   }
-  
+
   .navbar-brand {
     padding: 15px 10px;
   }
@@ -287,8 +287,8 @@ span.fa-star:after {
   text-align: right;
 }
 .chat-container>div>div>.panel .window-actions>* {
-   margin: 0 2px;
- }
+  margin: 0 3px;
+}
 .chat-container .chat-top-bar {
   height: auto;
 }
@@ -301,6 +301,17 @@ span.fa-star:after {
 }
 .chat-msg.chat-msg-recieved {
   background-color: rgba(73, 251, 0, 0.23);
+}
+
+.chat-msg .chat-sound {
+  display: table;
+}
+.chat-msg .chat-sound>* {
+  display: table-cell;
+  vertical-align: middle;
+}
+.chat-msg .chat-sound span {
+  padding: 5px;
 }
 
 .main-container {
@@ -327,16 +338,16 @@ span.fa-star:after {
 
 
 /* Spinner animation on long treatments */
- .wait-frame {
-   z-index: 10000;
-   background-color: rgba(160,160,160,0.3);
-   position: fixed;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   text-align: center;
-   line-height: 100vh;
+.wait-frame {
+  z-index: 10000;
+  background-color: rgba(160,160,160,0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 100vh;
 }
 /* To animate background color on display/hide */
 .wait-frame.ng-hide {
@@ -349,9 +360,9 @@ span.fa-star:after {
   height: 0;
 }
 .wait-frame.ng-hide-remove, .wait-frame.ng-hide-add {
-   /* this is required as of 1.3x to properly
-      apply all styling in a show/hide animation */
-   transition: background-color ease-in-out 0s;
+  /* this is required as of 1.3x to properly
+     apply all styling in a show/hide animation */
+  transition: background-color ease-in-out 0s;
 }
 .wait-frame.ng-hide-remove .spinner-container,
 .wait-frame.ng-hide-add .spinner-container {

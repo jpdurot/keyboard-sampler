@@ -55,6 +55,7 @@
 			scope: {
 				messages: '=',
 				users: '=',
+				sounds: '=',
 				username: '=',
 				myUserId: '=',
 				inputPlaceholderText: '@',
@@ -140,12 +141,14 @@
 			 $scope.$chatInput.focus();
 			 }, 250);*/
 		});
-		$scope.$watch('messages.length', function() {
+		function newContent() {
 			if (!$scope.historyLoading) scrollToBottom(); // don't scrollToBottom if just loading history
 			if ($scope.expandOnNew && vm.isHidden) {
 				toggle();
 			}
-		});
+		}
+
+		var newContentWatch = $scope.$watch('messages.length', newContent);
 
 		function scrollToBottom() {
 			$timeout(function() { // use $timeout so it runs after digest so new height will be included
@@ -170,22 +173,33 @@
 			}
 		}
 
-		// Do we show connected users instead of messages ?
+		// Do we show connected users or played sounds instead of messages ?
 		vm.userButtonClass = 'fa-users';
-		vm.isUsersShown = false;
+		vm.mode = 'chat';
 		vm.users = $scope.users;
-		vm.toggleUsers = function() {
-			if(vm.isUsersShown) {
-				vm.isUsersShown = false;
-				vm.userButtonClass = 'fa-users';
-			} else {
-				vm.isUsersShown = true;
+		vm.sounds = $scope.sounds;
+		console.log('sons dans le chat ',vm.sounds);
+		vm.toggleUsersSounds = function() {
+			// We cancel previous watch on new content
+			newContentWatch();
+			if(vm.mode === 'chat') {
+				vm.mode = 'users';
+				vm.userButtonClass = 'fa-music';
+				newContentWatch = $scope.$watch('users.length', newContent);
+			} else if(vm.mode === 'users') {
+				vm.mode = 'sounds';
 				vm.userButtonClass = 'fa-envelope';
+				newContentWatch = $scope.$watch('sounds.length', newContent);
+			} else {
+				vm.mode = 'chat';
+				vm.userButtonClass = 'fa-users';
+				newContentWatch = $scope.$watch('messages.length', newContent);
 			}
 			// If chat was hidden we show it
 			vm.isHidden = false;
 			vm.panelStyle = {'display': 'block'};
 			vm.chatButtonClass = 'fa-minus icon_minim';
+			scrollToBottom();
 		}
 	}
 })();

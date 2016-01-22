@@ -22,6 +22,16 @@ function notificationService($rootScope, alertService, User, Sounds) {
   // Sounds hub defined on server
   var soundsHub = $.connection.soundsHub;
 
+  // Returns formatted now
+  function getNowStr() {
+    var now = new Date();
+    var mm = (now.getMonth()+1).toString(); // getMonth() is zero-based
+    var dd  = now.getDate().toString();
+    var hh  = now.getHours().toString();
+    var min  = now.getMinutes().toString();
+    return (dd[1]?dd:"0"+dd[0])+ '/'+ (mm[1]?mm:"0"+mm[0]) + ' à '+ (hh[1]?hh:"0"+hh[0])+':'+(min[1]?min:"0"+min[0]); // padding
+  }
+
   // Function invoked by server to notify sounds played
   soundsHub.client.notifyNewSound = function (soundInfo, user, isMuted) {
     $rootScope.$apply(function () {
@@ -29,6 +39,12 @@ function notificationService($rootScope, alertService, User, Sounds) {
         alertService.addAlert(user + ' a tenté de jouer "' + soundInfo.Name + '".', 'warning');
       else {
         alertService.addAlert(user + ' vient de jouer "' + soundInfo.Name + '".', 'success', soundInfo.ImageUri);
+        service.soundsHistory.push({
+          username: user,
+          soundname: soundInfo.Name,
+          playtime: getNowStr(),
+          imageUri: soundInfo.ImageUri
+        });
         $rootScope.$broadcast('soundPlayed', soundInfo);
         if ($rootScope.user.playingProfil !== 2 ||
           $rootScope.user.allowBroadcastSounds ||
@@ -90,12 +106,7 @@ function notificationService($rootScope, alertService, User, Sounds) {
     if (message && message !== '') {
       // Call the Send method on the hub.
       soundsHub.server.chatSend($rootScope.user.userName, message);
-      var now = new Date();
-      var mm = (now.getMonth()+1).toString(); // getMonth() is zero-based
-      var dd  = now.getDate().toString();
-      var hh  = now.getHours().toString();
-      var min  = now.getMinutes().toString();
-      var nowStr = (dd[1]?dd:"0"+dd[0])+ '/'+ (mm[1]?mm:"0"+mm[0]) + ' à '+ (hh[1]?hh:"0"+hh[0])+':'+(min[1]?min:"0"+min[0]); // padding
+      var nowStr = getNowStr();
       service.messages.push({
         'username': $rootScope.user.userName,
         'content': message,

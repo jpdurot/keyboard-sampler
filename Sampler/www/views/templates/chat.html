@@ -6,13 +6,13 @@
                     <h3 class="panel-title"><span class="fa fa-comment-o"></span> {{vm.title}}</h3>
                 </div>
                 <div class="col-md-2 col-xs-2 window-actions">
-                    <span class="fa" ng-class="vm.userButtonClass" ng-click="vm.toggleUsers()"></span>
+                    <span class="fa" ng-class="vm.userButtonClass" ng-click="vm.toggleUsersSounds()"></span>
                     <span class="fa" ng-class="vm.chatButtonClass" ng-click="vm.toggle()"></span>
                     <!--<span class="fa fa-close" ng-click="vm.close()"></span>-->
                 </div>
             </div>
-            <div class="panel-body msg-container-base" ng-style="vm.panelStyle" ng-switch="vm.isUsersShown">
-                <div ng-switch-when="false">
+            <div class="panel-body msg-container-base" ng-style="vm.panelStyle" ng-switch="vm.mode">
+                <div ng-switch-when="chat">
                     <div class="row msg-container" ng-repeat="message in vm.messages" ng-init="selfAuthored = vm.myUserId == message.username">
                         <div class="col-md-12 col-xs-12">
                             <div class="chat-msg" ng-class="{'chat-msg-sent': selfAuthored, 'chat-msg-recieved': !selfAuthored}">
@@ -27,14 +27,30 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-condensed" ng-switch-when="true">
+                <table class="table table-condensed" ng-switch-when="users">
                     <tr class="user-container" ng-class="{'success': self}" ng-repeat="user in vm.users" ng-init="self = vm.myUserId == user.Name">
                         <td class="chat-user">
-                            <img ng-if="message.imageUrl" class="profile" ng-src="{{user.ImageUrl}}" />
+                            <img ng-if="user.imageUrl" class="profile" ng-src="{{user.ImageUrl}}" />
                             <p>{{user.Name}}</p>
                         </td>
                     </tr>
                 </table>
+                <div class="table table-condensed" ng-switch-when="sounds">
+                    <div class="row msg-container" ng-repeat="sound in vm.sounds" ng-init="selfAuthored = vm.myUserId == sound.username">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="chat-msg" ng-class="{'chat-msg-sent': selfAuthored, 'chat-msg-recieved': !selfAuthored}">
+                                <div class="chat-sound">
+                                    <img ng-if="sound.imageUri" class="sound-image" ng-src="{{sound.imageUri}}" />
+                                    <span>{{sound.soundname}}</span>
+                                </div>
+                                <div class="chat-msg-author">
+                                    <span class="date">{{sound.playtime}}</span>&nbsp;
+                                    <strong>{{sound.username}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="panel-footer chat-bottom-bar">
                 <form style="display:inherit" ng-submit="vm.submitFunction()">
