@@ -227,6 +227,19 @@ span.fa-star:after {
     pointer-events: auto;
   }
 }
+/* And on PC also when cursor is hover (can't put pointer events none on hover cause it causes flashing) */
+.alert-subcontainer {
+  pointer-events: none;
+}
+.alert-subcontainer .alert {
+  pointer-events: auto;
+}
+.alert-subcontainer .alert:hover {
+  opacity: 0.6;
+}
+.alert-subcontainer .alert:hover button.close {
+  opacity: 1;
+}
 
 /* Typeahead and Dropdowns */
 .dropdown-menu>.active>a,
