@@ -17,6 +17,12 @@ body {
   text-align: center;
 }
 
+/* Sort buttons */
+.sort-container {
+  margin-top: 10px;
+}
+
+/* Sounds buttons zone */
 .buttons {
   margin-top: 20px;
 }

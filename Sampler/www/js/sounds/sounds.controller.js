@@ -4,47 +4,72 @@
 'use strict';
 
 angular.module('samplereApp')
-    .controller('SoundsController',
-    function($scope, Sounds, waitSpinnerService, $rootScope) {
-      
-      console.log('SoundsController');
+  .controller('SoundsController',
+  function($scope, Sounds, waitSpinnerService, $rootScope) {
 
-        var completeSoundList = [];
+    console.log('SoundsController');
 
-        var accentMap = {
-            "é": "e",
-            "è": "e",
-            "ê": "e",
-            "ë": "e",
-            "à": "a",
-            "â": "a",
-            "ä": "a",
-            "ö": "o",
-            "ô": "o",
-            "ù": "u",
-            "ç": "c"
-        };
-        var normalize = function( term ) {
-            var ret = "";
-            for ( var i = 0; i < term.length; i++ ) {
-                ret += accentMap[ term.charAt(i) ] || term.charAt(i);
-            }
-            return ret;
-        };
+    var completeSoundList = [];
 
-        // We check if sound is muted
-        Sounds.isMuted(function(data) {
-            $scope.$parent.isMuted = data.ismuted;
-        });
+    var accentMap = {
+      "é": "e",
+      "è": "e",
+      "ê": "e",
+      "ë": "e",
+      "à": "a",
+      "â": "a",
+      "ä": "a",
+      "ö": "o",
+      "ô": "o",
+      "ù": "u",
+      "ç": "c"
+    };
+    var normalize = function( term ) {
+      var ret = "";
+      for ( var i = 0; i < term.length; i++ ) {
+        ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+      }
+      return ret;
+    };
 
-        if(!$scope.$parent.soundList) {
-            Sounds.getList(function(sounds) {
-                $scope.$parent.soundList = sounds;
-            });
-        }
+    // We check if sound is muted
+    Sounds.isMuted(function(data) {
+      $scope.$parent.isMuted = data.ismuted;
+    });
 
-
+    if(!$scope.$parent.soundList) {
+      Sounds.getList(function(sounds) {
+        $scope.$parent.soundList = sounds;
+      });
     }
+
+
+    // Available sorts
+    var availableSorts = ['classic', 'popularity', 'alphabetic'];
+    // Default sort
+    $scope.sort = 'classic';
+    // Function to sort sounds depending on user choice
+    $scope.setSort = function(newSort) {
+      if(availableSorts.indexOf(newSort) >= 0) {
+        $scope.sort = newSort;
+      }
+    };
+
+    // To get sort function
+    $scope.getSort = function() {
+      switch($scope.sort) {
+      case 'classic':
+        return '+Id';
+      case 'popularity':
+        return '-PlayedCount';
+      case 'alphabetic':
+        return '+Name';
+      default :
+        return '+Id';
+      }
+    };
+
+  }
 );
 /*
  // Autocomplete on search field
