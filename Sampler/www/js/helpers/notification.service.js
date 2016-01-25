@@ -15,6 +15,7 @@ function notificationService($rootScope, alertService, User, Sounds) {
 
   var service = {};
   service.messages = [];
+  service.users = [];
   service.soundsHistory = [];
 
   var _isMutedDelegate;
@@ -136,8 +137,9 @@ function notificationService($rootScope, alertService, User, Sounds) {
       alertService.addAlert('Tentative de reconnexion de signalAir. Dernière Erreur : '+$.connection.hub.lastError.message, 'info');
       console.dir($.connection.hub.lastError);
       // Test pour voir si ça résoud le problème de son qui se coupe après une longue inactivité
-      if (!createjs.initializeDefaultPlugins()) { return; }
+      if (!createjs.initializeDefaultPlugins()) { ; }
       $.connection.hub.start();
+      service.initChat();
     }, 1000); // Restart connection after 1 seconds.
   }
   $.connection.hub.disconnected(function() {
