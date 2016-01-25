@@ -47,8 +47,7 @@ function notificationService($rootScope, alertService, User, Sounds) {
           imageUri: soundInfo.ImageUri
         });
         if(service.soundsHistory.length > 20) {
-          console.log('suppression dans l\'historique de '+(service.soundsHistory.length-20)+' élements');
-          service.soundsHistory.splice(19,service.soundsHistory.length-20);
+          service.soundsHistory.splice(0,service.soundsHistory.length-20);
         }
         $rootScope.$broadcast('soundPlayed', soundInfo);
         if ($rootScope.user.playingProfil !== 2 ||
