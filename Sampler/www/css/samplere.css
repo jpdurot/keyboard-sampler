@@ -355,6 +355,30 @@ span.fa-star:after {
   margin-bottom: 0;
 }
 
+/* Fix for tabs */
+.msg-container-base>div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+.msg-container-base>div .tab-content {
+  height: 460px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.msg-container-base .nav-tabs>li>a {
+  color: white;
+}
+.msg-container-base .nav-tabs>li.active>a {
+   color: #666;
+}
+.msg-container-base .nav-tabs>li:hover>a {
+  color: #77b;
+}
+
 
 /* Spinner animation on long treatments */
 .wait-frame {

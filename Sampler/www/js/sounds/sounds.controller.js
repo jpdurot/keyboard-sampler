@@ -45,9 +45,9 @@ angular.module('samplereApp')
 
 
     // Available sorts
-    var availableSorts = ['classic', 'popularity', 'alphabetic'];
+    var availableSorts = ['old', 'new', 'popularity', 'alphabetic'];
     // Default sort
-    $scope.sort = 'classic';
+    $scope.sort = 'old';
     // Function to sort sounds depending on user choice
     $scope.setSort = function(newSort) {
       if(availableSorts.indexOf(newSort) >= 0) {
@@ -58,14 +58,15 @@ angular.module('samplereApp')
     // To get sort function
     $scope.getSort = function() {
       switch($scope.sort) {
-      case 'classic':
-        return '+Id';
-      case 'popularity':
-        return '-PlayedCount';
-      case 'alphabetic':
-        return '+Name';
-      default :
-        return '+Id';
+        case 'popularity':
+          return '-PlayedCount';
+        case 'alphabetic':
+          return '+Name';
+        case 'new':
+          return '-Horodate';
+        case 'old':
+        default :
+          return '+Horodate';
       }
     };
 
