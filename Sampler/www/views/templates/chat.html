@@ -37,7 +37,7 @@
                   </div>
               </div>
           </div>
-          <table ng-switch-when="users">
+          <table ng-switch-when="users" class="table table-condensed">
               <tr class="user-container" ng-class="{'success': self}" ng-repeat="user in vm.users" ng-init="self = vm.myUserId == user.Name">
                   <td class="chat-user">
                       <img ng-if="user.imageUrl" class="profile" ng-src="{{user.ImageUrl}}" />
