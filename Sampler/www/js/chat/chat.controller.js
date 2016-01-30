@@ -14,7 +14,7 @@ function chatController(notificationService, $scope) {
     $scope.users = notificationService.users;
     $scope.sounds = notificationService.soundsHistory;
     console.log($scope.sounds);
-    $scope.expandOnNew = true;
+    $scope.expandOnNew = false;
     $scope.sendMessage = notificationService.sendMessage;
 
     // Sounds history

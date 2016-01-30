@@ -114,6 +114,9 @@
 
 		vm.isHidden = false;
 		vm.messages = $scope.messages;
+		// Counter to show new messages count when another tab is displayed
+		vm.newMsgCount = 0;
+		var previousMsgCount = $scope.messages.length;
 		vm.username = $scope.username;
 		//vm.myUserId = $scope.myUserId;
 		vm.myUserId = $scope.username;
@@ -132,7 +135,12 @@
 		function submitFunction() {
 			$scope.submitFunction()(vm.writingMessage, vm.username);
 			vm.writingMessage = '';
-			scrollToBottom();
+			// We redisplay chat tab if needed
+			if(vm.mode != 'chat') {
+	      vm.setMode('chat');
+			} else {
+	      scrollToBottom();
+			}
 		}
 
 		$scope.$watch('visible', function() { // make sure scroll to bottom on visibility change w/ history items
@@ -141,14 +149,23 @@
 			 $scope.$chatInput.focus();
 			 }, 250);*/
 		});
-		function newContent() {
+		function newContent(messageCount) {
 			if (!$scope.historyLoading) scrollToBottom(); // don't scrollToBottom if just loading history
 			if ($scope.expandOnNew && vm.isHidden) {
 				toggle();
-			}
+			} else if(!$scope.expandOnNew && vm.isHidden) {
+	      vm.newMsgCount = messageCount - previousMsgCount;
+      }
 		}
 
 		var newContentWatch = $scope.$watch('messages.length', newContent);
+		
+		// Watcher to display new message count
+    function newMessage(messageCount) {
+      vm.newMsgCount = messageCount - previousMsgCount;
+    }
+
+    var newMessageWatch;
 
 		function scrollToBottom() {
 			$timeout(function() { // use $timeout so it runs after digest so new height will be included
@@ -165,11 +182,17 @@
 				vm.chatButtonClass = 'fa-minus icon_minim';
 				vm.panelStyle = {'display': 'block'};
 				vm.isHidden = false;
+				if(vm.mode === 'chat') {
+	        vm.newMsgCount = 0;
+				}
 				scrollToBottom();
 			} else {
 				vm.chatButtonClass = 'fa-chevron-up icon_minim';
 				vm.panelStyle = {'display': 'none'};
 				vm.isHidden = true;
+        if(vm.mode === 'chat') {
+          previousMsgCount = $scope.messages.length;
+        }
 			}
 		}
 
@@ -179,23 +202,38 @@
 		vm.mode = 'chat';
 
 		vm.setMode = function(mode, $event) {
-			// We cancel previous watch on new content
-			newContentWatch();
-			// And redirection
-			$event.preventDefault();
-      vm.mode = mode;
-			if(vm.mode === 'chat') {
-        newContentWatch = $scope.$watch('messages.length', newContent);
-			} else if(vm.mode === 'users') {
-        newContentWatch = $scope.$watch('users.length', newContent);
-			} else {
-        newContentWatch = $scope.$watch('sounds.length', newContent);
-			}
-			// If chat was hidden we show it
-			vm.isHidden = false;
-			vm.panelStyle = {'display': 'block'};
-			vm.chatButtonClass = 'fa-minus icon_minim';
-			scrollToBottom();
+      // We cancel redirection
+      if($event) {
+        $event.preventDefault();
+      }
+		  if(mode != vm.mode) {
+	      // We cancel previous watch on new content
+	      newContentWatch();
+	      vm.mode = mode;
+	      if(vm.mode === 'chat') {
+	        newMessageWatch();
+	        newMessageWatch = undefined;
+	        vm.newMsgCount = 0;
+	        newContentWatch = $scope.$watch('messages.length', newContent);
+	      } else if(vm.mode === 'users') {
+	        newContentWatch = $scope.$watch('users.length', newContent);
+	        if(!newMessageWatch) {
+	          previousMsgCount = $scope.messages.length;
+	          newMessageWatch = $scope.$watch('messages.length', newMessage);
+	        }
+	      } else {
+	        newContentWatch = $scope.$watch('sounds.length', newContent);
+          if(!newMessageWatch) {
+            previousMsgCount = $scope.messages.length;
+            newMessageWatch = $scope.$watch('messages.length', newMessage);
+          }
+	      }
+		  }
+      // If chat was hidden we show it
+      vm.isHidden = false;
+      vm.panelStyle = {'display': 'block'};
+      vm.chatButtonClass = 'fa-minus icon_minim';
+      scrollToBottom();
 		}
 	}
 })();

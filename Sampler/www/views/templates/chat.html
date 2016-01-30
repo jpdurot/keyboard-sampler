@@ -6,7 +6,7 @@
           <!--<h3 class="panel-title"><span class="fa fa-comment-o"></span> {{vm.title}}</h3>-->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" ng-class="{'active': vm.mode==='chat'}">
-              <a href="#chat" ng-click="vm.setMode('chat',$event)">Chat</a>
+              <a href="#chat" ng-click="vm.setMode('chat',$event)">Chat <span class="badge" ng-class="{'hidden': !vm.newMsgCount}" ng-bind="vm.newMsgCount"></span></a>
             </li>
             <li role="presentation" ng-class="{'active': vm.mode==='users'}">
               <a href="#users" ng-click="vm.setMode('users',$event)"><span class="fa fa-users"></span></a>
