@@ -369,6 +369,10 @@ span.fa-star:after {
 .chat-tabs .nav-tabs>li:hover>a {
   color: #77b;
 }
+.chat-tabs .nav-tabs>li>a.withoutBadge {
+  padding-left: 25px;
+  padding-right: 5px;
+}
 
 
 /* Spinner animation on long treatments */
