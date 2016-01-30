@@ -176,24 +176,20 @@
 		// Do we show connected users or played sounds instead of messages ?
 		vm.users = $scope.users;
 		vm.sounds = $scope.sounds;
-		vm.userButtonClass = 'fa-users';
 		vm.mode = 'chat';
-		console.log('sons dans le chat ',vm.sounds);
-		vm.toggleUsersSounds = function() {
+
+		vm.setMode = function(mode, $event) {
 			// We cancel previous watch on new content
 			newContentWatch();
+			// And redirection
+			$event.preventDefault();
+      vm.mode = mode;
 			if(vm.mode === 'chat') {
-				vm.mode = 'users';
-				vm.userButtonClass = 'fa-music';
-				newContentWatch = $scope.$watch('users.length', newContent);
+        newContentWatch = $scope.$watch('messages.length', newContent);
 			} else if(vm.mode === 'users') {
-				vm.mode = 'sounds';
-				vm.userButtonClass = 'fa-envelope';
-				newContentWatch = $scope.$watch('sounds.length', newContent);
+        newContentWatch = $scope.$watch('users.length', newContent);
 			} else {
-				vm.mode = 'chat';
-				vm.userButtonClass = 'fa-users';
-				newContentWatch = $scope.$watch('messages.length', newContent);
+        newContentWatch = $scope.$watch('sounds.length', newContent);
 			}
 			// If chat was hidden we show it
 			vm.isHidden = false;
