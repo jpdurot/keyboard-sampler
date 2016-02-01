@@ -213,7 +213,6 @@
 	      if(vm.mode === 'chat') {
 	        newMessageWatch();
 	        newMessageWatch = undefined;
-	        vm.newMsgCount = 0;
 	        newContentWatch = $scope.$watch('messages.length', newContent);
 	      } else if(vm.mode === 'users') {
 	        newContentWatch = $scope.$watch('users.length', newContent);
