@@ -233,6 +233,9 @@
       vm.isHidden = false;
       vm.panelStyle = {'display': 'block'};
       vm.chatButtonClass = 'fa-minus icon_minim';
+			if(vm.mode === 'chat') {
+				vm.newMsgCount = 0;
+			}
       scrollToBottom();
 		}
 	}
