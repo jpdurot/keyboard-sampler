@@ -124,7 +124,7 @@
       </ul>
       <div ng-if="user" class="hidden-xs col-md-4 col-sm-6 navbar-form form-group has-feedback form-search">
         <input id="search" type="search" class="form-control" placeholder="Rechercher un son..."
-               uib-typeahead="sound.Name for sound in soundList | filter:{Name:$viewValue}"
+               uib-typeahead="sound.Name for sound in soundList | filter:({Name:$viewValue}):ignoreAccents"
                typeahead-on-select="callSound($item)" autocomplete="off" ng-model="search.query" autofocus="true"
                typeahead-popup-template-url="views/templates/typeahead-popup.html">
         <button id="clearButton" type="button" class="close form-control-feedback" title="Effacer" ng-click="clear()"><span aria-hidden="true">&times;</span></button>

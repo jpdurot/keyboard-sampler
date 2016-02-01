@@ -4,135 +4,135 @@
 'use strict';
 
 angular.module('samplereApp')
-    .controller('MainController',
-    function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location,
-              $localStorage, waitSpinnerService, $timeout) {
+  .controller('MainController',
+  function ($scope, $rootScope, Sounds, alertService, notificationService, Login, $location,
+            $localStorage, waitSpinnerService, $timeout) {
 
-        // Menu is collapsed by default on mobile devices
-        $scope.isCollapsed = true;
-		
-		// To display alerts to user
-		$scope.alerts = alertService.getAlerts();
-		$scope.closeAlert = alertService.closeAlert;
+    // Menu is collapsed by default on mobile devices
+    $scope.isCollapsed = true;
 
-        // To search sound with scope inheritance
-        $scope.search = {};
+    // To display alerts to user
+    $scope.alerts = alertService.getAlerts();
+    $scope.closeAlert = alertService.closeAlert;
 
-        var completeSoundList = [];
+    // To search sound with scope inheritance
+    $scope.search = {};
 
-        /*var accentMap = {
-            "é": "e",
-            "è": "e",
-            "ê": "e",
-            "ë": "e",
-            "à": "a",
-            "â": "a",
-            "ä": "a",
-            "ö": "o",
-            "ô": "o",
-            "ù": "u",
-            "ç": "c"
-        };
-        var normalize = function( term ) {
-            var ret = "";
-            for ( var i = 0; i < term.length; i++ ) {
-                ret += accentMap[ term.charAt(i) ] || term.charAt(i);
-            }
-            return ret;
-        };*/
+    var completeSoundList = [];
 
-        $scope.clear = function() {
-            $scope.search.query = '';
-        };
+    function removeAccents(value) {
+      return value
+        .replace(/à|â/g, 'a')
+        .replace(/ç/g, 'c')
+        .replace(/é|è|ê/g, 'e')
+        .replace(/ï|î/g, 'i')
+        .replace(/ö|ô/g, 'o')
+        .replace(/ù|û/g, 'u');
+    }
+    $scope.ignoreAccents = function(item, searchQuery) {
+      if (!searchQuery) {
+        return true;
+      }
+      if(!item) {
+        return false;
+      }
+      var text = removeAccents(item.toLowerCase());
+      var search = removeAccents(searchQuery.toLowerCase());
+      return text.indexOf(search) > -1;
+    };
 
-        $scope.callSound = function (sound){
-			if ($rootScope.user.playingProfil == 1) {
-				if (!$scope.isMuted) {
-                    // We register sound, if false then fileload will play sound if true (already loaded) then we play
-                    if(createjs.Sound.registerSound({id: sound.Id, src: sound.Uri})) {
-                        createjs.Sound.play(sound.Id);
-                    }
-				}
-			} else {
-				Sounds.play({soundId: sound.Id}, function(success) {
+    $scope.clear = function() {
+      $scope.search.query = '';
+    };
 
-				}, function(error) {
-					if(error.status === 403) {
-						// Quota exceeded
-						alertService.addAlert('Quota de lecture dépassé !','danger');
-					}
-				});
-			}
-        };
+    $scope.callSound = function (sound){
+      if ($rootScope.user.playingProfil == 1) {
+        if (!$scope.isMuted) {
+          // We register sound, if false then fileload will play sound if true (already loaded) then we play
+          if(createjs.Sound.registerSound({id: sound.Id, src: sound.Uri})) {
+            createjs.Sound.play(sound.Id);
+          }
+        }
+      } else {
+        Sounds.play({soundId: sound.Id}, function(success) {
 
-        $scope.mute = function (){
-            Sounds.muteUnmute(function(data) {
-                $scope.isMuted = data.ismuted;
-            }, function(error) {
-                if(error.status === 403) {
-                    // Quota exceeded
-                    alertService.addAlert('Quota de mute dépassé !','danger');
-                }
-            });
-        };
-		
-		$scope.callFavorite = function(sound){
-			Sounds.favorite({soundId: sound.Id}, function(data) {
-                sound.IsFavorite = data.isFavorite;
-            });
-		};
-		
-		notificationService.setMuteChangedHandler(function(isMuted, user){
-			$scope.$apply(function(){
-				$scope.isMuted = isMuted;
-			    if (isMuted) {
-                    createjs.Sound.stop();
-                    alertService.addAlert(user + ' vient de couper le son.', 'danger');
-                }
-			    else
-			        alertService.addAlert(user + ' vient de réactiver le son.', 'danger');
-			});
-		});
-
-        $scope.logout = function () {
-            Login.logout(function() {
-                delete $localStorage.token;
-                delete $rootScope.token;
-                delete $rootScope.user;
-                $location.url('/login');
-            });
-        };
-
-        $scope.isCurrentPage = function(page) {
-            return $location.url() === page;
-        };
-
-        // Spinner animation while waiting response
-        $scope.displaySpinner = waitSpinnerService.displaySpinner;
-        $scope.$on('spinner', function() {
-            // Do it inside $timeout to automatically and safely $apply
-            $timeout(function(){
-                $scope.displaySpinner = waitSpinnerService.displaySpinner;
-            },0);
+        }, function(error) {
+          if(error.status === 403) {
+            // Quota exceeded
+            alertService.addAlert('Quota de lecture dépassé !','danger');
+          }
         });
+      }
+    };
 
-        // When a sound is loaded, it means we must play it
-        createjs.Sound.on("fileload", function(event) {
-            createjs.Sound.play(event.id);
-        });
+    $scope.mute = function (){
+      Sounds.muteUnmute(function(data) {
+        $scope.isMuted = data.ismuted;
+      }, function(error) {
+        if(error.status === 403) {
+          // Quota exceeded
+          alertService.addAlert('Quota de mute dépassé !','danger');
+        }
+      });
+    };
 
-        // Updates sound play counter
-        $scope.$on('soundPlayed', function($event, sound) {
-            for(var i=0; i<$scope.soundList.length; i++) {
-                if($scope.soundList[i].Id === sound.Id) {
-                    $scope.soundList[i].PlayedCount = sound.PlayedCount;
-                    break;
-                }
-            }
-        });
+    $scope.callFavorite = function(sound){
+      Sounds.favorite({soundId: sound.Id}, function(data) {
+        sound.IsFavorite = data.isFavorite;
+      });
+    };
 
-
+    notificationService.setMuteChangedHandler(function(isMuted, user){
+      $scope.$apply(function(){
+        $scope.isMuted = isMuted;
+        if (isMuted) {
+          createjs.Sound.stop();
+          alertService.addAlert(user + ' vient de couper le son.', 'danger');
+        }
+        else
+          alertService.addAlert(user + ' vient de réactiver le son.', 'danger');
+      });
     });
+
+    $scope.logout = function () {
+      Login.logout(function() {
+        delete $localStorage.token;
+        delete $rootScope.token;
+        delete $rootScope.user;
+        $location.url('/login');
+      });
+    };
+
+    $scope.isCurrentPage = function(page) {
+      return $location.url() === page;
+    };
+
+    // Spinner animation while waiting response
+    $scope.displaySpinner = waitSpinnerService.displaySpinner;
+    $scope.$on('spinner', function() {
+      // Do it inside $timeout to automatically and safely $apply
+      $timeout(function(){
+        $scope.displaySpinner = waitSpinnerService.displaySpinner;
+      },0);
+    });
+
+    // When a sound is loaded, it means we must play it
+    createjs.Sound.on("fileload", function(event) {
+      createjs.Sound.play(event.id);
+    });
+
+    // Updates sound play counter
+    $scope.$on('soundPlayed', function($event, sound) {
+      for(var i=0; i<$scope.soundList.length; i++) {
+        if($scope.soundList[i].Id === sound.Id) {
+          $scope.soundList[i].PlayedCount = sound.PlayedCount;
+          break;
+        }
+      }
+    });
+
+
+  });
 /*
  // Autocomplete on search field
  $('#search').autocomplete({

@@ -6,6 +6,6 @@
   <span class="btn btn-sm {{sort == 'alphabetic' ? 'btn-success' : 'btn-primary '}}" ng-click="setSort('alphabetic')">Alphabétique</span>
 </div>
 <div class="buttons">
-  <span class="col-xs-6 col-sm-3 col-md-2" ng-repeat="sound in soundList | filter:{Name:search.query} | orderBy: getSort()" ng-include src="'views/templates/sounds_list.html'">
+  <span class="col-xs-6 col-sm-3 col-md-2" ng-repeat="sound in soundList | filter:({Name:search.query}):ignoreAccents | orderBy: getSort()" ng-include src="'views/templates/sounds_list.html'">
   </span>
 </div>
