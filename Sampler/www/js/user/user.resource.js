@@ -4,17 +4,17 @@
 'use strict';
 
 angular.module('samplereApp')
-    .factory('User', ['$resource', function($resource) {
-        return $resource('/api/user', null,
+    .factory('User', ['$resource','constants', function($resource, constants) {
+        return $resource(constants.baseUri+'/api/user', null,
             {
                 chatHistory: {
                     method: 'GET',
-                    url: '/api/user/messages',
+                    url: constants.baseUri+'/api/user/messages',
                     isArray: true
                 },
                 trophies: {
                     method: 'GET',
-                    url: '/api/Trophies/info',
+                    url: constants.baseUri+'/api/Trophies/info',
                     isArray: true
                 },
                 getAll: {

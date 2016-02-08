@@ -19,6 +19,26 @@ namespace Sampler
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
+			
+			appBuilder.Use(async (context, next) =>
+			{
+				// Add Header
+				context.Response.Headers["Access-Control-Allow-Origin"] = "localhost:9000, samplairre.progx.org:9000";
+				
+				if (context.Request.Method == "OPTIONS"){
+
+					context.Response.StatusCode = 200;
+
+					context.Response.Headers.AppendCommaSeparatedValues("Access-Control-Allow-Methods", "GET", "POST", "PUT", "DELETE");
+
+					context.Response.Headers.AppendCommaSeparatedValues("Access-Control-Allow-Headers", "authorization", "content-type");
+					return;
+
+				}
+
+				// Call next middleware
+				await next();
+			});
             
             appBuilder.UseWebApi(config);
 

@@ -7,7 +7,7 @@ angular
 /**
  * notification service: manage websocket notifications from server.
  */
-function notificationService($rootScope, alertService, User, Sounds) {
+function notificationService($rootScope, alertService, User, Sounds, constants) {
 
   /*
    * Public interface
@@ -21,6 +21,7 @@ function notificationService($rootScope, alertService, User, Sounds) {
   var _isMutedDelegate;
 
   // Sounds hub defined on server
+  $.connection.hub.url = constants.baseUri+'/socket';
   var soundsHub = $.connection.soundsHub;
 
   // Returns formatted now

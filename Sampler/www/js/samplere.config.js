@@ -8,7 +8,7 @@ angular.module('samplereApp').config(
 
       // Redirects users not logged in to login page on http calls
       $httpProvider.interceptors.push(function($q, $location, $rootScope,
-          $localStorage) {
+          $localStorage, constants) {
         return {
           responseError : function(response) {
             if (response.status === 401) {
@@ -23,7 +23,7 @@ angular.module('samplereApp').config(
             return $q.reject(response);
           },
           request : function(config) {
-            if (!!config && !!config.url && config.url.indexOf('/api') === 0
+            if (!!config && !!config.url && config.url.indexOf(constants.baseUri+'/api') === 0
                 && !!$localStorage.token) {
               // We add authentication headers
               config.headers['ApiToken'] = $rootScope.token;

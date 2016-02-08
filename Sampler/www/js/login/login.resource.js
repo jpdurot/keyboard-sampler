@@ -4,23 +4,23 @@
 'use strict';
 
 angular.module('samplereApp')
-    .factory('Login', ['$resource', function($resource) {
-        return $resource('/api/login', null,
+    .factory('Login', ['$resource','constants', function($resource, constants) {
+        return $resource(constants.baseUri+'/api/login', null,
             {
                 login: {
                     method: 'POST'
                 },
                 isLoggedIn: {
                     method: 'GET',
-                    url: '/api/login/test'
+                    url: constants.baseUri+'/api/login/test'
                 },
                 logout: {
                     method: 'GET',
-                    url: '/api/login/logout'
+                    url: constants.baseUri+'/api/login/logout'
                 },
                 changePassword: {
                     method: 'POST',
-                    url: '/api/login/password'
+                    url: constants.baseUri+'/api/login/password'
                 }
             });
     }]);

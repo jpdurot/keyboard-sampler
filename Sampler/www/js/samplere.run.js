@@ -5,7 +5,7 @@
 
 // App startup
 angular.module('samplereApp')
-  .run(function(Login, $rootScope, $localStorage, notificationService) {
+  .run(function(Login, $rootScope, $localStorage, notificationService, constants) {
     // At startup we check if user is logged in
     if(!!$localStorage.token) {
       $rootScope.token = $localStorage.token;
@@ -20,4 +20,7 @@ angular.module('samplereApp')
         notificationService.initChat();
       })
     }
+
+    // We register base uri
+    $rootScope.baseUri = constants.baseUri;
   });
