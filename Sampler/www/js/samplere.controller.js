@@ -131,6 +131,31 @@ angular.module('samplereApp')
       }
     });
 
+    /* ELECTRON : Test to add file */
+    if($rootScope.isElectron) {
+      var remote = require('remote');
+      var dialog = remote.require('dialog');
+      var fs = require('fs');
+      $scope.openFile = function() {
+        dialog.showOpenDialog({
+          properties: [ 'openFile' ],
+          filters: [
+            { name: 'Sons', extensions: ['mp3', 'wav'] }
+          ]
+        }, function (fileNames) {
+            if (fileNames === undefined) return;
+            var fileName = fileNames[0];
+            /*fs.readFile(fileName, 'utf-8', function (err, data) {
+              document.getElementById("editor").value = data;
+            });*/
+
+            if(createjs.Sound.registerSound({id: fileName, src: fileName})) {
+              createjs.Sound.play(fileName);
+            }
+        });
+      }
+    }
+
 
   });
 /*

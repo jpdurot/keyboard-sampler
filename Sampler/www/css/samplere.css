@@ -17,9 +17,13 @@ body {
   text-align: center;
 }
 
-/* Sort buttons */
-.sort-container {
+/* Sort and open file buttons */
+.sort-container, .openfile-container {
   margin-top: 10px;
+  display: inline-block;
+}
+.sort-container {
+  margin-right: 5px;
 }
 
 /* Sounds buttons zone */

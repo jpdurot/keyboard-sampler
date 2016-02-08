@@ -23,4 +23,6 @@ angular.module('samplereApp')
 
     // We register base uri
     $rootScope.baseUri = constants.baseUri;
+    // And test if running inside Electron
+    $rootScope.isElectron = window && window.process && window.process.versions['electron'];
   });
