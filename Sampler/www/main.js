@@ -14,6 +14,18 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
+  var http = require('http');
+  var https = require('https');
+  var ElectronProxyAgent = require('electron-proxy-agent');
+  var session = mainWindow.webContents.session;
+
+// use ElectronProxyAgent as http and https globalAgents
+  //http.globalAgent = https.globalAgent = new ElectronProxyAgent(session);
+
+  /*session.resolveProxy('file://' + __dirname + '/index.html', function(proxy) {
+    console.log(proxy);
+  });*/
+
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 

@@ -4,5 +4,5 @@
 'use strict';
 
 angular.module('samplereApp').constant('constants', {
-  'baseUri': 'http://localhost:9000'
+  'baseUri': ''
 });
