@@ -45,7 +45,7 @@ namespace Sampler
 			{
 				// Add Header
 				var origin = context.Request.Headers.Get("Origin");
-				if(String.Equals(origin, "http://samplairre.progx.org:9000") || String.Equals(origin, "http://localhost:9000") || String.Equals(origin, "http://localhost:3000")) {
+				if(String.Equals(origin, "http://samplairre.progx.org:9000")/* || String.Equals(origin, "http://localhost:9000")*/ || String.Equals(origin, "http://localhost:3000")) {
 					context.Response.Headers["Access-Control-Allow-Origin"] = origin;
 				
 					if (context.Request.Method == "OPTIONS"){
