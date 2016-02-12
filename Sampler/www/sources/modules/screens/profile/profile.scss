@@ -1,0 +1,12 @@
+// Encapsulate component style into its own "namespace "to avoid naming and css collision
+.profile {
+
+  /* Trophies */
+  .trophies div {
+    color: red;
+  }
+  .trophies div.achieved {
+    color: green;
+  }
+
+}

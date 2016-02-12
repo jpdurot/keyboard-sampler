@@ -1,0 +1,62 @@
+// Encapsulate component style into its own "namespace "to avoid naming and css collision
+.sounds {
+
+  /* Sort and open file buttons */
+  .sort-container, .openfile-container {
+    margin-top: 10px;
+    display: inline-block;
+  }
+  .sort-container {
+    margin-right: 5px;
+  }
+
+
+  /* Sounds buttons zone */
+  .buttons {
+    margin-top: 20px;
+  }
+
+  .buttons>span {
+    padding: 2px;
+  }
+
+  .buttons .btn {
+    height: 55px;
+    text-align: center;
+    background: rgb(206,220,231); /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(206,220,231,0.2) 0%, rgba(38,38,38,0.1) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(206,220,231,0.2) 0%,rgba(38,38,38,0.1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, rgba(206,220,231,0.2) 0%,rgba(38,38,38,0.1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    width: 100%;
+    word-wrap: break-word;
+  }
+  .buttons .btn:focus {
+    background-color: transparent;
+  }
+
+  .buttons .btn span {
+    white-space: normal;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: inline; /* Fallback for non webkit */
+    display: -webkit-box;
+    overflow: hidden;
+  }
+  .buttons .btn span.fa-star-o,
+  .buttons .btn span.fa-star {
+    position: absolute;
+    right: 2px;
+    top: 4px;
+    font-size: 18px;
+  }
+  .buttons .btn .playedcount {
+    position: absolute;
+    right: 8px;
+    bottom: 5px;
+    color: blue;
+    font-size: smaller;
+  }
+
+}

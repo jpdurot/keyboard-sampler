@@ -1,0 +1,17 @@
+<div class="sounds">
+  <div class="sort-container">
+    <label >Tri : </label>
+    <span class="btn btn-sm {{vm.sort == 'old' ? 'btn-success' : 'btn-primary '}}" ng-click="vm.setSort('old')">Ancien</span>
+    <span class="btn btn-sm {{vm.sort == 'new' ? 'btn-success' : 'btn-primary '}}" ng-click="vm.setSort('new')">Nouveau</span>
+    <span class="btn btn-sm {{vm.sort == 'popularity' ? 'btn-success' : 'btn-primary '}}" ng-click="vm.setSort('popularity')">Popularité</span>
+    <span class="btn btn-sm {{vm.sort == 'alphabetic' ? 'btn-success' : 'btn-primary '}}" ng-click="vm.setSort('alphabetic')">Alphabétique</span>
+  </div>
+  <div class="openfile-container" ng-if="isElectron">
+    <label >Lire un son local : </label>
+    <button class="btn btn-sm btn-secondary" ng-click="vm.openFile()" type="button">Ouvrir</button>
+  </div>
+  <div class="buttons">
+    <span class="col-xs-6 col-sm-3 col-md-2" ng-repeat="sound in shell.soundList | filter:({Name:shell.search.query}):shell.ignoreAccents | orderBy: vm.getSort()" ng-include src="'modules/ui-components/templates/sounds_list.html'">
+    </span>
+  </div>
+</div>

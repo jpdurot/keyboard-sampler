@@ -1,0 +1,333 @@
+// Encapsulate component style into its own "namespace "to avoid naming and css collision
+.shell {
+
+  .main-container {
+    margin-top: 50px;
+    padding-bottom: 116px; /* for chat on mobiles */
+  }
+
+  @media(min-width: 768px) {
+    .main-container {
+      padding-bottom: 5px;
+    }
+  }
+
+  .right {
+    float: right;
+  }
+
+  .starter-template {
+    padding: 40px 15px;
+    text-align: center;
+  }
+
+  .dropdown-menu span.fa-star-o {
+    position: absolute;
+  }
+
+  .form-search .close {
+    text-align: left;
+  }
+
+  .form-search .close:focus {
+    outline: none;
+  }
+
+  .form-search .close>span {
+    pointer-events: auto;
+  }
+
+  .navbar-buttons-mobile {
+    float: right;
+    position: relative;
+    margin-right: 15px;
+  }
+
+  .navbar-nav>li>a.btn-mute {
+    font-size: 19px;
+    padding-top: 14px;
+    padding-bottom: 13px;
+  }
+
+  .glyphicon-volume-up {
+    color: #00a500;
+  }
+  .glyphicon-volume-off {
+    color: #FD3010;
+  }
+
+  .navbar-nav>li>a>span.fa,
+  .navbar-nav>li>a>span.glyphicon {
+    display: none;
+  }
+  .navbar-nav>li>a>span.glyphicon.glyphicon-volume-up,
+  .navbar-nav>li>a>span.glyphicon.glyphicon-volume-off {
+    display: inline;
+  }
+
+  @media(min-width: 768px) and (max-width: 1199px) {
+    .navbar-nav .text {
+      display: none;
+    }
+
+    .navbar-nav>li>a>span.fa,
+    .navbar-nav>li>a>span.glyphicon {
+      display: inline;
+    }
+  }
+
+  .navbar-buttons-mobile>a {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #9d9d9d;
+  }
+
+  .mute-mobile {
+    color: #9d9d9d;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .form-search-mobile {
+    border: none;
+    box-shadow: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - 200px);
+    float: none;
+    padding: 10px 5px;
+  }
+  .form-search-mobile input.form-control {
+    padding-right: 20px;
+  }
+
+  @media(max-width: 767px) {
+    .navbar-header {
+      text-align: center;
+    }
+
+    .navbar-brand {
+      padding: 15px 10px;
+    }
+  }
+
+  .navbar-brand img {
+    height: 45px;
+    margin-top: -10px;
+  }
+
+  /* Alerts */
+  .alert-container {
+    position: relative;
+  }
+  .alert-container .alert-subcontainer {
+    /* Make alerts displayed above page content */
+    position: fixed;
+    z-index: 1051;
+    left: 15px;
+  }
+  /* Permit alerts to have newlines */
+  .alert-container .alert-subcontainer .alert>div>span {
+    white-space: pre-wrap;
+  }
+
+  /* Integrate images in alerts */
+  .alert-container .alert-subcontainer .alert.with-img>div {
+    display: table;
+  }
+  .alert-container .alert-subcontainer .alert.with-img>div>span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 10px;
+  }
+
+  .alert-container .alert-subcontainer .alert.with-img .alert-img {
+    display: table-cell;
+  }
+
+  /* We animate show/hide */
+  .alert-container .alert-subcontainer .alert.ng-leave.ng-leave-active, .alert-container .alert-subcontainer .alert.ng-enter {
+    opacity: 0;
+  }
+  .alert-container .alert-subcontainer .alert.ng-enter.ng-enter-active, .alert-container .alert-subcontainer .alert.ng-leave {
+    opacity: 1;
+  }
+  .alert-container .alert-subcontainer .alert.ng-leave, .alert-container .alert-subcontainer .alert.ng-enter {
+    /* the transition is defined in the active class */
+    transition: opacity ease 0.3s;
+  }
+
+  /* Make alerts transparent on mobile and ability to click through */
+  @media(max-width: 767px) {
+    .alert-subcontainer {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .alert-subcontainer button.close {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  /* And on PC also when cursor is hover (can't put pointer events none on hover cause it causes flashing) */
+  .alert-subcontainer {
+    pointer-events: none;
+  }
+  .alert-subcontainer .alert {
+    pointer-events: auto;
+  }
+  .alert-subcontainer .alert:hover {
+    opacity: 0.6;
+  }
+  .alert-subcontainer .alert:hover button.close {
+    opacity: 1;
+  }
+
+  /* Typeahead and Dropdowns */
+  .dropdown-menu>.active>a,
+  .dropdown-menu>.active>a:focus,
+  .dropdown-menu>.active>a:hover {
+    background-color: #222;
+    color: #fff;
+  }
+  .dropdown-menu a {
+    color: #222;
+  }
+  .dropdown-menu li {
+    position: relative;
+  }
+  .dropdown-menu li span.glyphicon,
+  .dropdown-menu li span.fa{
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    line-height: 24px;
+  }
+  .dropdown-menu>.active> span.glyphicon,
+  .dropdown-menu>.active> span.fa {
+    color: #fff;
+  }
+  .dropdown-menu>.active> span.fa-star {
+    color: #000;
+  }
+  .dropdown-menu>.active> span.fa-star:after {
+    color: #FFDD00;
+  }
+  span.fa-star {
+    color: #FFDD00;
+  }
+  span.fa-star:after {
+    color: #000;
+    content: "\f006";
+    margin-left: -17px/*-1em*/;
+  }
+
+  /* Spinner animation on long treatments */
+  .wait-frame {
+    z-index: 10000;
+    background-color: rgba(160,160,160,0.3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 100vh;
+  }
+  /* To animate background color on display/hide */
+  .wait-frame.ng-hide {
+    background-color: rgba(160,160,160,0);
+  }
+  .wait-frame.ng-hide .spinner-container {
+    opacity: 0;
+  }
+  .wait-frame.ng-hide .spinner {
+    height: 0;
+  }
+  .wait-frame.ng-hide-remove, .wait-frame.ng-hide-add {
+    /* this is required as of 1.3x to properly
+       apply all styling in a show/hide animation */
+    transition: background-color ease-in-out 0s;
+  }
+  .wait-frame.ng-hide-remove .spinner-container,
+  .wait-frame.ng-hide-add .spinner-container {
+    transition: all ease-in-out 0s;
+  }
+  .wait-frame.ng-hide-remove .spinner-container .spinner, .wait-frame.ng-hide-remove .spinner-container .wait-text,
+  .wait-frame.ng-hide-add .spinner-container .spinner, .wait-frame.ng-hide-add .spinner-container .wait-text {
+    transition: all ease-in-out 0s;
+  }
+  .wait-frame.ng-hide-remove-active, .wait-frame.ng-hide-add-active {
+    /* the transition is defined in the active class */
+    transition: background-color ease-in-out 0.6s;
+  }
+  .wait-frame.ng-hide-remove-active .spinner-container,
+  .wait-frame.ng-hide-add-active .spinner-container {
+    transition: opacity ease-in-out 0.6s;
+  }
+  .wait-frame.ng-hide-remove-active .spinner-container .spinner,
+  .wait-frame.ng-hide-add-active .spinner-container .spinner {
+    transition: height ease-in-out 0.6s;
+  }
+
+  .wait-frame .spinner-container {
+    display: inline-block;
+    line-height: normal;
+    position: relative;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .wait-frame .spinner-container .spinner {
+    background: url(../images/spinner.gif) center no-repeat;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+
+  .wait-frame .spinner-container .wait-text {
+    padding: 3px;
+  }
+
+  /* Login + profile + change password */
+  .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin .checkbox {
+    font-weight: normal;
+  }
+  .form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+
+}
