@@ -2,7 +2,7 @@
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
-//using Microsoft.Owin.Cors;
+using Microsoft.Owin.Cors;
 using Owin;
 using Sampler.Server.Utils;
 using System;
@@ -16,7 +16,7 @@ namespace Sampler
         public void Configuration(IAppBuilder appBuilder)
         {
             // Activate SignalR for websocket with web app
-            /*appBuilder.Map("/socket", map =>
+            appBuilder.Map("/socket", map =>
             {
                 // Setup the CORS middleware to run before SignalR.
                 // By default this will allow all origins. You can 
@@ -34,8 +34,8 @@ namespace Sampler
                 // since this branch already runs under the "/signalr"
                 // path.
                 map.RunSignalR(hubConfiguration);
-            });*/
-            appBuilder.MapSignalR("/socket", new HubConfiguration());
+            });
+            //appBuilder.MapSignalR("/socket", new HubConfiguration());
             
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
