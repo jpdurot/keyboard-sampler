@@ -62,15 +62,14 @@ function buildSources(target) {
 
 function addBaseUri(target) {
 
+  function replacePath(string, replacement) {
+    // Make sure we replace only the string located inside markers
+    var constantRegExp = new RegExp('(<\!\-\- file \-\->[\\s\\S]*?)' + string + '([\\s\\S]*?endfile \-\->)', 'gm');
+    console.log(string, replacement,constantRegExp);
+    return $.replace(constantRegExp, '$1' + replacement + '$2')
+  }
+
   return function() {
-
-    function replacePath(string, replacement) {
-      // Make sure we replace only the string located inside markers
-      var constantRegExp = new RegExp('(<\!\-\- file \-\->[\\s\\S]*?)' + string + '([\\s\\S]*?endfile \-\->)', 'gm');
-      console.log(string, replacement,constantRegExp);
-      return $.replace(constantRegExp, '$1' + replacement + '$2')
-    }
-
     var baseUri = '';
     if(target === 'prod') {
       baseUri = conf.baseUris.prod;
@@ -79,8 +78,8 @@ function addBaseUri(target) {
       baseUri = conf.baseUris.local;
     }
 
-    return gulp.src(path.join(conf.paths.src, 'index.html'))
-      .pipe($.replace('<script src="socket/hubs"></script>', '<script src="'+baseUri+'/socket/hubs"></script>'))
+    return gulp.src(path.join(conf.paths.tmp, 'index.html'))
+      .pipe(replacePath('<script src="socket/hubs"></script>', '<script src="'+baseUri+'/socket/hubs"></script>'))
       .pipe(gulp.dest(conf.paths.tmp));
   }
 }
@@ -89,8 +88,8 @@ gulp.task('baseuri:prod', addBaseUri('prod'));
 gulp.task('baseuri:local', addBaseUri('local'));
 
 gulp.task('build:sources', ['inject'], buildSources());
-gulp.task('build:sources:prod', ['baseuri:prod', 'inject'], buildSources('prod'));
-gulp.task('build:sources:local', ['baseuri:local', 'inject'], buildSources('local'));
+gulp.task('build:sources:prod', ['baseuri:prod'], buildSources('prod'));
+gulp.task('build:sources:local', ['inject', 'baseuri:local'], buildSources('local'));
 
 // Only applies for fonts from bower dependencies
 // Custom fonts are handled by the "other" task
