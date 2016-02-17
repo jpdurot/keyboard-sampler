@@ -4,7 +4,7 @@
   "description": "Web sampler so powerful",
   "main": "main.js",
   "scripts": {
-    "start": "gulp build:hybrid && electron main.js",
+    "start": "electron main.js",
     "test": "gulp test"
   },
   "keywords": "angular, bootstrap, gulp, ui-router, ui-bootstrap, sass, typescript, jade",
