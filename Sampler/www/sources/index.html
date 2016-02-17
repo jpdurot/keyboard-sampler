@@ -25,20 +25,24 @@
     <![endif]-->
 
     <div ui-view></div>
+    <script>
+        if ('require' in window) {
+            window.$ = window.jQuery = require('jquery');
+        }
+    </script>
 
     <!-- build:js(sources) scripts/vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
     <!-- endbuild -->
+    
     <!-- file -->
     <script src="socket/hubs"></script>
     <!-- endfile -->
-
 
     <!-- build:js({.tmp/partials,sources,.tmp}) scripts/app.js -->
     <!-- inject:js -->
     <!-- endinject -->
     <!-- endbuild -->
-    </div>
   </body>
 </html>

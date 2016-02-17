@@ -39,7 +39,7 @@ function buildSources(target) {
       .pipe($.rev())
       .pipe(jsFilter)
       .pipe($.ngAnnotate())
-      .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
+      //.pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
       .pipe(jsFilter.restore)
       .pipe(cssFilter)
       .pipe($.minifyCss({ processImport: false }))
@@ -65,7 +65,6 @@ function addBaseUri(target) {
   function replacePath(string, replacement) {
     // Make sure we replace only the string located inside markers
     var constantRegExp = new RegExp('(<\!\-\- file \-\->[\\s\\S]*?)' + string + '([\\s\\S]*?endfile \-\->)', 'gm');
-    console.log(string, replacement,constantRegExp);
     return $.replace(constantRegExp, '$1' + replacement + '$2')
   }
 

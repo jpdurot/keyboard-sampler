@@ -21,7 +21,7 @@ exports.baseUris = {
  */
 exports.paths = {
   src: 'sources',
-  dist: 'c:/Samplere/www',
+  dist: 'D:/Sampler/www',
   hybridDist: 'dist',
   tmp: '.tmp',
   e2e: 'e2e',
