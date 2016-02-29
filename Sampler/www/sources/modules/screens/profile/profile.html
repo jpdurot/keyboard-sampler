@@ -2,11 +2,11 @@
   <h2 class="form-signin-heading">Gestion de votre profil</h2>
   <div class="trophies">
     <h3>Trophées</h3>
-    <span class="col-md-12" ng-repeat="trophy in vm.trophies">
-      <div ng-class="{'achieved':trophy.IsAchieved}">
-        {{trophy.Name}} : {{trophy.Description}}
-      </div>
-    </span>
+    <uib-accordion close-others="true" class="col-md-12">
+      <uib-accordion-group ng-class="{'achieved':trophy.IsAchieved}" ng-repeat="trophy in vm.trophies" is-open="trophy.isOpen" heading="{{trophy.Name}}">
+        {{trophy.Description}}
+      </uib-accordion-group>
+    </uib-accordion>
   </div>
   <div>
     <h3>Gestion mot de passe</h3>

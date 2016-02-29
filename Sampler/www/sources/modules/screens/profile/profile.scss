@@ -2,11 +2,15 @@
 .profile {
 
   /* Trophies */
-  .trophies div {
-    color: red;
-  }
-  .trophies div.achieved {
-    color: green;
+  .trophies {
+    .panel {
+      >.panel-heading {
+        color: red;
+      }
+      &.achieved >.panel-heading {
+        color: green;
+      }
+    }
   }
 
 }
