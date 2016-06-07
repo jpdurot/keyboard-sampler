@@ -1,12 +1,11 @@
-﻿#if !DOTNETCORE
+﻿#if DOTNETCORE
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 
@@ -14,7 +13,7 @@ namespace Sampler.Server.Utils
 {
     public class TrophyAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuted(HttpActionExecutedContext httpActionContext)
+        public override void OnActionExecuted(ActionExecutedContext httpActionContext)
         {
             string actionId = string.Concat(httpActionContext.ActionContext.ControllerContext.ControllerDescriptor.ControllerName, "/",
                 httpActionContext.ActionContext.ActionDescriptor.ActionName);

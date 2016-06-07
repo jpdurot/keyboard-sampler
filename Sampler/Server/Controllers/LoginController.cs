@@ -3,10 +3,12 @@ using System.Net.Http;
 #if DOTNETCORE
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 #else
 using System.Web.Http;
-#endif
 using Microsoft.AspNet.SignalR;
+#endif
+
 using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
@@ -14,17 +16,24 @@ using Sampler.Server.Utils;
 
 namespace Sampler.Server.Controllers
 {
-    [RoutePrefix("api/login")]
+    
     #if DOTNETCORE
+    [Route("api/login")]
     public class LoginController : Controller
     #else
+    [RoutePrefix("api/login")]
     public class LoginController : ApiController
     #endif
     {
         private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
-        [HttpPost]
-        [Route("")]
+
+        #if DOTNETCORE
+            [HttpPost]
+        #else
+            [HttpPost]
+            [Route("")]
+        #endif
         public HttpResponseMessage Login([FromBody] UserLogin userInfo)
         {
             var user = AuthenticationService.Current.Authenticate(userInfo.UserName, userInfo.Password);
@@ -45,9 +54,14 @@ namespace Sampler.Server.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
-        [HttpGet]
-        [Route("test")]
-        [CustomAuthorization]
+
+        #if DOTNETCORE
+            [HttpGet("test")]
+        #else
+            [HttpGet]
+            [Route("test")]
+            [CustomAuthorization]
+        #endif
         public LoginResponse Test()
         {
             return new LoginResponse()
@@ -59,9 +73,13 @@ namespace Sampler.Server.Controllers
             };
         }
 
-        [HttpGet]
-        [Route("logout")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpGet("logout")]
+        #else
+            [HttpGet]
+            [Route("logout")]
+            [CustomAuthorization]
+        #endif
         public HttpResponseMessage Logout()
         {
             if (AuthenticationService.Current.Disconnect(Request.GetUserContext()))
@@ -71,10 +89,13 @@ namespace Sampler.Server.Controllers
 
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
-
-        [HttpPost]
-        [Route("password")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpPost("password")]
+        #else
+            [HttpPost]
+            [Route("password")]
+            [CustomAuthorization]
+        #endif
         public HttpResponseMessage ModifyPassword([FromBody] ModifyPasswordBody passwordBody)
         {
             if (UserService.Current.ModifyPassword(Request.GetUserContext(), passwordBody.OldPassword,

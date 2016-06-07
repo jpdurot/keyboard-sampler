@@ -1,8 +1,7 @@
-﻿#if !DOTNETCORE
+﻿#if DOTNETCORE
 using System.Net;
 using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 
@@ -10,7 +9,7 @@ namespace Sampler.Server.Utils
 {
     public class QuotaAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
             string actionId = string.Concat(actionContext.ControllerContext.ControllerDescriptor.ControllerName, "/",
                 actionContext.ActionDescriptor.ActionName);

@@ -1,15 +1,10 @@
-﻿#if DOTNETCORE
-using Microsoft.AspNet.Http;
-
-#else
+﻿#if !DOTNETCORE
 using System.Web.Http;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Microsoft.Owin.Cors;
 using Owin;
-#endif
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.AspNet.SignalR;
 
 using Sampler.Server.Utils;
@@ -21,12 +16,7 @@ namespace Sampler
     {
         // This code configures Web API. The Startup class is specified as a type
         // parameter in the WebApp.Start method.
-        #if DOTNETCORE
-        public void Configure(IApplicationBuilder appBuilder)
-        {
-            
-        }
-        #else
+
         public void Configuration(IAppBuilder appBuilder)
         {
             // Activate SignalR for websocket with web app
@@ -93,6 +83,6 @@ namespace Sampler
 
             config.EnsureInitialized();
         }
-        #endif
     }
 }
+#endif

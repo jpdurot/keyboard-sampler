@@ -13,16 +13,22 @@ using Sampler.Server.Utils;
 
 namespace Sampler.Server.Controllers
 {
-    [RoutePrefix("api/user")]
+    
     #if DOTNETCORE
-    public class UserController : Controller
+        [Route("api/user")]
+        public class UserController : Controller
     #else
-    public class UserController : ApiController
+        [RoutePrefix("api/user")]
+        public class UserController : ApiController
     #endif
     {
-        [HttpGet]
-        [Route("")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpGet]
+        #else
+            [HttpGet]
+            [Route("")]
+            [CustomAuthorization]  
+        #endif
         public IEnumerable<User> GetUserList()
         {
             var users = AuthenticationService.Current.GetAuthenticatedtUsersList();
@@ -30,17 +36,25 @@ namespace Sampler.Server.Controllers
             return users;
         }
 
-        [HttpGet]
-        [Route("messages")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpGet("messages")]
+        #else
+            [HttpGet]
+            [Route("")]
+            [CustomAuthorization]  
+        #endif
         public IEnumerable<ChatMessage> GetChatHistory()
         {
             return UserService.Current.ChatHistory;
         }
 
-        [HttpPost]
-        [Route("modifyprofil")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpPost("modifyProfil")]
+        #else
+            [HttpPost]
+            [Route("modifyprofil")]
+            [CustomAuthorization] 
+        #endif
         public HttpResponseMessage ModifyUserProfil([FromBody] User user)
         {
             if (UserService.Current.ModifyUserProfil(Request.GetUserContext(), user))

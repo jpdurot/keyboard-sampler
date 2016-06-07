@@ -1,20 +1,20 @@
-﻿#if !DOTNETCORE
+﻿#if DOTNETCORE
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Threading.Tasks;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 
 namespace Sampler.Server.Utils
 {
-    class CustomAuthorizationAttribute : AuthorizationFilterAttribute
+    class CustomAuthorizationAttribute : AuthorizeAttribute
     {
         public const string AuthorizationHeaderName = "ApiToken";
 
-        public override void OnAuthorization(HttpActionContext actionContext)
+        public override async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             //string authorizationHeaderValue = 
             if (actionContext.Request.Headers.Contains(AuthorizationHeaderName))

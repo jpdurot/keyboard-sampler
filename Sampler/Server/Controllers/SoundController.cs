@@ -6,8 +6,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 #else
 using System.Web.Http;
-#endif
 using Microsoft.AspNet.SignalR;
+
+#endif
 using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
@@ -17,10 +18,12 @@ using Sampler.Server.Model.Contract;
 
 namespace Sampler.Server.Controllers
 {
-    [RoutePrefix("api/Sounds")]
+    
     #if DOTNETCORE
+    [Route("api/Sounds")]
     public class SoundController : Controller
     #else
+    [RoutePrefix("api/Sounds")]
     public class SoundController : ApiController
     #endif
     {
@@ -28,21 +31,37 @@ namespace Sampler.Server.Controllers
         private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
         // GET
-        [HttpGet]
-        [Route("play/{id}")]
-        [CustomAuthorization]
-        [Quota]
-        [Trophy]
+        #if DOTNETCORE
+            [HttpGet("play/{id]")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #else
+            [HttpGet]
+            [Route("play/{id}")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #endif
         public void Get(int id)
         {
             PlaySoundInternal(id);
         }
 
         // POST
-        [HttpPost]
-        [Route("play/{id}")]
-        [CustomAuthorization]
-        [Quota]
+        #if DOTNETCORE
+            [HttpPost("play/{id]")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #else
+            [HttpPost]
+            [Route("play/{id}")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #endif
+        
         public void Post(int id)
         {
             PlaySoundInternal(id);
@@ -78,9 +97,14 @@ namespace Sampler.Server.Controllers
         }
 
         // GET
-        [HttpGet]
-        [Route("info")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpGet("info")]
+            [CustomAuthorization]
+        #else
+            [HttpGet]
+            [Route("info")]
+            [CustomAuthorization]
+        #endif
         public IEnumerable<SoundInfo> GetSoundsInfo()
         {
             IEnumerable<SoundInfo> soundsInfo = _sampler.GetSoundsInfo();
@@ -91,11 +115,18 @@ namespace Sampler.Server.Controllers
         }
 
         // POST
-        [HttpPost]
-        [Route("mute")]
-        [CustomAuthorization]
-        [Quota]
-        [Trophy]
+        #if DOTNETCORE
+            [HttpPost("mute")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #else
+            [HttpPost]
+            [Route("mute")]
+            [CustomAuthorization]
+            [Quota]
+            [Trophy]
+        #endif
         public MuteResponse Mute()
         {
             // Sound is up and will be cut
@@ -110,10 +141,16 @@ namespace Sampler.Server.Controllers
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
 
-        [HttpPost]
-        [Route("add")]
-        [CustomAuthorization]
-        [Trophy]
+        #if DOTNETCORE
+            [HttpPost("add")]
+            [CustomAuthorization]
+            [Trophy]
+        #else
+            [HttpPost]
+            [Route("add")]
+            [CustomAuthorization]
+            [Trophy]
+        #endif
         public AddSoundResponse AddSound([FromBody] AddSoundBody body)
         {
             string errorResponse = SoundService.Current.AddSound(body);
@@ -121,18 +158,28 @@ namespace Sampler.Server.Controllers
         }
 
         // GET
-        [HttpGet]
-        [Route("ismuted")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpGet("ismuted")]
+            [CustomAuthorization]
+        #else
+            [HttpGet]
+            [Route("ismuted")]
+            [CustomAuthorization]
+        #endif
         public MuteResponse IsMuted()
         {
             return new MuteResponse() { IsMuted = _sampler.IsMuted };
         }
 
         // POST
-        [HttpPost]
-        [Route("favorite")]
-        [CustomAuthorization]
+        #if DOTNETCORE
+            [HttpPost("favorite")]
+            [CustomAuthorization]
+        #else
+            [HttpPost]
+            [Route("favorite")]
+            [CustomAuthorization]
+        #endif
         public FavoriteResponse MarkSoundFavorite([FromBody] FavoriteBody favoriteBody)
         {
             if (SoundService.Current.IsFavorite(Request.GetUserContext().Id, favoriteBody.SoundId))
@@ -146,8 +193,14 @@ namespace Sampler.Server.Controllers
         }
 
         // GET
-        [HttpGet]
-        [Route("latest/{count}")]
+        #if DOTNETCORE
+            [HttpGet("latest/{count}")]
+            [CustomAuthorization]
+        #else
+            [HttpGet]
+            [Route("latest/{count}")]
+            [CustomAuthorization]
+        #endif
         public IEnumerable<PlayedSound> GetLastPlayedSounds(int count)
         {
             var latestSounds = new List<PlayedSound>();
