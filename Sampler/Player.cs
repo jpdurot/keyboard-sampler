@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !DOTNETCORE
+using System;
 using System.IO;
 using NAudio.Wave;
 
@@ -102,3 +103,4 @@ namespace Sampler
         }
     }
 }
+#endif

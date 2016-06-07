@@ -1,9 +1,12 @@
 ﻿using Sampler.Server.Model;
-using System;
+//using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Threading;
 using System.Xml.Linq;
+
+#if !DOTNETCORE
+using System.Windows.Threading;
+#endif
 
 namespace Sampler
 {
@@ -57,6 +60,7 @@ namespace Sampler
             _config = Configuration.GetConfiguration();
         }
 
+#if !DOTNETCORE
         public void PlaySound(int soundId, bool repeat)
         {
             if (_isMuted)
@@ -83,6 +87,7 @@ namespace Sampler
                 player.SetDevice(deviceId);
             }
         }
+        #endif
 
         public IList<SoundInfo> GetSoundsInfo()
         {

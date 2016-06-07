@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !DOTNETCORE
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -24,3 +25,4 @@ namespace Sampler
         }   
     }
 }
+#endif
