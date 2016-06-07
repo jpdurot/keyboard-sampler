@@ -4,9 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+#if DOTNETCORE
+using Microsoft.AspNet.Http;
+#else
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+#endif
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 

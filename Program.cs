@@ -1,14 +1,20 @@
-﻿using System;
+﻿#if DOTNETCORE
+using Microsoft.AspNetCore;
 
 namespace Sampler
 {
     public class Program
     {
-        #if DOTNETCORE
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var host = new WebHostBuilder()
+            .UseKestrel()
+            .UseIISIntegration()
+            .UseStartup<Startup>()
+            .Build();
+
+        host.Run();
         }
-        #endif
     }
 }
+#endif

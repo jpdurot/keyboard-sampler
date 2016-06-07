@@ -1,7 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http;
+#if DOTNETCORE
+using Microsoft.AspNet.Http;
+#else
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+#endif
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 

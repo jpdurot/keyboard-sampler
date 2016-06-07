@@ -1,8 +1,15 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
+#if DOTNETCORE
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Mvc.Controllers;
+using Microsoft.AspNet.Mvc.Filters;
+#else
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+#endif
+
 using Sampler.Server.Model;
 using Sampler.Server.Services;
 

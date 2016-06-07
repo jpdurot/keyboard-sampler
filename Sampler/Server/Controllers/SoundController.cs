@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+#if DOTNETCORE
+using Microsoft.AspNetCore.Mvc;
+#else
 using System.Web.Http;
+#endif
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using Sampler.Server.Model;
@@ -14,7 +18,11 @@ using Sampler.Server.Model.Contract;
 namespace Sampler.Server.Controllers
 {
     [RoutePrefix("api/Sounds")]
+    #if DOTNETCORE
+    public class SoundController : Controller
+    #else
     public class SoundController : ApiController
+    #endif
     {
         private static readonly Sampler1 _sampler = Sampler1.Current;
         private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();

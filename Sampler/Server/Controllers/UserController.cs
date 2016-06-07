@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+#if DOTNETCORE
+using Microsoft.AspNetCore.Mvc;
+#else
 using System.Web.Http;
+#endif
 using Newtonsoft.Json;
 using Sampler.Server.Model;
 using Sampler.Server.Services;
@@ -10,7 +14,11 @@ using Sampler.Server.Utils;
 namespace Sampler.Server.Controllers
 {
     [RoutePrefix("api/user")]
+    #if DOTNETCORE
+    public class UserController : Controller
+    #else
     public class UserController : ApiController
+    #endif
     {
         [HttpGet]
         [Route("")]

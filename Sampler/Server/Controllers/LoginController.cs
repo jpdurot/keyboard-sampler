@@ -1,6 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http;
+#if DOTNETCORE
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+#else
 using System.Web.Http;
+#endif
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using Sampler.Server.Model;
@@ -10,7 +15,11 @@ using Sampler.Server.Utils;
 namespace Sampler.Server.Controllers
 {
     [RoutePrefix("api/login")]
+    #if DOTNETCORE
+    public class LoginController : Controller
+    #else
     public class LoginController : ApiController
+    #endif
     {
         private static readonly IHubContext _soundsHubContext = GlobalHost.ConnectionManager.GetHubContext<SoundsHub>();
 
